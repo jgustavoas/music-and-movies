@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "mypass",
+    "database": "musicandmovies",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "mypass",
+    "database": "musicandmovies_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "mypass",
+    "database": "musicandmovies_production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
