@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Track = sequelize.define(
-    'Track',
+    'tracks',
     {
       track: DataTypes.STRING,
       albumId: DataTypes.INTEGER,
@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
       genreId: DataTypes.INTEGER,
       inMovie: DataTypes.STRING,
     },
-    {}
+    { tableName: 'Tracks' }
   );
   Track.associate = function (models) {
     // associations can be defined here
-    models.Track.belongsTo(models.Album, { foreignKey: 'albumId' });
-    models.Track.belongsTo(models.Artist, { foreignKey: 'artistId' });
-    models.Track.belongsTo(models.Genre, { foreignKey: 'genreId' });
+    models.tracks.belongsTo(models.albums, { foreignKey: 'albumId' });
+    models.tracks.belongsTo(models.artists, { foreignKey: 'artistId' });
+    models.tracks.belongsTo(models.genres, { foreignKey: 'genreId' });
   };
   return Track;
 };

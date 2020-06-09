@@ -1,19 +1,19 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Album = sequelize.define(
-    'Album',
+    'albums',
     {
       title: DataTypes.STRING,
       artistId: DataTypes.INTEGER,
       genreId: DataTypes.INTEGER,
     },
-    {}
+    { tableName: 'Albums' }
   );
   Album.associate = function (models) {
     // associations can be defined here
-    models.Album.belongsTo(models.Artist, { foreignKey: 'artistId' });
-    models.Album.belongsTo(models.Genre, { foreignKey: 'genreId' });
-    models.Album.hasMany(models.Track, { foreignKey: 'trackId' });
+    models.albums.belongsTo(models.artists, { foreignKey: 'artistId' });
+    models.albums.belongsTo(models.genres, { foreignKey: 'genreId' });
+    models.albums.hasMany(models.tracks, { foreignKey: 'trackId' });
   };
   return Album;
 };

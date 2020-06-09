@@ -1,45 +1,49 @@
 const models = require('../models');
 
 const ATTRIBUTES = {
-  Artist: {
+  artists: {
     COLUMNS: ['id', 'name'],
     INCLUDE: [
       {
-        model: models.Genre,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
-      },
-    ],
-  },
-  Album: {
-    COLUMNS: ['id', 'title'],
-    INCLUDE: [
-      {
-        model: models.Artist,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
+        model: models.albums,
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
       },
       {
-        model: models.Genre,
+        model: models.genres,
         attributes: { exclude: ['createdAt', 'updatedAt'] },
       },
     ],
   },
-  Genre: {
+  albums: {
+    COLUMNS: ['id', 'title'],
+    INCLUDE: [
+      {
+        model: models.artists,
+        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
+      },
+      {
+        model: models.genres,
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+      },
+    ],
+  },
+  genres: {
     COLUMNS: ['id', 'genre'],
     INCLUDE: [],
   },
-  Track: {
+  tracks: {
     COLUMNS: ['id', 'track'],
     INCLUDE: [
       {
-        model: models.Album,
+        model: models.albums,
         attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
       },
       {
-        model: models.Artist,
+        model: models.artists,
         attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
       },
       {
-        model: models.Genre,
+        model: models.genres,
         attributes: { exclude: ['createdAt', 'updatedAt'] },
       },
     ],
