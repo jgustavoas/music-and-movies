@@ -3,9 +3,9 @@ const router = express.Router();
 
 const UniversalControllers = require('../controllers/Universal');
 
-//router.post('/:secao/:tabela', UniversalControllers.create);
+router.post('/:TABLE', UniversalControllers.create);
 router.get('/:TABLE', UniversalControllers.read);
-//router.patch('/:secao/:tabela', UniversalControllers.update);
-//router.delete('/:secao/:tabela', UniversalControllers.delete);
+router.patch('/:TABLE', UniversalControllers.update);
+router.delete('/:TABLE', UniversalControllers.delete);
 
 module.exports = router;

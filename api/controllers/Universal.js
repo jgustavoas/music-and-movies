@@ -3,10 +3,19 @@ const Op = Sequelize.Op;
 const models = require('../models');
 
 const ATTRIBUTES = require('../objects/attributes.obj');
+const msg = require('../objects/messages.obj');
 
 class UniversalControllers {
   async create(req, res, next) {
-    // To be implemented.
+    const { TABLE } = req.params;
+
+    try {
+      await models[TABLE].create(req.body.data).then((row) => {
+        res.status(200).json({ success: 'Ok', row });
+      });
+    } catch (error) {
+      res.status(400).json({ erro: error });
+    }
   }
 
   async read(req, res, next) {
@@ -25,33 +34,53 @@ class UniversalControllers {
     const { WHERE, ORDER, OFFSET, LIMIT } = QUERY;
 
     try {
-      async function toRead() {
-        await models[TABLE].findAll({
-          attributes: COLUMNS,
-          include: INCLUDE,
-          order: ORDER,
-          where: WHERE,
-          limit: LIMIT,
-          offset: OFFSET,
-        }).then((rows) => {
+      await models[TABLE].findAll({
+        attributes: COLUMNS,
+        include: INCLUDE,
+        order: ORDER,
+        where: WHERE,
+        limit: LIMIT,
+        offset: OFFSET,
+      }).then(
+        (rows) => {
           res.json(rows);
-        });
-      }
-
-      toRead();
+        },
+        (reason) => res.json(reason)
+      );
     } catch (err) {
+      res.status(400).json({ erro: 'Something went wrong!' });
       throw err;
-    } finally {
-      //if (conn) return conn.end();
     }
   }
 
   async update(req, res, next) {
-    // To be implemented.
+    const { TABLE } = req.params;
+    const { id, ...data } = req.body;
+
+    const { UPDATE_ok: ok, UPDATE_no: no } = msg;
+
+    try {
+      await models[TABLE].update(data, {
+        where: { id },
+      }).then((row) => res.json(row[0] > 0 ? { ok } : { no }));
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   }
 
   async delete(req, res, next) {
-    // To be implemented.
+    const { TABLE } = req.params;
+    const { id } = req.body;
+
+    const { DELETE_ok: ok, DELETE_no: no } = msg;
+
+    try {
+      await models[TABLE].destroy({ where: { id } }).then((row) =>
+        res.json(row > 0 ? { ok } : { no })
+      );
+    } catch (error) {
+      res.status(400).json(error);
+    }
   }
 }
 
