@@ -3,9 +3,9 @@ const router = express.Router();
 
 const UniversalControllers = require('../controllers/Universal');
 
-router.post('/:TABLE', UniversalControllers.create);
-router.get('/:TABLE', UniversalControllers.read);
-router.patch('/:TABLE', UniversalControllers.update);
-router.delete('/:TABLE', UniversalControllers.delete);
+router.post('/:MODEL', UniversalControllers.create);
+router.get('/:MODEL', UniversalControllers.read);
+router.patch('/:MODEL', UniversalControllers.update);
+router.delete('/:MODEL', UniversalControllers.delete);
 
 module.exports = router;

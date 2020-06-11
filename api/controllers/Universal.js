@@ -7,10 +7,10 @@ const msg = require('../objects/messages.obj');
 
 class UniversalControllers {
   async create(req, res, next) {
-    const { TABLE } = req.params;
+    const { MODEL } = req.params;
 
     try {
-      await models[TABLE].create(req.body.data).then((row) => {
+      await models[MODEL].create(req.body.data).then((row) => {
         res.status(200).json({ success: 'Ok', row });
       });
     } catch (error) {
@@ -19,10 +19,10 @@ class UniversalControllers {
   }
 
   async read(req, res, next) {
-    const { TABLE } = req.params;
+    const { MODEL } = req.params;
     const { val, col, by, sort, offset, limit } = req.query;
 
-    const { COLUMNS, INCLUDE } = ATTRIBUTES[TABLE];
+    const { COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
 
     const QUERY = {
       WHERE: val ? { [col]: { [Op.iLike]: `%${val}%` } } : {},
@@ -34,7 +34,7 @@ class UniversalControllers {
     const { WHERE, ORDER, OFFSET, LIMIT } = QUERY;
 
     try {
-      await models[TABLE].findAll({
+      await models[MODEL].findAll({
         attributes: COLUMNS,
         include: INCLUDE,
         order: ORDER,
@@ -54,13 +54,13 @@ class UniversalControllers {
   }
 
   async update(req, res, next) {
-    const { TABLE } = req.params;
+    const { MODEL } = req.params;
     const { id, ...data } = req.body;
 
     const { UPDATE_ok: ok, UPDATE_no: no } = msg;
 
     try {
-      await models[TABLE].update(data, {
+      await models[MODEL].update(data, {
         where: { id },
       }).then((row) => res.json(row[0] > 0 ? { ok } : { no }));
     } catch (error) {
@@ -69,13 +69,13 @@ class UniversalControllers {
   }
 
   async delete(req, res, next) {
-    const { TABLE } = req.params;
+    const { MODEL } = req.params;
     const { id } = req.body;
 
     const { DELETE_ok: ok, DELETE_no: no } = msg;
 
     try {
-      await models[TABLE].destroy({ where: { id } }).then((row) =>
+      await models[MODEL].destroy({ where: { id } }).then((row) =>
         res.json(row > 0 ? { ok } : { no })
       );
     } catch (error) {
