@@ -2,7 +2,7 @@ const models = require('../models');
 
 const ATTRIBUTES = {
   artists: {
-    COLUMNS: ['id', 'name'],
+    COLUMNS: ['id', 'artist'],
     INCLUDE: [
       {
         model: models.albums,
@@ -15,7 +15,7 @@ const ATTRIBUTES = {
     ],
   },
   albums: {
-    COLUMNS: ['id', 'title'],
+    COLUMNS: ['id', 'album'],
     INCLUDE: [
       {
         model: models.artists,

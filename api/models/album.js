@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Album = sequelize.define(
     'albums',
     {
-      title: DataTypes.STRING,
+      album: DataTypes.STRING,
       artistId: DataTypes.INTEGER,
       genreId: DataTypes.INTEGER,
     },

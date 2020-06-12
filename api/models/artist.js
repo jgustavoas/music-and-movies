@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Artist = sequelize.define(
     'artists',
     {
-      name: DataTypes.STRING,
+      artist: DataTypes.STRING,
       genreId: DataTypes.INTEGER,
     },
     { tableName: 'Artists' }
