@@ -23,10 +23,23 @@ class UniversalControllers {
     const { val, col, by, sort, offset, limit } = req.query;
 
     const { COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
+    const SORT = sort ? sort : 'ASC';
+
+    let associatedModel;
+
+    Object.keys(ATTRIBUTES).forEach((model) => {
+      if (ATTRIBUTES[model].COLUMNS.includes(by)) {
+        associatedModel = [models[model], by, SORT];
+      }
+    });
+
+    const BY = ATTRIBUTES[MODEL].COLUMNS.includes(by)
+      ? [by, SORT]
+      : associatedModel;
 
     const QUERY = {
       WHERE: val ? { [col]: { [Op.iLike]: `%${val}%` } } : {},
-      ORDER: by ? [[by, sort ? sort : 'ASC']] : null,
+      ORDER: by ? [BY] : null,
       OFFSET: offset ? offset : null,
       LIMIT: limit ? limit : null,
     };
