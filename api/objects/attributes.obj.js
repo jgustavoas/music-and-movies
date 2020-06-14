@@ -15,7 +15,7 @@ const ATTRIBUTES = {
     ],
   },
   albums: {
-    COLUMNS: ['id', 'album'],
+    COLUMNS: ['id', 'album', 'artistId', 'genreId'],
     INCLUDE: [
       {
         model: models.artists,
@@ -32,7 +32,7 @@ const ATTRIBUTES = {
     INCLUDE: [],
   },
   tracks: {
-    COLUMNS: ['id', 'track'],
+    COLUMNS: ['id', 'track', 'albumId', 'artistId'],
     INCLUDE: [
       {
         model: models.albums,
