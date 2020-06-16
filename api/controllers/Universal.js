@@ -27,17 +27,18 @@ class UniversalControllers {
 
     const associatedModel = {};
 
-    /*  Code block #1 ==============================================================================
-        Checking if the root model has the column to sort the table by it ("req.query.by"): */
+    /*  Code block #1 ==================================================================================================
+        Checking wich model has the column indicated by the parameter "req.query.by" to sort the table: */
     Object.keys(ATTRIBUTES).forEach((model) => {
       if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
         associatedModel.by = [models[model], by, SORT];
       }
     });
-    // end of Code block #1 ======================================================================
+    // end of Code block #1 ============================================================================================
 
-    /*  Code block #2 ==============================================================================
-        Finding if there is an associated model with the column (query param "col") for the "where": */
+    /*  Code block #2 ==================================================================================================
+        Finding if there is an associated model with the column indicated by the param "req.query.col".
+        If so, the "where" clause in the SQL query will make reference to column of that model (table): */
     ATTRIBUTES[MODEL].INCLUDE.find((model) => {
       const foundModel = model.attributes.include.some(
         (column) => column === col
@@ -49,8 +50,9 @@ class UniversalControllers {
         model.required = true; // see footer note #1
       }
     });
-    // end of Code block #2 ======================================================================
+    // end of Code block #2 ============================================================================================
 
+    // Checking if the main model has the column indicated by the parameter "req.query.by":
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
       ? [by, SORT]
       : associatedModel.by;
