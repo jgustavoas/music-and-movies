@@ -22,36 +22,37 @@ class UniversalControllers {
     const { MODEL } = req.params;
     const { val, col, by, sort, offset, limit } = req.query;
 
-    const { OWN_COLUMNS, INDEX_OF_INCLUDES, INCLUDE } = ATTRIBUTES[MODEL];
+    const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
     const SORT = sort ? sort : 'ASC';
 
-    let associatedModel;
+    const associatedModel = {};
 
+    /*  Code block #1 ==============================================================================
+        Checking if the root model has the column to sort the table by it ("req.query.by"): */
     Object.keys(ATTRIBUTES).forEach((model) => {
       if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
-        associatedModel = [models[model], by, SORT];
+        associatedModel.by = [models[model], by, SORT];
       }
     });
+    // end of Code block #1 ======================================================================
 
     /*  Code block #2 ==============================================================================
-        This block of code finds if there is an associated model with the column (query param "col")
-        for the clause "where" to be used into the query: */
-    const filteredModel = Object.entries(INDEX_OF_INCLUDES).filter(
-      (entry) => entry[0] === col
-    );
-
-    const whereModel = filteredModel[0];
-    if (whereModel) {
-      const modelIndex = whereModel[1];
-
-      INCLUDE[modelIndex].where = { [col]: { [Op.iLike]: `%${val}%` } }; // footer note #1
-      INCLUDE[modelIndex].required = true; // footer note #1
-    }
+        Finding if there is an associated model with the column (query param "col") for the "where": */
+    ATTRIBUTES[MODEL].INCLUDE.find((model) => {
+      const foundModel = model.attributes.include.some(
+        (column) => column === col
+      );
+      if (foundModel) {
+        associatedModel.whereModel = true;
+        model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #1
+        model.required = true; // see footer note #1
+      }
+    });
     // end of Code block #2 ======================================================================
 
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
       ? [by, SORT]
-      : associatedModel;
+      : associatedModel.by;
 
     const QUERY = {
       WHERE: val ? { [col ? col : by]: { [Op.iLike]: `%${val}%` } } : {},
@@ -67,7 +68,7 @@ class UniversalControllers {
         attributes: OWN_COLUMNS,
         include: INCLUDE,
         order: ORDER,
-        where: !whereModel ? WHERE : {}, // unset this clause if searching by an associated model column ("whereModel")
+        where: !associatedModel.whereModel ? WHERE : {}, // unset this clause if searching by an associated model column ("whereModel")
         limit: LIMIT,
         offset: OFFSET,
       }).then((rows) => res.json(rows));

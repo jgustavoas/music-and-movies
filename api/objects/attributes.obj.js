@@ -1,5 +1,3 @@
-var Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 const models = require('../models');
 
 const ATTRIBUTES = {
@@ -9,11 +7,17 @@ const ATTRIBUTES = {
     INCLUDE: [
       {
         model: models.albums,
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: {
+          include: ['album'],
+          exclude: ['createdAt', 'updatedAt'],
+        },
       },
       {
         model: models.genres,
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: {
+          include: ['genre'],
+          exclude: ['createdAt', 'updatedAt'],
+        },
       },
     ],
   },
@@ -23,11 +27,17 @@ const ATTRIBUTES = {
     INCLUDE: [
       {
         model: models.artists,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
+        attributes: {
+          include: ['artist'],
+          exclude: ['createdAt', 'updatedAt', 'genreId'],
+        },
       },
       {
         model: models.genres,
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: {
+          include: ['genre'],
+          exclude: ['createdAt', 'updatedAt'],
+        },
       },
     ],
   },
@@ -42,15 +52,24 @@ const ATTRIBUTES = {
     INCLUDE: [
       {
         model: models.albums,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
+        attributes: {
+          include: ['album'],
+          exclude: ['createdAt', 'updatedAt', 'genreId'],
+        },
       },
       {
         model: models.artists,
-        attributes: { exclude: ['createdAt', 'updatedAt', 'genreId'] },
+        attributes: {
+          include: ['artist'],
+          exclude: ['createdAt', 'updatedAt', 'genreId'],
+        },
       },
       {
         model: models.genres,
-        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        attributes: {
+          include: ['genre'],
+          exclude: ['createdAt', 'updatedAt'],
+        },
       },
     ],
   },
