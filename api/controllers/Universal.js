@@ -44,6 +44,7 @@ class UniversalControllers {
       );
       if (foundModel) {
         associatedModel.whereModel = true;
+
         model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #1
         model.required = true; // see footer note #1
       }
