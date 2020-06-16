@@ -27,30 +27,27 @@ class UniversalControllers {
 
     const associatedModel = {};
 
-    /*  Code block #1 ==================================================================================================
-        Checking wich model has the column indicated by the parameter "req.query.by" to sort the table: */
+    // Code block #1 ---------------------------------------------------------------------------------------------------
     Object.keys(ATTRIBUTES).forEach((model) => {
       if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
         associatedModel.by = [models[model], by, SORT];
       }
     });
-    // end of Code block #1 ============================================================================================
+    // end -------------------------------------------------------------------------------------------------------------
 
-    /*  Code block #2 ==================================================================================================
-        Finding if there is an associated model with the column indicated by the param "req.query.col".
-        If so, the "where" clause in the SQL query will make reference to column of that model (table): */
+    // Code block #2 ---------------------------------------------------------------------------------------------------
     ATTRIBUTES[MODEL].INCLUDE.find((model) => {
       const foundModel = model.attributes.include.some(
         (column) => column === col
       );
       if (foundModel) {
-        associatedModel.whereModel = true;
+        associatedModel.useWhere = true;
 
         model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #1
         model.required = true; // see footer note #1
       }
     });
-    // end of Code block #2 ============================================================================================
+    // end -------------------------------------------------------------------------------------------------------------
 
     // Checking if the main model has the column indicated by the parameter "req.query.by":
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
@@ -71,7 +68,7 @@ class UniversalControllers {
         attributes: OWN_COLUMNS,
         include: INCLUDE,
         order: ORDER,
-        where: !associatedModel.whereModel ? WHERE : {}, // unset this clause if searching by an associated model column ("whereModel")
+        where: !associatedModel.useWhere ? WHERE : {}, // unset this property if searching with "where" in associated model.
         limit: LIMIT,
         offset: OFFSET,
       }).then((rows) => res.json(rows));
@@ -114,7 +111,15 @@ class UniversalControllers {
 
 module.exports = new UniversalControllers();
 
-/* FOOTER NOTES:
+/*
+  Code Block #1:
+  Checking wich model has the column indicated by the parameter "req.query.by" to sort the table.
+
+  Code Block #2:
+  Finding if there is an associated model with the column indicated by the param "req.query.col".
+  If so, the "where" clause in the SQL query will make reference to the column of that model (table).
+
+  FOOTER NOTES:
     1) Check about "options.include[].where" and "options.include[].required":
     https://sequelize.org/v5/class/lib/model.js~Model.html#static-method-findAll
 */
