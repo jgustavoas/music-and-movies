@@ -22,23 +22,39 @@ class UniversalControllers {
     const { MODEL } = req.params;
     const { val, col, by, sort, offset, limit } = req.query;
 
-    const { COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
+    const { OWN_COLUMNS, INDEX_OF_INCLUDES, INCLUDE } = ATTRIBUTES[MODEL];
     const SORT = sort ? sort : 'ASC';
 
     let associatedModel;
 
     Object.keys(ATTRIBUTES).forEach((model) => {
-      if (ATTRIBUTES[model].COLUMNS.includes(by)) {
+      if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
         associatedModel = [models[model], by, SORT];
       }
     });
 
-    const BY = ATTRIBUTES[MODEL].COLUMNS.includes(by)
+    /*  Code block #2 ==============================================================================
+        This block of code finds if there is an associated model with the column (query param "col")
+        for the clause "where" to be used into the query: */
+    const filteredModel = Object.entries(INDEX_OF_INCLUDES).filter(
+      (entry) => entry[0] === col
+    );
+
+    const whereModel = filteredModel[0];
+    if (whereModel) {
+      const modelIndex = whereModel[1];
+
+      INCLUDE[modelIndex].where = { [col]: { [Op.iLike]: `%${val}%` } }; // footer note #1
+      INCLUDE[modelIndex].required = true; // footer note #1
+    }
+    // end of Code block #2 ======================================================================
+
+    const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
       ? [by, SORT]
       : associatedModel;
 
     const QUERY = {
-      WHERE: val ? { [col]: { [Op.iLike]: `%${val}%` } } : {},
+      WHERE: val ? { [col ? col : by]: { [Op.iLike]: `%${val}%` } } : {},
       ORDER: by ? [BY] : null,
       OFFSET: offset ? offset : null,
       LIMIT: limit ? limit : null,
@@ -48,18 +64,13 @@ class UniversalControllers {
 
     try {
       await models[MODEL].findAll({
-        attributes: COLUMNS,
+        attributes: OWN_COLUMNS,
         include: INCLUDE,
         order: ORDER,
-        where: WHERE,
+        where: !whereModel ? WHERE : {}, // unset this clause if searching by an associated model column ("whereModel")
         limit: LIMIT,
         offset: OFFSET,
-      }).then(
-        (rows) => {
-          res.json(rows);
-        },
-        (reason) => res.json(reason)
-      );
+      }).then((rows) => res.json(rows));
     } catch (err) {
       res.status(400).json({ erro: 'Something went wrong!' });
       throw err;
@@ -98,3 +109,8 @@ class UniversalControllers {
 }
 
 module.exports = new UniversalControllers();
+
+/* FOOTER NOTES:
+    1) Check about "options.include[].where" and "options.include[].required":
+    https://sequelize.org/v5/class/lib/model.js~Model.html#static-method-findAll
+*/
