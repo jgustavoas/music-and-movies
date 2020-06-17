@@ -27,6 +27,9 @@ class UniversalControllers {
 
     const associatedModel = {};
 
+    // Clean up "where" clause of all associated models (see footer note #1):
+    INCLUDE.forEach((include) => (include.where = null));
+
     // Code block #1 ---------------------------------------------------------------------------------------------------
     Object.keys(ATTRIBUTES).forEach((model) => {
       if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
@@ -43,8 +46,8 @@ class UniversalControllers {
       if (foundModel) {
         associatedModel.useWhere = true;
 
-        model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #1
-        model.required = true; // see footer note #1
+        model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #2
+        model.required = true; // see footer note #2
       }
     });
     // end -------------------------------------------------------------------------------------------------------------
@@ -120,6 +123,11 @@ module.exports = new UniversalControllers();
   If so, the "where" clause in the SQL query will make reference to the column of that model (table).
 
   FOOTER NOTES:
-    1) Check about "options.include[].where" and "options.include[].required":
+    1) If the user has sent a request indicating a column that belongs to an associated model,...
+       ...the property "where" for that associated model remains defined for the following requests,...
+       ...even if no respective parameter is passed within new requests, because that property remains in memory.
+       This clean-up unset that property, preventing Sequelize to create an undesirable INNER JOIN with it.
+
+    2) Check about "options.include[].where" and "options.include[].required":
     https://sequelize.org/v5/class/lib/model.js~Model.html#static-method-findAll
 */
