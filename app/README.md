@@ -1,7 +1,7 @@
 <details open>
   <summary>Some important notes</summary>
 
-1. This base of this app was originally coded in portuguese, the full translation to english is to be implemented.
+1. The base of this app was originally coded in portuguese, the full translation to english is to be implemented.
 
 2. A work with UI and UX might be done later, this is not the focus of this project though.
 
