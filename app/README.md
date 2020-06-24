@@ -1,6 +1,16 @@
-<span>_The translation of the entire code to english is to be implemented.<br/>This app was first coded in portuguese._</span>
+<details open>
+  <summary>Some important notes</summary>
 
-# React App Template
+1. This base of this app was originally coded in portuguese, the full translation to english is to be implemented.
+
+2. A work with UI and UX might be done later, this is not the focus of this project though.
+
+3. The first page is the login page. To proceed to internal pages, just type any valid format email (even a fake one) and type any password with at least four characters.
+</details>
+
+---
+
+# A React App example
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
