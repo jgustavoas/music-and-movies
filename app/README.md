@@ -1,5 +1,5 @@
 <details open>
-  <summary>Some important notes</summary>
+  <summary><b>Some important notes</b></summary>
 
 1. The base of this app was originally coded in portuguese, the full translation to english is to be implemented.
 
