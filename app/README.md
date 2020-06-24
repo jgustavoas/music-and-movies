@@ -3,7 +3,7 @@
 
 1. The base of this app was originally coded in portuguese, the full translation to english is to be implemented.
 
-2. A work with UI and UX might be done later, this is not the focus of this project though.
+2. A work with UI and UX might be done later, this is not the focus of the project though.
 
 3. The first page is the login page. To proceed to internal pages, just type any valid format email (even a fake one) and type any password with at least four characters.
 </details>
