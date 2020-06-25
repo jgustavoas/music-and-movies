@@ -58,45 +58,24 @@ function getQueryParams(mainColumn, params) {
     queryParams[match[1]] = match[2];
   }
 
-  /* First solution (using a chain of methods):
-  const queries = params
-    ? params
-        .replace('?', '')
-        .split('&')
-        .map((queryParam) => queryParam.split('='))
-    : undefined;
-
-  queries && queries.forEach((q) => (queryParams[q[0]] = q[1])); */
-
   return queryParams;
 }
 
 /// This second function finds the page settings and dispatch an action to read the data of that page:
-export function readDataFrom(path, params, setState) {
-  let titulo;
+export function readDataFrom(pathname, params, setState) {
+  const stringfyied = JSON.stringify(ItensDoMenu);
+  const path = pathname.slice(1);
+  const regExp = new RegExp(
+    `{(,?"\\w+":"?\\s?([aA-zZ|0-9]\\s?|[aA-zZ|0-9]\\s?[&-]\\s?[aA-zZ|0-9])+?"?,?)+"path":"${path}","\\w+":\\[(\\["\\w+","?\\w+"?\\],?)+\\],?\\}`
+  );
 
-  Object.values(ItensDoMenu).forEach((item) => {
-    Object.values(item).forEach((subitem) => {
-      if (typeof subitem === 'object') {
-        Object.values(subitem).forEach((subitem) => {
-          if (subitem.path === path.slice(1)) {
-            titulo = subitem.titulo;
+  const settings = JSON.parse(stringfyied.match(regExp)[0]);
 
-            const { columns, path } = subitem;
-            const mainColumn = columns[0][1];
-            const queryParams = getQueryParams(mainColumn, params);
+  const { titulo, columns } = settings;
+  const mainColumn = columns[0][1];
+  const queryParams = getQueryParams(mainColumn, params);
 
-            store.dispatch(
-              request('READ', 'pagina', path, {
-                queryParams,
-                settings: subitem,
-              })
-            );
-          }
-        });
-      }
-    });
-  });
+  store.dispatch(request('READ', 'pagina', path, { queryParams, settings }));
 
   setState(titulo);
 }
