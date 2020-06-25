@@ -65,8 +65,8 @@ function getQueryParams(mainColumn, params) {
 export function readDataFrom(pathname, params, setState) {
   const stringfyied = JSON.stringify(ItensDoMenu);
   const path = pathname.slice(1);
-  const regExp = new RegExp(
-    `{(,?"\\w+":"?\\s?([aA-zZ|0-9]\\s?|[aA-zZ|0-9]\\s?[&-]\\s?[aA-zZ|0-9])+?"?,?)+"path":"${path}","\\w+":\\[(\\["\\w+","?\\w+"?\\],?)+\\],?\\}`
+  const regExp = RegExp(
+    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
   );
 
   const settings = JSON.parse(stringfyied.match(regExp)[0]);
