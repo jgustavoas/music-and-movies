@@ -61,7 +61,7 @@ function getQueryParams(mainColumn, params) {
   return queryParams;
 }
 
-/// This second function finds the page settings and dispatch an action to read the data of that page:
+/// This second function finds the page settings and dispatch an action to read the data from that page:
 export function readDataFrom(pathname, params, setState) {
   const stringfyied = JSON.stringify(ItensDoMenu);
   const path = pathname.slice(1);
