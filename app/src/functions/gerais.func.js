@@ -44,7 +44,7 @@ export function removerAtributo(id) {
   document.getElementById(id).placeholder = '';
 }
 
-// THE TWO FUNCIONS BELOW ARE DESIGNED FOR RENDERING DATA ONTO THE PAGE ================================================
+// THE TWO FUNCIONS BELOW ARE DESIGNED FOR RENDERING DATA ONTO THE PAGE ------------------------------------------------
 /// This first function creates an object with the parameters to be interpreted by API as "query.params":
 function getQueryParams(mainColumn, params) {
   const queryParams = {
@@ -66,7 +66,7 @@ export function readDataFrom(pathname, params, setState) {
   const stringfyied = JSON.stringify(ItensDoMenu);
   const path = pathname.slice(1);
   const regExp = RegExp(
-    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
+    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9|À-ú])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
   );
 
   const settings = JSON.parse(stringfyied.match(regExp)[0]);
