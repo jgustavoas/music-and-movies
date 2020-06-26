@@ -4,19 +4,23 @@ import request from '../data/actions';
 import api from '../../../services/api';
 
 import { avisosCRUD } from '../../../functions/ui.func';
+import { getSettings } from '../../../functions/gerais.func';
 
 export function* toCreate({ payload }) {
   const { source, path, data } = payload;
-  const { colunas, valores } = data;
-  const colunaPrincipal = colunas[0];
+  const settings = getSettings(path);
+  const colunaPrincipal = settings.columns[0][1];
   const identificacao = `0_${colunaPrincipal}_${source}`;
+  const queryParams = {
+    by: colunaPrincipal,
+  };
 
   try {
-    yield call(api.post, `${path}`, { data: { colunas, valores } });
+    yield call(api.post, `${path}`, { data: data.formData });
 
     avisosCRUD(identificacao, 'CREATE:SUCCESS');
 
-    store.dispatch(request('READ', source, path, { by: colunaPrincipal }));
+    store.dispatch(request('READ', source, path, { settings, queryParams }));
   } catch (err) {
     avisosCRUD(identificacao, 'erro');
   }
@@ -49,15 +53,20 @@ export function* toRead({ payload }) {
 
 export function* toUpdate({ payload }) {
   const { source, path, data } = payload;
-  const colunaPrincipal = store.getState().data[source].colunaPrincipal;
+  const { id, formData } = data;
+  const settings = getSettings(path);
+  const colunaPrincipal = settings.columns[0][1];
   const identificacao = `${data.id}_${colunaPrincipal}_${source}`;
+  const queryParams = {
+    by: colunaPrincipal,
+  };
 
   try {
-    yield call(api.patch, `${path}`, data);
+    yield call(api.patch, `${path}`, { id, ...formData });
 
     avisosCRUD(identificacao, 'UPDATE:SUCCESS');
 
-    store.dispatch(request('READ', source, path, { by: colunaPrincipal }));
+    store.dispatch(request('READ', source, path, { settings, queryParams }));
   } catch (error) {
     avisosCRUD(identificacao, source, 'erro');
     console.log('error :>> ', error);
@@ -66,14 +75,18 @@ export function* toUpdate({ payload }) {
 
 export function* toDelete({ payload }) {
   const { source, path, data } = payload;
-  const colunaPrincipal = store.getState().data[source].colunaPrincipal;
+  const settings = getSettings(path);
+  const colunaPrincipal = settings.columns[0][1];
+  const queryParams = {
+    by: colunaPrincipal,
+  };
 
   try {
     yield call(api.delete, `${path}`, { data: { id: String(data) } });
 
     avisosCRUD(data, source, 'DELETE:SUCCESS');
 
-    store.dispatch(request('READ', source, path, { by: colunaPrincipal }));
+    store.dispatch(request('READ', source, path, { settings, queryParams }));
   } catch (err) {
     avisosCRUD(data.id, 'erro');
     console.log('err :>> ', err);
