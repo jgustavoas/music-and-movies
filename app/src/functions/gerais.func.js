@@ -45,7 +45,7 @@ export function removerAtributo(id) {
 }
 
 // THE TWO FUNCIONS BELOW ARE DESIGNED FOR RENDERING DATA ONTO THE PAGE ------------------------------------------------
-/// This first function creates an object with the parameters to be interpreted by API as "query.params":
+/// 1) Create an object with the parameters to be interpreted by API as "query.params":
 function getQueryParams(mainColumn, params) {
   const queryParams = {
     by: mainColumn,
@@ -61,21 +61,27 @@ function getQueryParams(mainColumn, params) {
   return queryParams;
 }
 
-/// This second function finds the page settings and dispatch an action to read the data from that page:
+/// 2) Find the page settings and dispatch an action to read the data from that page:
 export function readDataFrom(pathname, params, setState) {
-  const stringfyied = JSON.stringify(ItensDoMenu);
+  const from = setState ? 'pagina' : 'card';
   const path = pathname.slice(1);
-  const regExp = RegExp(
-    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9|À-ú])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
-  );
 
-  const settings = JSON.parse(stringfyied.match(regExp)[0]);
+  const settings = getSettings(path);
 
   const { titulo, columns } = settings;
   const mainColumn = columns[0][1];
   const queryParams = getQueryParams(mainColumn, params);
 
-  store.dispatch(request('READ', 'pagina', path, { queryParams, settings }));
+  store.dispatch(request('READ', from, path, { queryParams, settings }));
 
-  setState(titulo);
+  setState && setState(titulo);
 }
+
+export const getSettings = (path) => {
+  const regExp = RegExp(
+    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9|À-ú])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
+  );
+
+  const stringfyied = JSON.stringify(ItensDoMenu);
+  return JSON.parse(stringfyied.match(regExp)[0]);
+};
