@@ -5,7 +5,7 @@ export const Botao = styled.button`
   border-radius: 2px;
   border: 1px solid #3a92e4;
   color: #1861a5;
-  margin: 0 1em 0 0;
+  margin: 0;
   padding: 0.6em;
   font-size: 12px;
   text-transform: uppercase;

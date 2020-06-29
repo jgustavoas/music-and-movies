@@ -1,13 +1,13 @@
 export const ItensDoMenu = {
   minhaConta: {
-    titulo: 'Minha conta',
+    titulo: 'My account',
     subitens: {
       mudarSenha: {
-        titulo: 'Mudar senha',
+        titulo: 'Change password',
         link: null,
       },
       sairDoSistema: {
-        titulo: 'Sair do sistema',
+        titulo: 'Sign out',
         link: null,
       },
     },

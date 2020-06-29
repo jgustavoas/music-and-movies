@@ -5,41 +5,28 @@ import { signOut } from '../store/modules/auth/actions';
 
 import { fecharCard } from '../functions/card.func';
 
-import Botao from '../components/elementos/Botao';
-import CampoDeInput from '../components/elementos/Input';
+import Button from '../components/elementos/Botao';
 
 //> minhaConta/mudarSenha:
 export function MudarSenha() {
   return (
     <>
-      <div>
-        <CampoDeInput
-          tipo='text'
-          id='senhAtual'
-          textoDoLabel='Senha atual'
-          onChange={(e) => e.target.value}
-          valor=''
-          valido={true}
-        />
-        <CampoDeInput
-          tipo='text'
-          id='novaSenha'
-          textoDoLabel='Nova senha'
-          onChange={(e) => e.target.value}
-          valor=''
-          valido={true}
-        />
-        <CampoDeInput
-          tipo='text'
-          id='repetirNovaSenha'
-          textoDoLabel='Repita a nova senha'
-          onChange={(e) => e.target.value}
-          valor=''
-          valido={true}
-        />
-
-        <Botao>Confirmar</Botao>
-        <Botao funcao={fecharCard}>Cancelar</Botao>
+      <div className='cardContent'>
+        <form>
+          <fieldset>
+            <label htmlFor='new'>Current password</label>
+            <input type='password' name='' id='new' />
+          </fieldset>
+          <fieldset>
+            <label htmlFor='new'>New password</label>
+            <input type='password' name='' id='new' />
+          </fieldset>
+          <fieldset>
+            <label htmlFor='new'>Repeat new password</label>
+            <input type='password' name='' id='new' />
+          </fieldset>
+          <Button>Change now</Button>
+        </form>
       </div>
     </>
   );
@@ -56,8 +43,10 @@ export function Sair() {
   return (
     <div>
       <h4>Do you really want to sign out?</h4>
-      <Botao funcao={funcaoLogout}>YES</Botao>
-      <Botao funcao={fecharCard}>NO</Botao>
+      <br />
+      <Button funcao={funcaoLogout}>YES</Button>
+      &nbsp;
+      <Button funcao={fecharCard}>NO</Button>
     </div>
   );
 }

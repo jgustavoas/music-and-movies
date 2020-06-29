@@ -40,6 +40,10 @@ export default function Componente() {
     try {
       return (
         <Card id='Card' style={{ display: propriedadeDisplay }}>
+          <div className='cardTitle'>
+            <h1>{tituloDoCard}</h1>
+            <span onClick={() => fecharCard()}>X</span>
+          </div>
           {item !== 'minhaConta' ? qualCard.default : qualCard[card]}
         </Card>
       );
