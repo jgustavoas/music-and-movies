@@ -11,6 +11,7 @@ import PaginaDeErro from '../pages/erro';
 export default function Rotas() {
   return (
     <Switch>
+      <Rota path='/*/*' component={PaginaDeErro} />
       <Rota path='/' exact component={LoginPage} />
       <Rota path='/login' component={LoginPage} />
       <Rota path='/livre' component={PaginaLivre} />
@@ -19,7 +20,7 @@ export default function Rotas() {
       <Rota path='/albums' component={Default} requerLogin />
       <Rota path='/tracks' component={Default} requerLogin />
       <Rota path='/genres' component={Default} requerLogin />
-      <Rota path='*' component={PaginaDeErro} />
+      <Rota path='/*' component={PaginaDeErro} />
     </Switch>
   );
 }
