@@ -91,7 +91,8 @@ export const Main = styled.div`
     border-bottom: 1px solid #d1d1d1;
   }
 
-  & form {
+  & form,
+  & div#form {
     background: #fff;
     padding: 8px 16px;
     margin-top: 8px;

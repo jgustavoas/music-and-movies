@@ -43,7 +43,8 @@ export const Card = styled.div`
     /*margin: 16px 0;*/
     height: 100%;
 
-    & form {
+    & form,
+    & div#form {
       font-size: 1rem;
       & fieldset {
         border: none;
