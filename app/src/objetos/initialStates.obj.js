@@ -21,7 +21,7 @@ export const initialState = {
   },
   pagina: {
     path: '/artists',
-    settings: ItensDoMenu.item1.subitens.subitem2,
+    settings: ItensDoMenu.artists.subitens.list,
     loaded: false,
     data: undefined,
     error: false,

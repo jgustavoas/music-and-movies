@@ -1,13 +1,13 @@
 export const ItensDoMenu = {
-  item1: {
+  artists: {
     titulo: 'Artists & Bands',
     subitens: {
-      subitem1: {
+      new: {
         titulo: 'New Artist/Band',
         tipo: 'card',
         path: null,
       },
-      subitem2: {
+      list: {
         titulo: 'List of Artists & Bands',
         tipo: 'page',
         path: 'artists',
@@ -17,20 +17,20 @@ export const ItensDoMenu = {
           ['Genre', 'genreId'],
         ],
       },
-      subitem3: {
+      search: {
         titulo: 'Search Artist & Band',
         path: null,
       },
     },
   },
-  item2: {
+  albums: {
     titulo: 'Albums',
     subitens: {
-      subitem1: {
+      new: {
         titulo: 'New album',
         path: null,
       },
-      subitem2: {
+      list: {
         titulo: 'List of albums',
         tipo: 'page',
         path: 'albums',
@@ -40,21 +40,21 @@ export const ItensDoMenu = {
           ['Genre', 'genreId'],
         ],
       },
-      subitem3: {
+      search: {
         titulo: 'Search album',
         path: null,
       },
     },
   },
-  item3: {
-    titulo: 'Songs',
+  tracks: {
+    titulo: 'Tracks',
     subitens: {
-      subitem1: {
-        titulo: 'New song',
+      new: {
+        titulo: 'New track',
         path: null,
       },
-      subitem2: {
-        titulo: 'List of songs',
+      list: {
+        titulo: 'List of tracks',
         tipo: 'page',
         path: 'tracks',
         columns: [
@@ -64,60 +64,60 @@ export const ItensDoMenu = {
           ['Genre', 'genreId'],
         ],
       },
-      subitem3: {
-        titulo: 'Search song',
+      search: {
+        titulo: 'Search track',
         path: null,
       },
     },
   },
-  item4: {
+  composers: {
     titulo: 'Composers',
     subitens: {
-      subitem1: {
+      new: {
         titulo: 'New composer',
         path: null,
       },
-      subitem2: {
+      list: {
         titulo: 'List of composers',
         path: null,
       },
-      subitem3: {
+      search: {
         titulo: 'Search composer',
         path: null,
       },
     },
   },
-  item5: {
+  movies: {
     titulo: 'Movies',
     subitens: {
-      subitem1: {
+      new: {
         titulo: 'New movie',
         path: null,
       },
-      subitem2: {
+      list: {
         titulo: 'List of movies',
         path: null,
       },
-      subitem3: {
+      search: {
         titulo: 'Search movies',
         path: null,
       },
     },
   },
-  item6: {
+  genres: {
     titulo: 'Genres',
     subitens: {
-      subitem1: {
+      new: {
         titulo: 'New genre',
         path: null,
       },
-      subitem2: {
+      list: {
         titulo: 'List of genres',
         tipo: 'page',
         path: 'genres',
         columns: [['Genre', 'genre']],
       },
-      subitem3: {
+      search: {
         titulo: 'Search genre',
         path: null,
       },
