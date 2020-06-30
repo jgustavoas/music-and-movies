@@ -16,9 +16,9 @@ export async function loadDados(dados, source, setStates) {
   const { settings, query } = store.getState().data[source];
   const { limit } = query;
   const { path } = settings;
-  const [setLinhas, setPaginacao] = setStates;
+  const [setStatus, setLinhas, setPaginacao] = setStates;
 
-  if (dados) {
+  if (dados.length > 0) {
     const lines = dados.map((line) => {
       const { id, artist, album, track, genre } = line;
       let colunas = [];
@@ -70,5 +70,5 @@ export async function loadDados(dados, source, setStates) {
     } finally {
       paginador(dados.length, limit, setPaginacao);
     }
-  }
+  } else setStatus('No data was found :(');
 }

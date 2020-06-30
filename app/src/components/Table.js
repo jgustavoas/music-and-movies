@@ -26,18 +26,18 @@ export default function Table({ fonte: source, path }) {
   const [linhas, setLinhas] = useState([{ id: 0, nome: '' }]);
   const [pagina, setPagina] = useState(paginaInicial);
   const [paginacao, setPaginacao] = useState([]);
+  const [status, setStatus] = useState('LOADING...');
 
-  // Carregando o componente:
   useEffect(() => {
     // Voltar à pagina 1 quando o componente remontar:
     setPagina(1);
 
     // Atualizar o state das linhas da tabela e também o state da paginação com o dados obtidos:
-    data && loadDados(data, source, [setLinhas, setPaginacao]);
+    data && loadDados(data, source, [setStatus, setLinhas, setPaginacao]);
   }, [data, loaded, source]);
 
-  if (!data || !loaded) return 'CARREGANDO...';
-  else if (error) return 'Ops! Aconteceu algum erro.';
+  if (!data || !loaded) return status;
+  else if (error) return 'Ops! Something went wrong :(';
   else {
     return (
       <>
