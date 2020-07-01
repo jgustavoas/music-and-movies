@@ -2,7 +2,21 @@
 // A regra acima é temporária até usar um formulário do sistema ao invés de usar o prompt do browser.
 import { store } from '../store';
 import request from '../store/modules/data/actions';
+import { acao } from '../store/modules/componentes/actions';
+
 import { $, $id, $toggle, $toggleMulti } from './dom.func';
+
+export function doNotSubmit() {
+  return (e) => {
+    e.preventDefault();
+  };
+}
+
+export function getOptions() {
+  store.dispatch(
+    acao('FORM', 'card', 'TESTE', { path: 'genres', by: 'genre' })
+  );
+}
 
 export function marcarTodas(
   linhas,
