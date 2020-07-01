@@ -1,7 +1,6 @@
 export const columns = {
   artists: [
     ['Artist', 'artist'],
-    ['Album', 'albumId'],
     ['Genre', 'genreId'],
   ],
   albums: [
