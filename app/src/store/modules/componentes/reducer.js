@@ -5,6 +5,10 @@ export const INITIAL_STATE = {
   titulo: undefined,
   propriedadeDisplay: 'none',
   visibilidade: 'collapse',
+  form: {
+    options: undefined,
+    ready: false,
+  },
 };
 
 export default function components(state = INITIAL_STATE, action) {
@@ -20,7 +24,20 @@ export default function components(state = INITIAL_STATE, action) {
       case 'FECHAR': {
         draft.card = null;
         draft.titulo = null;
+        draft.propriedadeDisplay = 'none';
         draft.visibilidade = 'collapse';
+        draft.form = {
+          options: undefined,
+          ready: false,
+        };
+        break;
+      }
+      case 'FORM:READY': {
+        const { options } = action.payload.data;
+        draft.form = {
+          options: { ...state.formOptions, options },
+          ready: true,
+        };
         break;
       }
       default: // O default desta condicional de switch() não precisa retornar algo
