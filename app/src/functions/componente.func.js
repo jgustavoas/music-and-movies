@@ -18,9 +18,10 @@ export async function loadDados(dados, source, setStates) {
   const { path } = settings;
   const [setStatus, setLinhas, setPaginacao] = setStates;
 
-  if (dados.length > 0) {
-    const lines = dados.map((line) => {
-      const { id, artist, album, track, genre } = line;
+  if (dados.length === 0) setStatus('No data was found :(');
+  else {
+    const rows = dados.map((row) => {
+      const { id, artist, album, track, genre } = row;
       let colunas = [];
 
       switch (path) {
@@ -54,14 +55,14 @@ export async function loadDados(dados, source, setStates) {
         }
       }
 
-      let lineProps = { checked: false, id, colunas };
-      return lineProps;
+      let rowProps = { checked: false, id, colunas };
+      return rowProps;
     });
 
-    const columnsHeaders = lines[0].colunas;
+    const columnsHeaders = rows[0].colunas;
 
     // A propriedade 'colunas' da linha com id 0 pega emprestado as colunas da primeira linha de dados ('linhas[0].colunas')
-    setLinhas([{ id: 0, colunas: columnsHeaders }, ...lines]);
+    setLinhas([{ id: 0, colunas: columnsHeaders }, ...rows]);
 
     try {
       store.dispatch(request('LOAD', 'pagina', path, { loaded: true }));
@@ -70,5 +71,5 @@ export async function loadDados(dados, source, setStates) {
     } finally {
       paginador(dados.length, limit, setPaginacao);
     }
-  } else setStatus('No data was found :(');
+  }
 }
