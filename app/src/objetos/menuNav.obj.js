@@ -1,3 +1,5 @@
+import { columns } from './columns.obj';
+
 export const ItensDoMenu = {
   artists: {
     titulo: 'Artists & Bands',
@@ -6,20 +8,19 @@ export const ItensDoMenu = {
         titulo: 'New Artist/Band',
         tipo: 'card',
         path: null,
+        columns: columns.artists,
       },
       list: {
         titulo: 'List of Artists & Bands',
         tipo: 'page',
         path: 'artists',
-        columns: [
-          ['Artist', 'artist'],
-          ['Album', 'albumId'],
-          ['Genre', 'genreId'],
-        ],
+        columns: columns.artists,
       },
       search: {
         titulo: 'Search Artist & Band',
+        tipo: 'card',
         path: null,
+        columns: columns.artists,
       },
     },
   },
@@ -28,21 +29,21 @@ export const ItensDoMenu = {
     subitens: {
       new: {
         titulo: 'New album',
+        tipo: 'card',
         path: null,
+        columns: columns.albums,
       },
       list: {
         titulo: 'List of albums',
         tipo: 'page',
         path: 'albums',
-        columns: [
-          ['Album', 'album'],
-          ['Artist', 'artistId'],
-          ['Genre', 'genreId'],
-        ],
+        columns: columns.albums,
       },
       search: {
         titulo: 'Search album',
+        tipo: 'card',
         path: null,
+        columns: columns.albums,
       },
     },
   },
@@ -51,22 +52,21 @@ export const ItensDoMenu = {
     subitens: {
       new: {
         titulo: 'New track',
+        tipo: 'card',
         path: null,
+        columns: columns.tracks,
       },
       list: {
         titulo: 'List of tracks',
         tipo: 'page',
         path: 'tracks',
-        columns: [
-          ['Track', 'track'],
-          ['Album', 'albumId'],
-          ['Artist', 'artistId'],
-          ['Genre', 'genreId'],
-        ],
+        columns: columns.tracks,
       },
       search: {
         titulo: 'Search track',
+        tipo: 'card',
         path: null,
+        columns: columns.tracks,
       },
     },
   },
@@ -109,42 +109,22 @@ export const ItensDoMenu = {
     subitens: {
       new: {
         titulo: 'New genre',
+        tipo: 'card',
         path: null,
+        columns: columns.genres,
       },
       list: {
         titulo: 'List of genres',
         tipo: 'page',
         path: 'genres',
-        columns: [['Genre', 'genre']],
+        columns: columns.genres,
       },
       search: {
         titulo: 'Search genre',
+        tipo: 'card',
         path: null,
+        columns: columns.genres,
       },
     },
   },
 };
-
-/* PARA TESTE NA CRIAÇÃO DE MENU DE MULTINÍVEL INFINITO:
-class itemDeMenu {
-  constructor(titulo, subitens, tipo, model) {
-    this.titulo = titulo;
-    this.tipo = tipo;
-    this.model = model;
-    this.subitens = subitens ? this.render(subitens) : null;
-  }
-
-  render(itens) {
-    let subitens = {};
-
-    itens.forEach((item, indice) => {
-      const { titulo, tipo, model } = item;
-      const { name, columns } = model ? model : {};
-      const subitem = { titulo, tipo, path: name, columns };
-
-      subitens = { ...subitens, [`subitem${indice + 1}`]: subitem };
-    });
-
-    return { ...subitens };
-  }
-*/
