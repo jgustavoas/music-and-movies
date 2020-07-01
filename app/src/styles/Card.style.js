@@ -46,7 +46,8 @@ export const Card = styled.div`
     & form,
     & div#form {
       font-size: 1rem;
-      & fieldset {
+      & fieldset,
+      & section {
         border: none;
         display: flex;
         flex-direction: column;
