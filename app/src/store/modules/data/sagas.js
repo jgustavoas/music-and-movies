@@ -1,28 +1,20 @@
 import { takeLatest, call, all } from 'redux-saga/effects';
 import { store } from '../../index';
 import request from '../data/actions';
+
 import api from '../../../services/api';
 
 import { avisosCRUD } from '../../../functions/ui.func';
 import { getSettings } from '../../../functions/gerais.func';
 
 export function* toCreate({ payload }) {
-  const { source, path, data } = payload;
-  const settings = getSettings(path);
-  const colunaPrincipal = settings.columns[0][1];
-  const identificacao = `0_${colunaPrincipal}_${source}`;
-  const queryParams = {
-    by: colunaPrincipal,
-  };
-
+  const { path, data } = payload;
+  //const identificacao = `0_${colunaPrincipal}_${source}`;
   try {
-    yield call(api.post, `${path}`, { data: data.formData });
-
-    avisosCRUD(identificacao, 'CREATE:SUCCESS');
-
-    store.dispatch(request('READ', source, path, { settings, queryParams }));
+    yield call(api.post, `${path}`, { data });
+    //avisosCRUD(identificacao, 'CREATE:SUCCESS');
   } catch (err) {
-    avisosCRUD(identificacao, 'erro');
+    //avisosCRUD(identificacao, 'erro');
   }
 }
 
