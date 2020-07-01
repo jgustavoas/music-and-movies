@@ -71,7 +71,7 @@ class UniversalControllers {
         attributes: OWN_COLUMNS,
         include: INCLUDE,
         order: ORDER,
-        where: !associatedModel.useWhere ? WHERE : {}, // unset this property if searching with "where" in associated model.
+        where: associatedModel.useWhere ? {} : WHERE, // unset this property if searching with "where" in associated model.
         limit: LIMIT,
         offset: OFFSET,
       }).then((rows) => res.json(rows));
