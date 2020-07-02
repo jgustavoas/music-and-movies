@@ -14,5 +14,7 @@ export const columns = {
     ['Artist', 'artistId'],
     ['Genre', 'genreId'],
   ],
+  composers: [['Composer', 'composer']],
+  movies: [['Movie', 'movie']],
   genres: [['Genre', 'genre']],
 };
