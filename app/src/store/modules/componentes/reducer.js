@@ -6,7 +6,7 @@ export const INITIAL_STATE = {
   propriedadeDisplay: 'none',
   visibilidade: 'collapse',
   form: {
-    options: undefined,
+    options: [],
     ready: false,
   },
 };
@@ -39,7 +39,7 @@ export default function components(state = INITIAL_STATE, action) {
       case 'FORM:READY': {
         const { options } = action.payload.data;
         draft.form = {
-          options: { ...state.formOptions, options },
+          options: [...options],
           ready: true,
         };
         break;
