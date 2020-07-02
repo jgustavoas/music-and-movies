@@ -79,7 +79,9 @@ export const ItensDoMenu = {
       },
       list: {
         titulo: 'List of composers',
-        path: null,
+        tipo: 'page',
+        path: 'composers',
+        columns: columns.composers,
       },
       search: {
         titulo: 'Search composer',
@@ -96,7 +98,9 @@ export const ItensDoMenu = {
       },
       list: {
         titulo: 'List of movies',
-        path: null,
+        tipo: 'page',
+        path: 'movies',
+        columns: columns.movies,
       },
       search: {
         titulo: 'Search movies',
