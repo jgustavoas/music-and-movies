@@ -2,36 +2,28 @@ import React, { useEffect } from 'react';
 import { store } from '../store';
 
 import Button from '../components/elementos/Botao';
-import { columns } from '../objetos/columns.obj';
+import Input from '../components/elementos/Input';
 
+import { columns } from '../objetos/columns.obj';
 import { getOptions, go } from '../functions/form.func';
 
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : 'Search';
-
   const { card, form } = store.getState().componentes;
+  const { options, ready } = form;
 
   useEffect(() => {
-    card && !form.ready && getOptions();
-  }, [card, form]);
+    card && !ready && getOptions();
+  }, [card, ready]);
+
+  if (!ready) return null;
 
   return (
     <div className='cardContent'>
-      <form>
+      <form onSubmit={(e) => e.preventDefault()}>
         {columns[model].map((field, index) => {
-          const [labelField, nameField] = field;
-          return (
-            <section key={index}>
-              <label htmlFor={operation}>{labelField}</label>
-              <input
-                onKeyDown={(e) => e.key === 'Enter' && go(e)}
-                type='text'
-                name={nameField}
-                id={nameField}
-              />
-            </section>
-          );
+          return <Input settings={[...field, options]} key={index} />;
         })}
         <Button funcao={go} estilo='cta'>
           {operation}
