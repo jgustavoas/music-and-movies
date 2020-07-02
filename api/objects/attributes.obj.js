@@ -39,6 +39,14 @@ const ATTRIBUTES = {
       },
     ],
   },
+  composers: {
+    OWN_COLUMNS: ['id', 'composer'],
+    INCLUDE: [],
+  },
+  movies: {
+    OWN_COLUMNS: ['id', 'movie'],
+    INCLUDE: [],
+  },
   genres: {
     OWN_COLUMNS: ['id', 'genre'],
     INCLUDE: [],
