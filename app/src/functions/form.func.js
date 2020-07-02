@@ -16,11 +16,18 @@ export const go = (e) => {
   const wichOne = titulo.includes('New') ? 'Create' : 'Search';
   const path = card.split('/')[0];
 
+  const values = {};
+  Array.from(e.target.form).forEach((el) => {
+    if (el.localName !== 'button') values[el.name] = el.value;
+  });
+
   const { name, value } = e.target.form[0];
 
   if (wichOne === 'Search') history.push(`${path}?val=${value}`);
   else store.dispatch(request('CREATE', 'card', path, { [name]: value }));
 };
+
+export const keyEvent = (e) => e.key === 'Enter' && go(e);
 
 export function marcarTodas(
   linhas,
