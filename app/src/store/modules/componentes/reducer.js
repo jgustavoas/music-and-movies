@@ -19,6 +19,10 @@ export default function components(state = INITIAL_STATE, action) {
         draft.titulo = action.payload.titulo;
         draft.propriedadeDisplay = 'grid';
         draft.visibilidade = 'visible';
+        draft.form = {
+          options: undefined,
+          ready: false,
+        };
         break;
       }
       case 'FECHAR': {
