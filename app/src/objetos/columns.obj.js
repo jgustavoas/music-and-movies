@@ -1,21 +1,27 @@
 export const columns = {
   artists: [
-    ['Artist', 'artist'],
-    ['Genre', 'genreId'],
+    ['Artist', 'artist', 'text'],
+    ['Genre', 'genreId', 'select'],
   ],
+
   albums: [
-    ['Album', 'album'],
-    ['Artist', 'artistId'],
-    ['Genre', 'genreId'],
+    ['Album', 'album', 'text'],
+    ['Artist', 'artistId', 'autocomplete'],
+    ['Genre', 'genreId', 'select'],
   ],
+
   tracks: [
-    ['Track', 'track'],
-    ['Album', 'albumId'],
-    ['Artist', 'artistId'],
-    ['Genre', 'genreId'],
+    ['Track', 'track', 'text'],
+    ['Album', 'albumId', 'autocomplete'],
+    ['Artist', 'artistId', 'autocomplete'],
+    ['Genre', 'genreId', 'select'],
   ],
-  composers: [['Composer', 'composer']],
-  performers: [['Performer', 'performer']],
-  movies: [['Movie', 'movie']],
-  genres: [['Genre', 'genre']],
+
+  composers: [['Composer', 'composer', 'text']],
+
+  performers: [['Performer', 'performer', 'text']],
+
+  movies: [['Movie', 'movie', 'text']],
+
+  genres: [['Genre', 'genre', 'text']],
 };
