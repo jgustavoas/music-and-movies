@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { store } from '../store';
 import request from '../store/modules/data/actions';
@@ -25,7 +25,9 @@ export default function DefaultCard({ path, titulo }) {
     else store.dispatch(request('CREATE', 'card', route, { [col]: val }));
   };
 
-  card && !form.ready && getOptions();
+  useEffect(() => {
+    card && !form.ready && getOptions();
+  }, [card, form]);
 
   return (
     <div className='cardContent'>
