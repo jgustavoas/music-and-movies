@@ -1,29 +1,16 @@
 import React, { useEffect } from 'react';
-
 import { store } from '../store';
-import request from '../store/modules/data/actions';
 
-import { doNotSubmit, getOptions } from '../functions/form.func';
-
-import history from '../services/history';
 import Button from '../components/elementos/Botao';
 import { columns } from '../objetos/columns.obj';
 
+import { getOptions, go } from '../functions/form.func';
+
 export default function DefaultCard({ path, titulo }) {
-  const route = path.split('/')[0];
-  const wichOne = titulo.includes('New') ? 'Create' : 'Search';
+  const model = path.split('/')[0];
+  const operation = titulo.includes('New') ? 'Create' : 'Search';
 
   const { card, form } = store.getState().componentes;
-  const [firstColumn] = columns[route];
-  const [, col] = firstColumn;
-
-  const go = (e) => {
-    console.log('e.target.form :>> ', e.target.form);
-    const val = e.target.form[0].value;
-
-    if (wichOne === 'Search') history.push(`${route}?val=${val}`);
-    else store.dispatch(request('CREATE', 'card', route, { [col]: val }));
-  };
 
   useEffect(() => {
     card && !form.ready && getOptions();
@@ -31,12 +18,12 @@ export default function DefaultCard({ path, titulo }) {
 
   return (
     <div className='cardContent'>
-      <form onSubmit={doNotSubmit()}>
-        {columns[route].map((field, index) => {
+      <form>
+        {columns[model].map((field, index) => {
           const [labelField, nameField] = field;
           return (
             <section key={index}>
-              <label htmlFor={wichOne}>{labelField}</label>
+              <label htmlFor={operation}>{labelField}</label>
               <input
                 onKeyDown={(e) => e.key === 'Enter' && go(e)}
                 type='text'
@@ -47,7 +34,7 @@ export default function DefaultCard({ path, titulo }) {
           );
         })}
         <Button funcao={go} estilo='cta'>
-          {wichOne}
+          {operation}
         </Button>
       </form>
     </div>
