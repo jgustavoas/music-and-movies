@@ -89,6 +89,25 @@ export const ItensDoMenu = {
       },
     },
   },
+  performers: {
+    titulo: 'Performers',
+    subitens: {
+      new: {
+        titulo: 'New performer',
+        path: null,
+      },
+      list: {
+        titulo: 'List of performer',
+        tipo: 'page',
+        path: 'performers',
+        columns: columns.performer,
+      },
+      search: {
+        titulo: 'Search performer',
+        path: null,
+      },
+    },
+  },
   movies: {
     titulo: 'Movies',
     subitens: {
