@@ -11,11 +11,11 @@ const itens = [
 ];
 const subitens = ['New', 'List', 'Search'];
 
-const allSubitens = {};
+const allItens = {};
 
 itens.forEach((item) => {
   const { title, model } = item;
-  allSubitens[model] = new NavItem(title, subitens, model).render();
+  allItens[model] = new NavItem(title, subitens, model).render();
 });
 
-export const ItensDoMenu = { ...allSubitens };
+export const ItensDoMenu = { ...allItens };
