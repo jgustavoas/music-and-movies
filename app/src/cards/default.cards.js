@@ -23,7 +23,8 @@ export default function DefaultCard({ path, titulo }) {
     <div className='cardContent'>
       <form onSubmit={(e) => e.preventDefault()}>
         {columns[model].map((field, index) => {
-          return <Input settings={[...field, options]} key={index} />;
+          const [label, , type] = field;
+          return <Input settings={[label, type, true, options]} key={index} />;
         })}
         <Button funcao={go} estilo='cta'>
           {operation}

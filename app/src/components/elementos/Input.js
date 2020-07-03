@@ -1,14 +1,42 @@
 import React from 'react';
+import { Input } from '../../styles/Input.style';
 import { keyEvent } from '../../functions/form.func';
 
 const input = {
-  text: function (name) {
-    return <input onKeyDown={keyEvent} type='text' name={name} id={name} />;
+  text(name, isValid) {
+    return (
+      <Input
+        isValid={isValid}
+        onKeyDown={keyEvent}
+        type='text'
+        name={name}
+        id={name}
+      />
+    );
   },
-  autocomplete: function (name) {
-    return <input onKeyDown={keyEvent} type='text' name={name} id={name} />;
+  password(name, isValid) {
+    return (
+      <Input
+        isValid={isValid}
+        onKeyDown={keyEvent}
+        type='password'
+        name={name}
+        id={name}
+      />
+    );
   },
-  select: function (name) {
+  autocomplete(name, isValid) {
+    return (
+      <Input
+        isValid={isValid}
+        onKeyDown={keyEvent}
+        type='text'
+        name={name}
+        id={name}
+      />
+    );
+  },
+  select(name) {
     return (
       <select name={name} id={name}>
         <option value=''>Select one...</option>
@@ -25,13 +53,15 @@ const input = {
 };
 
 export default function Componente({ settings }) {
-  const [labelField, nameField, type, options] = settings;
-  input.options = options;
+  const [label, type, isValid, options] = settings;
+  const name = label.toLowerCase().replace(/\s/g, '');
+
+  if (options) input.options = options;
 
   return (
     <section>
-      <label htmlFor={nameField}>{labelField}</label>
-      {input[type](nameField)}
+      <label htmlFor={name}>{label}</label>
+      {input[type](name, isValid)}
     </section>
   );
 }
