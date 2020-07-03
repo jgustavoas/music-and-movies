@@ -2,80 +2,37 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { store } from '../store';
-import { signInRequest } from '../store/modules/auth/actions';
 
 import Layout from '../components/Layout';
 import Main from '../components/Main';
 
 import Container from '../components/elementos/Container';
+import Input from '../components/elementos/Input';
 import Form from '../components/elementos/Form';
-import CampoDeInput from '../components/elementos/Input';
 import Botao from '../components/elementos/Botao';
 
-import { validarForm } from '../functions/gerais.func';
+import { tentarLogin } from '../functions/form.func';
 
 export default function LoginPage(props) {
   const { pathname } = props.location;
-
-  const [stateDosInputs, setStateDosInputs] = useState([
-    [true, ''],
-    [true, ''],
-  ]);
-
   const { user, signed } = store.getState().auth;
+
   const Conteudo = !signed ? LoginForm : Aviso;
+  const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
 
-  const tentarLogin = (evento) => {
-    evento.preventDefault();
-
-    const { value: email } = document.getElementById('seuEmail');
-    const { value: senha } = document.getElementById('suaSenha');
-
-    const camposPraValidar = [
-      ['email', email],
-      ['password', senha],
-    ];
-
-    const [emailValido, senhaValida] = validarForm(camposPraValidar);
-
-    if (emailValido && senhaValida) {
-      store.dispatch(signInRequest(email, senha));
-    } else {
-      setStateDosInputs([
-        [emailValido, email],
-        [senhaValida, senha],
-      ]);
-    }
-  };
+  const handleSubmit = (e) => tentarLogin(e, [setEmailValid, setPasswordValid]);
 
   function LoginForm() {
     return (
       <Layout id='loginLayout' pagina={pathname}>
         <Main style={{ width: '320px' }}>
-          <h2 style={{ color: '#fff' }}>Music & Movies</h2>
+          <h2 style={{ color: '#fff' }}>Music &amp; Movies</h2>
 
-          <Form id='loginForm'>
-            <CampoDeInput
-              placeholder='Digite seu e-mail'
-              tipo='email'
-              id='seuEmail'
-              textoDoLabel='E-MAIL'
-              onChange={(e) => e.target.value}
-              valor={stateDosInputs[0][1]}
-              valido={stateDosInputs[0][0]}
-            />
-
-            <CampoDeInput
-              placeholder='Digite sua senha'
-              tipo='password'
-              id='suaSenha'
-              textoDoLabel='PASSWORD'
-              onChange={(e) => e.target.value}
-              valor={stateDosInputs[1][1]}
-              valido={stateDosInputs[1][0]}
-            />
-
-            <Botao estilo='cta' funcao={tentarLogin}>
+          <Form>
+            <Input settings={['Email', 'text', emailValid]} />
+            <Input settings={['Password', 'password', passwordValid]} />
+            <Botao estilo='cta' funcao={handleSubmit}>
               ENTRAR
             </Botao>
           </Form>
