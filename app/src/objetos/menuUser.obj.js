@@ -1,15 +1,8 @@
+import NavItem from './constructor.obj';
+
+const subitens = ['Change password', 'Sign Out'];
+const minhaConta = new NavItem('My account', subitens).render();
+
 export const ItensDoMenu = {
-  minhaConta: {
-    titulo: 'My account',
-    subitens: {
-      mudarSenha: {
-        titulo: 'Change password',
-        link: null,
-      },
-      sairDoSistema: {
-        titulo: 'Sign out',
-        link: null,
-      },
-    },
-  },
+  minhaConta,
 };

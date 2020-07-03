@@ -23,8 +23,8 @@ export default function Componente() {
 
   const qualCard = {
     default: <DefaultCard path={itemDoCard} titulo={tituloDoCard} />,
-    mudarSenha: <MudarSenha />,
-    sairDoSistema: <Sair />,
+    changepassword: <MudarSenha />,
+    signout: <Sair />,
   };
 
   useEffect(() => {
