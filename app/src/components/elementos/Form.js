@@ -3,5 +3,9 @@ import { Form } from '../../styles/Form.style';
 
 export default function Componente(props) {
   const { id, children } = props;
-  return <Form id={id}>{children}</Form>;
+  return (
+    <Form onSubmit={(e) => e.preventDefault()} id={id}>
+      {children}
+    </Form>
+  );
 }

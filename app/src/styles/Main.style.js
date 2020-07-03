@@ -97,7 +97,7 @@ export const Main = styled.div`
     padding: 8px 16px;
     margin-top: 8px;
     border-radius: 1px;
-    font-size: 11px;
+    font-size: 1rem;
   }
   & .formCard {
     border: none;

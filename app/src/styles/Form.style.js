@@ -6,4 +6,13 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  font-size: 1rem;
+
+  & fieldset,
+  & section {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+  }
 `;
