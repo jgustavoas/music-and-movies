@@ -1,4 +1,4 @@
-import Menu from './constructor.obj';
+import loop from './constructor.obj';
 
 const itens = [
   { artists: 'Artists & Bands' },
@@ -11,4 +11,4 @@ const itens = [
 ];
 const subitens = ['New', 'List', 'Search'];
 
-export const ItensDoMenu = new Menu(itens, subitens).construct();
+export const ItensDoMenu = loop(itens, subitens);

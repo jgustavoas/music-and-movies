@@ -1,25 +1,35 @@
-export default class Menu {
-  constructor(items, subitens) {
-    this.items = items;
+class Menu {
+  constructor(item, subitens) {
+    this.item = item;
     this.subitens = subitens;
   }
 
   construct() {
-    const menu = {};
+    const allSubitems = {};
+    const [model, titulo] = Object.entries(this.item)[0];
 
-    this.items.forEach((item) => {
-      const [model, titulo] = Object.entries(item)[0];
-      menu[model] = { titulo, subitens: {} };
-
-      this.subitens.forEach((subitem) => {
-        menu[model].subitens[subitem.toLocaleLowerCase().replace(' ', '')] = {
-          titulo: titulo === 'My account' ? subitem : `${subitem} ${titulo}`,
-          tipo: subitem === 'List' ? 'page' : 'card',
-          path: subitem === 'List' ? model : null,
-        };
-      });
+    this.subitens.forEach((sub) => {
+      allSubitems[sub.toLocaleLowerCase().replace(' ', '')] = {
+        titulo: titulo === 'My account' ? sub : `${sub} ${titulo}`,
+        tipo: sub === 'List' ? 'page' : 'card',
+        path: sub === 'List' ? model : null,
+      };
     });
 
-    return menu;
+    return {
+      titulo: titulo,
+      subitens: { ...allSubitems },
+    };
   }
+}
+
+export default function loop(itens, subitens) {
+  const ItensDoMenu = {};
+
+  itens.forEach((item) => {
+    const model = Object.keys(item)[0];
+    return (ItensDoMenu[model] = new Menu(item, subitens).construct());
+  });
+
+  return ItensDoMenu;
 }
