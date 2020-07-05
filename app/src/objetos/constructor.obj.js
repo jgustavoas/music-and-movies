@@ -1,27 +1,35 @@
-import { columns } from './columns.obj';
-
-export default class NavItem {
-  constructor(titulo, subitens, model) {
-    this.titulo = titulo;
-    this.model = model;
+class Menu {
+  constructor(item, subitens) {
+    this.item = item;
     this.subitens = subitens;
   }
 
-  render() {
+  construct() {
     const allSubitems = {};
+    const [model, titulo] = Object.entries(this.item)[0];
 
     this.subitens.forEach((sub) => {
       allSubitems[sub.toLocaleLowerCase().replace(' ', '')] = {
-        titulo: this.titulo === 'My account' ? sub : `${sub} ${this.titulo}`,
+        titulo: titulo === 'My account' ? sub : `${sub} ${titulo}`,
         tipo: sub === 'List' ? 'page' : 'card',
-        path: sub === 'List' ? this.model : null,
-        columns: this.model ? columns[this.model] : null,
+        path: sub === 'List' ? model : null,
       };
     });
 
     return {
-      titulo: this.titulo,
+      titulo: titulo,
       subitens: { ...allSubitems },
     };
   }
+}
+
+export default function loop(itens, subitens) {
+  const ItensDoMenu = {};
+
+  itens.forEach((item) => {
+    const model = Object.keys(item)[0];
+    return (ItensDoMenu[model] = new Menu(item, subitens).construct());
+  });
+
+  return ItensDoMenu;
 }

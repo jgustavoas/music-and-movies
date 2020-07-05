@@ -1,8 +1,6 @@
-import NavItem from './constructor.obj';
+import loop from './constructor.obj';
 
+const itens = [{ minhaConta: 'My account' }];
 const subitens = ['Change password', 'Sign Out'];
-const minhaConta = new NavItem('My account', subitens).render();
 
-export const ItensDoMenu = {
-  minhaConta,
-};
+export const ItensDoMenu = loop(itens, subitens);
