@@ -2,6 +2,7 @@ import { store } from '../store';
 import request from '../store/modules/data/actions';
 
 import { ItensDoMenu } from '../objetos/menuNav.obj';
+import { columns } from '../objetos/columns.obj';
 
 // Quando há novo foco no input invalidado, limpar o CSS e o placeholder do input
 export function removerAtributo(id) {
@@ -31,10 +32,10 @@ export function readDataFrom(pathname, params, setState) {
   const from = setState ? 'pagina' : 'card';
   const path = pathname.slice(1);
 
-  const settings = getSettings(path);
+  const settings = ItensDoMenu[path].subitens.list;
 
-  const { titulo, columns } = settings;
-  const mainColumn = columns[0][1];
+  const { titulo } = settings;
+  const mainColumn = columns[path][0][1];
   const queryParams = getQueryParams(mainColumn, params);
 
   store.dispatch(request('READ', from, path, { queryParams, settings }));
@@ -44,7 +45,7 @@ export function readDataFrom(pathname, params, setState) {
 
 export const getSettings = (path) => {
   const regExp = RegExp(
-    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9|À-ú])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}".+?}`
+    `{(,?"\\w+":"?\\s?(([aA-zZ|0-9|À-ú])\\s?|\\3?[&-]\\s?\\3?)+?"?,?)+"path":"${path}"}`
   );
 
   const stringfyied = JSON.stringify(ItensDoMenu);
