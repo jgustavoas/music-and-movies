@@ -4,6 +4,7 @@ const models = require('../models');
 
 const ATTRIBUTES = require('../objects/attributes.obj');
 const msg = require('../objects/messages.obj');
+const useWhere = require('../functions/useWhere.func');
 
 class UniversalControllers {
   async create(req, res, next) {
@@ -20,15 +21,20 @@ class UniversalControllers {
 
   async read(req, res, next) {
     const { MODEL } = req.params;
-    const { val, col, by, sort, offset, limit } = req.query;
+    const { val, col, by, sort, offset, limit, ...rest } = req.query;
+    const inc = ATTRIBUTES[MODEL].INCLUDE;
 
     const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
     const SORT = sort ? sort : 'ASC';
 
     const associatedModel = {};
+    associatedModel.useWhere = false;
 
     // Clean up "where" clause of all associated models (see footer note #1):
-    INCLUDE.forEach((include) => (include.where = null));
+    INCLUDE.forEach((include) => {
+      include.where = null;
+      include.required = false;
+    });
 
     // Code block #1 ---------------------------------------------------------------------------------------------------
     Object.keys(ATTRIBUTES).forEach((model) => {
@@ -38,19 +44,12 @@ class UniversalControllers {
     });
     // end -------------------------------------------------------------------------------------------------------------
 
-    // Code block #2 ---------------------------------------------------------------------------------------------------
-    ATTRIBUTES[MODEL].INCLUDE.find((model) => {
-      const foundModel = model.attributes.include.some(
-        (column) => column === col
-      );
-      if (foundModel) {
-        associatedModel.useWhere = true;
-
-        model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #2
-        model.required = true; // see footer note #2
-      }
+    Object.entries(rest).forEach((and) => {
+      const [col, val] = and;
+      useWhere(col, val, inc);
     });
-    // end -------------------------------------------------------------------------------------------------------------
+
+    useWhere(col, val, inc);
 
     // Checking if the main model has the column indicated by the parameter "req.query.by":
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
@@ -127,7 +126,4 @@ module.exports = new UniversalControllers();
        ...the property "where" for that associated model remains defined for the following requests,...
        ...even if no respective parameter is passed within new requests, because that property remains in memory.
        This clean-up unsets that property, preventing Sequelize to create an undesirable INNER JOIN with it.
-
-    2) Check about "options.include[].where" and "options.include[].required":
-    https://sequelize.org/v5/class/lib/model.js~Model.html#static-method-findAll
 */
