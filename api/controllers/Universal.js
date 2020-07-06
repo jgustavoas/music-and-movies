@@ -24,25 +24,15 @@ class UniversalControllers {
 
   async read(req, res, next) {
     const { MODEL } = req.params;
-    const { val, col, by, sort, offset, limit, ...rest } = req.query;
-
     const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
-    const SORT = sort ? sort : 'ASC';
-
-    const associatedModel = {};
+    const { val, col, by, sort, offset, limit, ...rest } = req.query;
 
     cleanUp(INCLUDE);
     useWhere(INCLUDE, rest);
-    useBy(associatedModel, req.query);
-
-    // Checking if the main model has the column indicated by the parameter "req.query.by":
-    const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
-      ? [by, SORT]
-      : associatedModel.by;
 
     const QUERY = {
       WHERE: val ? { [col ? col : by]: { [Op.iLike]: `%${val}%` } } : {},
-      ORDER: by ? [BY] : null,
+      ORDER: by ? useBy(MODEL, req.query) : null,
       OFFSET: offset ? offset : null,
       LIMIT: limit ? limit : null,
     };
@@ -60,6 +50,7 @@ class UniversalControllers {
       }).then((rows) => res.json(rows));
     } catch (err) {
       res.status(400).json({ erro: 'Something went wrong!' });
+
       throw err;
     }
   }
