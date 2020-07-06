@@ -4,7 +4,10 @@ const models = require('../models');
 
 const ATTRIBUTES = require('../objects/attributes.obj');
 const msg = require('../objects/messages.obj');
+
+const cleanUp = require('../functions/cleanUp.func');
 const useWhere = require('../functions/useWhere.func');
+const useBy = require('../functions/useBy.func');
 
 class UniversalControllers {
   async create(req, res, next) {
@@ -22,34 +25,15 @@ class UniversalControllers {
   async read(req, res, next) {
     const { MODEL } = req.params;
     const { val, col, by, sort, offset, limit, ...rest } = req.query;
-    const inc = ATTRIBUTES[MODEL].INCLUDE;
 
     const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
     const SORT = sort ? sort : 'ASC';
 
     const associatedModel = {};
-    associatedModel.useWhere = false;
 
-    // Clean up "where" clause of all associated models (see footer note #1):
-    INCLUDE.forEach((include) => {
-      include.where = null;
-      include.required = false;
-    });
-
-    // Code block #1 ---------------------------------------------------------------------------------------------------
-    Object.keys(ATTRIBUTES).forEach((model) => {
-      if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
-        associatedModel.by = [models[model], by, SORT];
-      }
-    });
-    // end -------------------------------------------------------------------------------------------------------------
-
-    Object.entries(rest).forEach((and) => {
-      const [col, val] = and;
-      useWhere(col, val, inc);
-    });
-
-    useWhere(col, val, inc);
+    cleanUp(INCLUDE);
+    useWhere(INCLUDE, rest);
+    useBy(associatedModel, req.query);
 
     // Checking if the main model has the column indicated by the parameter "req.query.by":
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
@@ -70,7 +54,7 @@ class UniversalControllers {
         attributes: OWN_COLUMNS,
         include: INCLUDE,
         order: ORDER,
-        where: associatedModel.useWhere ? {} : WHERE, // unset this property if searching with "where" in associated model.
+        where: WHERE,
         limit: LIMIT,
         offset: OFFSET,
       }).then((rows) => res.json(rows));
@@ -112,18 +96,3 @@ class UniversalControllers {
 }
 
 module.exports = new UniversalControllers();
-
-/*
-  Code Block #1:
-  Checking wich model has the column indicated by the parameter "req.query.by" to sort the table.
-
-  Code Block #2:
-  Finding if there is an associated model with the column indicated by the param "req.query.col".
-  If so, the "where" clause in the SQL query will make reference to the column of that model (table).
-
-  FOOTER NOTES:
-    1) If the user has sent a request indicating a column that belongs to an associated model,...
-       ...the property "where" for that associated model remains defined for the following requests,...
-       ...even if no respective parameter is passed within new requests, because that property remains in memory.
-       This clean-up unsets that property, preventing Sequelize to create an undesirable INNER JOIN with it.
-*/

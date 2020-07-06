@@ -1,21 +1,24 @@
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-module.exports = function useWhere(col, val, inc, prop) {
+function requireWhere(inc, col, val) {
   inc.find((model) => {
     const foundModel = model.attributes.include.some(
       (column) => column === col
     );
-    if (foundModel) {
-      //associatedModel[prop] = true;
 
+    if (foundModel) {
       model.where = { [col]: { [Op.iLike]: `%${val}%` } }; // see footer note #1
       model.required = true; // see footer note #1
-
-      return true;
     }
   });
-};
+}
+
+module.exports = (include, rest) =>
+  Object.entries(rest).forEach((and) => {
+    const [col, val] = and;
+    requireWhere(include, col, val);
+  });
 
 /*
   FOOTER NOTES:
