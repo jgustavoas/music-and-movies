@@ -12,15 +12,9 @@ import { loadDados } from '../functions/componente.func';
 
 // NOVO COMPONENTE ---------------------------------------------------------------------------------
 export default function Table({ fonte: source, path }) {
-  // Escutando os states do módulo 'data' armazenados no store do Redux:
   const CRUD = useSelector((state) => state.data[source]);
-
-  // Definindo variáveis a partir dos states no store:
-  const loaded = CRUD.loaded;
-  const data = CRUD.data;
-  const error = CRUD.error;
-  const paginaInicial = CRUD.query.pagina;
-  const limitacao = CRUD.query.limit;
+  const { loaded, data, error, query } = CRUD;
+  const { paginaInicial, limitacao } = query;
 
   // Definindo states:
   const [linhas, setLinhas] = useState([{ id: 0, nome: '' }]);
