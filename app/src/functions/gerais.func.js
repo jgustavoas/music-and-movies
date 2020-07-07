@@ -10,7 +10,19 @@ export function removerAtributo(id) {
   document.getElementById(id).placeholder = '';
 }
 
-// THE TWO FUNCIONS BELOW ARE DESIGNED FOR RENDERING DATA ONTO THE PAGE ------------------------------------------------
+export function makeRestParams(rest) {
+  let and = '';
+
+  Object.entries(rest).forEach((param) => {
+    const [col, val] = param;
+
+    and = and + `&${col}=${val}`;
+  });
+
+  return and;
+}
+
+// RENDERING DATA ONTO THE PAGE --------------------------------------------------------------------
 /// 1) Create an object with the parameters to be interpreted by API as "query.params":
 function getQueryParams(mainColumn, params) {
   const queryParams = {

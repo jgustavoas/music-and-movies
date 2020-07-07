@@ -5,7 +5,7 @@ import request from '../data/actions';
 import api from '../../../services/api';
 
 import { avisosCRUD } from '../../../functions/ui.func';
-import { getSettings } from '../../../functions/gerais.func';
+import { getSettings, makeRestParams } from '../../../functions/gerais.func';
 
 export function* toCreate({ payload }) {
   const { path, data } = payload;
@@ -21,18 +21,22 @@ export function* toCreate({ payload }) {
 export function* toRead({ payload }) {
   let { source, path, data } = payload;
   const { queryParams, settings } = data;
-  let { by, val, col, sort, offset, limit } = queryParams ? queryParams : {};
+
+  let { by, val, col, sort, offset, limit, ...rest } = queryParams
+    ? queryParams
+    : {};
 
   col = col ? `&col=${col}` : '';
   val = val === undefined ? '' : `&val=${val}`;
   sort = sort === undefined ? '&sort=ASC' : (sort = `&sort=${sort}`);
   offset = offset === undefined ? '' : (offset = `&offset=${offset}`);
   limit = limit === undefined ? '' : `&limit=${limit}`;
+  rest = makeRestParams(rest);
 
   try {
     const response = yield call(
       api.get,
-      `${path}?by=${by}${col}${val}${sort}${offset}${limit}`
+      `${path}?by=${by}${col}${val}${sort}${offset}${limit}${rest}`
     );
 
     const data = { linhas: response.data, settings };
