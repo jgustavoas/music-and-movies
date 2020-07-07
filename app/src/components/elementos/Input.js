@@ -39,10 +39,10 @@ const input = {
   select(name) {
     return (
       <select name={name} id={name}>
-        <option value=''>Select one...</option>
+        <option value='none'>Select one...</option>
         {this.options.map((option, index) => {
           return (
-            <option key={index} value={index}>
+            <option key={index} value={option.id}>
               {option.genre}
             </option>
           );
@@ -53,8 +53,7 @@ const input = {
 };
 
 export default function Componente({ settings }) {
-  const [label, type, isValid, options] = settings;
-  const name = label.toLowerCase().replace(/\s/g, '');
+  const [label, name, type, isValid, options] = settings;
 
   if (options) input.options = options;
 
