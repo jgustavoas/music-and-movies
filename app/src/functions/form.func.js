@@ -83,11 +83,11 @@ export const go = (e) => {
   const [mainField, ...restFields] = form;
   const fields = action === 'Search' ? restFields : form;
 
-  const { value: val } = mainField;
+  const { name, value } = mainField;
   const values = getValues(fields, action);
-  const rest = makeRestParams(values);
+  const cols = `${name}=${value}${makeRestParams(values)}`;
 
-  if (action === 'Search') history.push(`${path}?val=${val}${rest}`);
+  if (action === 'Search') history.push(`${path}?${cols}`);
   else store.dispatch(request('CREATE', 'card', path, values));
 };
 

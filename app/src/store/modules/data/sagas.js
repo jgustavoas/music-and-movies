@@ -22,21 +22,17 @@ export function* toRead({ payload }) {
   let { source, path, data } = payload;
   const { queryParams, settings } = data;
 
-  let { by, val, col, sort, offset, limit, ...rest } = queryParams
-    ? queryParams
-    : {};
+  let { by, sort, offset, limit, ...cols } = queryParams ? queryParams : {};
 
-  col = col ? `&col=${col}` : '';
-  val = val === undefined ? '' : `&val=${val}`;
+  cols = makeRestParams(cols);
   sort = sort === undefined ? '&sort=ASC' : (sort = `&sort=${sort}`);
   offset = offset === undefined ? '' : (offset = `&offset=${offset}`);
   limit = limit === undefined ? '' : `&limit=${limit}`;
-  rest = makeRestParams(rest);
 
   try {
     const response = yield call(
       api.get,
-      `${path}?by=${by}${col}${val}${sort}${offset}${limit}${rest}`
+      `${path}?${cols}&by=${by}${sort}${offset}${limit}`
     );
 
     const data = { linhas: response.data, settings };
