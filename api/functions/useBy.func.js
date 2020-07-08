@@ -1,23 +1,28 @@
 const models = require('../models');
 const ATTRIBUTES = require('../objects/attributes.obj');
 
-module.exports = function useBy(MODEL, query) {
-  const { by, sort } = query;
-  const SORT = sort ? sort : 'ASC';
+module.exports = function useBy(req) {
+  const { MODEL } = req.params;
+  const { by, sort: SORT } = req.query;
+  const sort = SORT ? SORT : 'ASC';
 
-  const associatedModel = {};
+  if (by) {
+    const associatedModel = {};
 
-  Object.keys(ATTRIBUTES).forEach((model) => {
-    if (ATTRIBUTES[model].OWN_COLUMNS.includes(by)) {
-      associatedModel.by = [models[model], by, sort];
-    }
-  });
+    ATTRIBUTES[MODEL].INCLUDE.forEach((inc) => {
+      const { name } = inc.model;
 
-  const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
-    ? [by, SORT]
-    : associatedModel.by;
+      if (inc.attributes.include.includes(by)) {
+        associatedModel.by = [{ model: models[name], as: inc.as }, by, sort];
+      }
+    });
 
-  return [BY];
+    const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
+      ? [by, sort]
+      : associatedModel.by;
+
+    return [BY];
+  } else return null;
 };
 
 /*

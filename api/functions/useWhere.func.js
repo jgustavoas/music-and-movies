@@ -1,11 +1,21 @@
 var Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-module.exports = (include, rest) =>
-  Object.entries(rest).forEach((and) => {
+const ATTRIBUTES = require('../objects/attributes.obj');
+
+module.exports = (req) => {
+  const { MODEL } = req.params;
+  const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
+  const { by, sort, offset, limit, ...cols } = req.query;
+  const andColumns = {};
+
+  Object.entries(cols).forEach((and) => {
     const [col, val] = and;
 
-    include.find((model) => {
+    const found = OWN_COLUMNS.find((column) => column === col);
+    if (found) andColumns[col] = { [Op.iLike]: `%${val}%` };
+
+    INCLUDE.find((model) => {
       const foundModel = model.attributes.include.some(
         (column) => column === col
       );
@@ -16,6 +26,11 @@ module.exports = (include, rest) =>
       }
     });
   });
+
+  return {
+    [Op.and]: andColumns,
+  };
+};
 
 /*
     #1 Check about "options.include[].where" and "options.include[].required":

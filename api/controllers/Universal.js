@@ -1,5 +1,3 @@
-var Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 const models = require('../models');
 
 const ATTRIBUTES = require('../objects/attributes.obj');
@@ -25,14 +23,13 @@ class UniversalControllers {
   async read(req, res, next) {
     const { MODEL } = req.params;
     const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
-    const { val, col, by, sort, offset, limit, ...rest } = req.query;
+    const { offset, limit } = req.query;
 
     cleanUp(INCLUDE);
-    useWhere(INCLUDE, rest);
 
     const QUERY = {
-      WHERE: val ? { [col ? col : by]: { [Op.iLike]: `%${val}%` } } : {},
-      ORDER: by ? useBy(MODEL, req.query) : null,
+      WHERE: useWhere(req),
+      ORDER: useBy(req),
       OFFSET: offset ? offset : null,
       LIMIT: limit ? limit : null,
     };
