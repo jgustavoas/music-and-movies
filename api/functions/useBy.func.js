@@ -7,19 +7,16 @@ module.exports = function useBy(req) {
   const sort = SORT ? SORT : 'ASC';
 
   if (by) {
-    const associatedModel = {};
-
-    ATTRIBUTES[MODEL].INCLUDE.forEach((inc) => {
+    const [byAssoc] = ATTRIBUTES[MODEL].INCLUDE.map((inc) => {
       const { name } = inc.model;
 
-      if (inc.attributes.include.includes(by)) {
-        associatedModel.by = [{ model: models[name], as: inc.as }, by, sort];
-      }
+      if (inc.attributes.include.includes(by))
+        return [{ model: models[name], as: inc.as }, by, sort];
     });
 
     const BY = ATTRIBUTES[MODEL].OWN_COLUMNS.includes(by)
       ? [by, sort]
-      : associatedModel.by;
+      : byAssoc;
 
     return [BY];
   } else return null;
