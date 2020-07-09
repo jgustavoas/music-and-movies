@@ -4,8 +4,6 @@ const itens = [
   { artists: 'Artists & Bands' },
   { albums: 'Albums' },
   { tracks: 'Tracks' },
-  { composers: 'Composers' },
-  { performers: 'Performers' },
   { movies: 'Movies' },
   { genres: 'Genres' },
 ];
