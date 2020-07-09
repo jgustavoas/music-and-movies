@@ -52,7 +52,7 @@ const ATTRIBUTES = {
     INCLUDE: [],
   },
   tracks: {
-    OWN_COLUMNS: ['id', 'track', 'albumId', 'artistId'],
+    OWN_COLUMNS: ['id', 'track', 'albumId', 'artistId', 'genreId'],
     INCLUDE: [
       {
         model: models.albums,
