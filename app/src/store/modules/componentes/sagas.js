@@ -10,7 +10,7 @@ export function* toList({ payload }) {
 
   try {
     const response = yield call(api.get, `${path}?by=${by}`);
-    const data = { options: response.data };
+    const data = { [path]: response.data };
 
     store.dispatch(acao('FORM:READY', source, path, data));
   } catch (err) {

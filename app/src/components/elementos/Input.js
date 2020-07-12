@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { store } from '../../store';
+
 import { Input } from '../../styles/Input.style';
-import { keyEvent } from '../../functions/form.func';
+import { keyEvent, getOptions } from '../../functions/form.func';
 
 const input = {
   text(name, isValid) {
@@ -36,11 +38,29 @@ const input = {
       />
     );
   },
-  select(name) {
+  datalist(name, isValid, list) {
+    return (
+      <>
+        <Input
+          onChange={() => getOptions('artists')}
+          list={name}
+          name={name}
+          isValid={isValid}
+          onKeyDown={keyEvent}
+        />
+        <datalist id={name}>
+          {list.map((option, index) => {
+            return <option key={index} value={option.artist} />;
+          })}
+        </datalist>
+      </>
+    );
+  },
+  select(name, isValid, options) {
     return (
       <select name={name} id={name}>
         <option value='none'>Select one...</option>
-        {this.options.map((option, index) => {
+        {options.map((option, index) => {
           return (
             <option key={index} value={option.id}>
               {option.genre}
@@ -55,12 +75,19 @@ const input = {
 export default function Componente({ settings }) {
   const [label, name, type, isValid, options] = settings;
 
-  if (options) input.options = options;
+  const artistList = store.getState().componentes.form.options.artists;
+  const [artists, setArtist] = useState([]);
+
+  const list = type === 'datalist' ? artists : options.genres;
+
+  useEffect(() => {
+    artistList && setArtist(artistList);
+  }, [artistList]);
 
   return (
     <section>
       <label htmlFor={name}>{label}</label>
-      {input[type](name, isValid)}
+      {input[type](name, isValid, list)}
     </section>
   );
 }

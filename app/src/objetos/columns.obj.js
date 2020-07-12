@@ -6,14 +6,14 @@ export const columns = {
 
   albums: [
     ['Album', 'album', 'text'],
-    ['Artist', 'artistId', 'autocomplete'],
+    ['Artist', 'artistId', 'datalist'],
     ['Genre', 'genreId', 'select'],
   ],
 
   tracks: [
     ['Track', 'track', 'text'],
     ['Album', 'albumId', 'autocomplete'],
-    ['Artist', 'artistId', 'autocomplete'],
+    ['Artist', 'artistId', 'datalist'],
     ['Genre', 'genreId', 'select'],
   ],
 

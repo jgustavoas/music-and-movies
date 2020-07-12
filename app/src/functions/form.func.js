@@ -6,6 +6,8 @@ import { acao } from '../store/modules/componentes/actions';
 import history from '../services/history';
 import { makeRestParams } from './gerais.func';
 
+import { columns } from '../objetos/columns.obj';
+
 export function tentarLogin(e, setStates) {
   e.preventDefault();
 
@@ -49,10 +51,9 @@ export function validarForm(inputs) {
   });
 }
 
-export function getOptions() {
-  store.dispatch(
-    acao('FORM', 'card', 'TESTE', { path: 'genres', by: 'genre' })
-  );
+export function getOptions(path) {
+  const by = columns[path][0][1];
+  store.dispatch(acao('FORM', 'card', 'TESTE', { path, by }));
 }
 
 function getValues(fields, action) {

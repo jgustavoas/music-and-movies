@@ -10,11 +10,12 @@ import { getOptions, go } from '../functions/form.func';
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : 'Search';
+
   const { card, form } = store.getState().componentes;
   const { options, ready } = form;
 
   useEffect(() => {
-    card && !ready && getOptions();
+    card && !ready && getOptions('genres');
   }, [card, ready]);
 
   if (!ready) return null;
