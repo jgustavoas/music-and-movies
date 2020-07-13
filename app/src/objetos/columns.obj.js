@@ -12,7 +12,7 @@ export const columns = {
 
   tracks: [
     ['Track', 'track', 'text'],
-    ['Album', 'albumId', 'autocomplete'],
+    ['Album', 'albumId', 'datalist'],
     ['Artist', 'artistId', 'datalist'],
     ['Genre', 'genreId', 'select'],
   ],

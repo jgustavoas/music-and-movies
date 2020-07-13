@@ -27,30 +27,27 @@ const input = {
       />
     );
   },
-  autocomplete(name, isValid) {
-    return (
-      <Input
-        isValid={isValid}
-        onKeyDown={keyEvent}
-        type='text'
-        name={name}
-        id={name}
-      />
-    );
-  },
   datalist(name, isValid, list) {
     return (
       <>
         <Input
-          onChange={() => getOptions('artists')}
+          onChange={(e) => {
+            getOptions(list.model);
+          }}
           list={name}
           name={name}
           isValid={isValid}
           onKeyDown={keyEvent}
         />
         <datalist id={name}>
-          {list.map((option, index) => {
-            return <option key={index} value={option.artist} />;
+          {list.data.map((option, index) => {
+            return (
+              <option
+                id={option.id}
+                key={index}
+                value={option[name.slice(0, -2)]}
+              />
+            );
           })}
         </datalist>
       </>
@@ -75,14 +72,29 @@ const input = {
 export default function Componente({ settings }) {
   const [label, name, type, isValid, options] = settings;
 
-  const artistList = store.getState().componentes.form.options.artists;
-  const [artists, setArtist] = useState([]);
+  const artistsList = store.getState().componentes.form.options.artists;
+  const albumsList = store.getState().componentes.form.options.albums;
 
-  const list = type === 'datalist' ? artists : options.genres;
+  const [artists, setArtist] = useState([]);
+  const [albums, setAlbums] = useState([]);
+
+  const datalist = {
+    albumId: {
+      model: 'albums',
+      data: albums,
+    },
+    artistId: {
+      model: 'artists',
+      data: artists,
+    },
+  };
+
+  const list = type === 'datalist' ? datalist[name] : options.genres;
 
   useEffect(() => {
-    artistList && setArtist(artistList);
-  }, [artistList]);
+    albumsList && setAlbums(albumsList);
+    artistsList && setArtist(artistsList);
+  }, [albumsList, artistsList]);
 
   return (
     <section>

@@ -59,16 +59,32 @@ export function getOptions(path) {
 function getValues(fields, action) {
   const obj = {};
 
-  Array.from(fields).forEach((el) => {
-    const { name, localName, type, value, selectedOptions } = el;
-    const field = action === 'Search' ? name.slice(0, -2) : name;
+  Array.from(fields).forEach((field) => {
+    const { name, localName, type, value, list, selectedOptions } = field;
+    const fieldName = action === 'Search' ? name.slice(0, -2) : name;
 
+    // <datalist/>
+    const [autocomplete] = list
+      ? Array.from(list.options).filter(
+          (option) => option.value === field.value
+        )
+      : [];
+
+    // <select/>
     const selectedOne = value !== 'none' && type === 'select-one';
     const text = selectedOne ? selectedOptions[0].innerText : '';
 
-    const val = type === 'select-one' && action === 'Search' ? text : value;
+    // value
+    const val =
+      type === 'select-one' && action === 'Search'
+        ? text
+        : list && action === 'Search'
+        ? value
+        : !list
+        ? value
+        : autocomplete.id;
 
-    if (localName !== 'button' && val !== '') obj[field] = val;
+    if (localName !== 'button' && val !== '') obj[fieldName] = val;
   });
 
   return obj;
