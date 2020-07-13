@@ -19,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Rota universal para as operações CRUD:
+app.use('/list', universalRouter);
 app.use('/', universalRouter);
 
 // catch 404 and forward to error handler
