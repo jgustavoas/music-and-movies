@@ -22,6 +22,8 @@ class UniversalControllers {
 
   async read(req, res, next) {
     const { MODEL } = req.params;
+    const list = req.originalUrl.includes('/list/');
+
     const { OWN_COLUMNS, INCLUDE } = ATTRIBUTES[MODEL];
     const { offset, limit } = req.query;
 
@@ -39,7 +41,7 @@ class UniversalControllers {
     try {
       await models[MODEL].findAll({
         attributes: OWN_COLUMNS,
-        include: INCLUDE,
+        include: !list ? INCLUDE : null,
         order: ORDER,
         where: WHERE,
         limit: LIMIT,
