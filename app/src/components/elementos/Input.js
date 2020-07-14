@@ -37,3 +37,15 @@ export default function Componente({ settings }) {
     </section>
   );
 }
+
+export function Login({ settings }) {
+  const [label, name, isValid] = settings;
+  const type = name;
+
+  return (
+    <section>
+      <label htmlFor={name}>{label}</label>
+      {input[type](name, isValid)}
+    </section>
+  );
+}

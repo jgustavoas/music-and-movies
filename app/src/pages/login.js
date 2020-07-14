@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 import Main from '../components/Main';
 
 import Container from '../components/elementos/Container';
-import Input from '../components/elementos/Input';
+import { Login as Input } from '../components/elementos/Input';
 import Form from '../components/elementos/Form';
 import Botao from '../components/elementos/Botao';
 
