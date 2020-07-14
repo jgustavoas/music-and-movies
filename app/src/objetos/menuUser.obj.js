@@ -1,4 +1,4 @@
-import Menu from './constructor.obj';
+import Menu from './menuConstructor.obj';
 
 const itens = [{ minhaConta: 'My account' }];
 const subitens = ['Change password', 'Sign Out'];
