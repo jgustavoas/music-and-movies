@@ -13,3 +13,5 @@ export const Input = styled.input.attrs((props) => ({
   color: ${(props) => props.color};
   margin-bottom: 12px;
 `;
+
+export const Select = styled.select``;
