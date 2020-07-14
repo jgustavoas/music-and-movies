@@ -1,9 +1,11 @@
 import { store } from '../store';
 import request from '../store/modules/data/actions';
+
 import { signInRequest } from '../store/modules/auth/actions';
 import { acao } from '../store/modules/componentes/actions';
 
 import history from '../services/history';
+
 import { makeRestParams } from './gerais.func';
 
 import { columns } from '../objetos/columns.obj';
@@ -53,7 +55,15 @@ export function validarForm(inputs) {
 
 export function getOptions(path) {
   const by = columns[path][0][1];
-  store.dispatch(acao('FORM', 'card', 'TESTE', { path, by }));
+
+  fetch(`http://localhost:3333/list/${path}?by=${by}`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      const data = { [path]: myJson };
+      store.dispatch(acao('FORM:READY', 'card', path, data));
+    });
 }
 
 function getValues(fields, action) {
