@@ -40,6 +40,25 @@ export const Main = styled.div`
   & td:first-child {
     border-left: 1px solid #ddd;
   }
+  & td {
+    & section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    & span {
+      display: none;
+    }
+  }
+  & td:hover {
+    & span {
+      display: block;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 
   /* ANIMAÇÕES */
   @keyframes piscar {

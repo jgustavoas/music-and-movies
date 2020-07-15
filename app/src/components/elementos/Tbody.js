@@ -1,4 +1,5 @@
 import React from 'react';
+import { abrirCard } from '../../functions/card.func';
 
 export default function Tbody({ source, path, variaveis, setStates }) {
   const [linhas, pagina, limitacao] = variaveis;
@@ -29,7 +30,40 @@ export default function Tbody({ source, path, variaveis, setStates }) {
                   ? dadoDaColuna.Name
                   : dadoDaColuna;
 
-              return <td key={identificacao}>{itemDaColuna}</td>;
+              return (
+                <td key={identificacao}>
+                  <section>
+                    {itemDaColuna}
+                    <section>
+                      <span
+                        onClick={() =>
+                          abrirCard({
+                            id: `${path.slice(1)}/edit`,
+                            path,
+                            tipo: 'card',
+                            title: 'Edit',
+                          })
+                        }
+                      >
+                        &#x270E;
+                      </span>
+                      &nbsp;
+                      <span
+                        onClick={() =>
+                          abrirCard({
+                            id: `${path.slice(1)}/remove`,
+                            path,
+                            tipo: 'card',
+                            title: 'Remove',
+                          })
+                        }
+                      >
+                        &#x2715;
+                      </span>
+                    </section>
+                  </section>
+                </td>
+              );
             })}
           </tr>
         );
