@@ -1,4 +1,4 @@
-import { Input, Datalist, Select } from './inputsConstructor.obj';
+import { Input, Datalist, Select } from './inputs.constructor.obj';
 
 export const input = {
   text(name, isValid) {

@@ -1,4 +1,4 @@
-import Menu from './menuConstructor.obj';
+import Menu from './menu.constructor.obj';
 
 const itens = [
   { artists: 'Artists & Bands' },

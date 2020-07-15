@@ -11,11 +11,13 @@ export class Input {
   }
 
   construct(isValid, model) {
+    const fn = () => {
+      return model ? getOptions(model) : null;
+    };
+
     return (
       <Component
-        onChange={() => {
-          return model ? getOptions(model) : null;
-        }}
+        onChange={fn}
         list={this.name}
         name={this.name}
         type={this.type}
