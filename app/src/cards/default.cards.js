@@ -9,7 +9,7 @@ import { getOptions, go } from '../functions/form.func';
 
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
-  const operation = titulo.includes('New') ? 'Create' : 'Search';
+  const operation = titulo.includes('New') ? 'Create' : titulo;
 
   const { card, form } = store.getState().componentes;
   const { options, ready } = form;
