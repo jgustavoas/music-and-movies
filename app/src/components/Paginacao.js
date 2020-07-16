@@ -6,13 +6,7 @@ import request from '../store/modules/data/actions';
 import { $ } from '../functions/dom.func';
 import { paginador } from '../functions/componente.func';
 
-export default function Paginacao({
-  linhas,
-  source,
-  path,
-  limitacao,
-  setStates,
-}) {
+export default function Paginacao({ linhas, source, path, limit, setStates }) {
   const [pagina, setPagina, paginacao, setPaginacao] = setStates;
   const elementoPaginador = $(`#paginador_${source}`);
 
@@ -25,7 +19,7 @@ export default function Paginacao({
           <select
             name={`limitador_${source}`}
             id={`limitador_${source}`}
-            value={limitacao} // Valor que muda conforme o evento 'onChange' abaixo.
+            value={limit} // Valor que muda conforme o evento 'onChange' abaixo.
             onChange={(e) => {
               setPagina(1); // Voltar para a página 1.
 

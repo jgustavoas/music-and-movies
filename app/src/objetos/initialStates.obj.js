@@ -28,7 +28,7 @@ export const initialState = {
     query: {
       nome: '',
       sortASC: true,
-      pagina: 1,
+      page: 1,
       start: '0',
       limit: '50',
     },

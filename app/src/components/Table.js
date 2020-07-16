@@ -14,11 +14,11 @@ import { loadDados } from '../functions/componente.func';
 export default function Table({ fonte: source, path }) {
   const CRUD = useSelector((state) => state.data[source]);
   const { loaded, data, error, query } = CRUD;
-  const { paginaInicial, limitacao } = query;
+  const { page, limit } = query;
 
   // Definindo states:
   const [linhas, setLinhas] = useState([{ id: 0, nome: '' }]);
-  const [pagina, setPagina] = useState(paginaInicial);
+  const [pagina, setPagina] = useState(page);
   const [paginacao, setPaginacao] = useState([]);
   const [status, setStatus] = useState('LOADING...');
 
@@ -39,7 +39,7 @@ export default function Table({ fonte: source, path }) {
           linhas={linhas}
           source={source}
           path={path}
-          limitacao={limitacao}
+          limit={limit}
           setStates={[pagina, setPagina, paginacao, setPaginacao]}
         />
         <table className={source}>
@@ -47,7 +47,7 @@ export default function Table({ fonte: source, path }) {
           <Tbody
             source={source}
             path={path}
-            variaveis={[linhas, pagina, limitacao]}
+            variaveis={[linhas, pagina, limit]}
           />
         </table>
       </>
