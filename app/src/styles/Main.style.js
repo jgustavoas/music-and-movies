@@ -54,6 +54,7 @@ export const Main = styled.div`
   & td:hover {
     & span {
       display: block;
+      margin-right: 4px;
       &:hover {
         cursor: pointer;
       }
