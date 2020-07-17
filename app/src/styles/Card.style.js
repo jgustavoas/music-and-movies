@@ -37,35 +37,9 @@ export const Card = styled.div`
   }
   & .cardContent {
     grid-area: Content;
-    /*display: flex;*/
     background: #fff;
     justify-content: space-between;
-    /*margin: 16px 0;*/
     height: 100%;
-
-    & form,
-    & div#form {
-      font-size: 1rem;
-      & fieldset,
-      & section {
-        border: none;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 8px;
-        & input {
-          background: #fff;
-          border: 1px solid #999;
-          border-radius: 1px;
-          width: 100%;
-          height: 32px;
-          padding: 0 4px;
-          color: rgb(80, 80, 80);
-        }
-      }
-      & button {
-        float: right;
-      }
-    }
   }
   & .cardContent > div:first-child {
     width: 100%;
