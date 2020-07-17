@@ -1,39 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { store } from '../../store';
-
+import React from 'react';
+import { datalist } from '../../functions/form.func';
 import { input } from '../../objetos/inputs.obj';
 
-export default function Componente({ settings }) {
-  const [label, name, type, isValid, options] = settings;
+export default function Componente(field, index) {
+  const [label, name, type] = field;
+  const { options } = this;
 
-  const artistsList = store.getState().componentes.form.options.artists;
-  const albumsList = store.getState().componentes.form.options.albums;
+  const models = { albumId: 'albums', artistId: 'artists' };
+  const data = options[models[name]];
 
-  const [artists, setArtist] = useState([]);
-  const [albums, setAlbums] = useState([]);
-
-  const datalist = {
-    albumId: {
-      model: 'albums',
-      data: albums,
-    },
-    artistId: {
-      model: 'artists',
-      data: artists,
-    },
-  };
-
-  const list = type === 'datalist' ? datalist[name] : options.genres;
-
-  useEffect(() => {
-    albumsList && setAlbums(albumsList);
-    artistsList && setArtist(artistsList);
-  }, [albumsList, artistsList]);
+  const list =
+    type === 'datalist' ? datalist(models[name], data) : options.genres;
 
   return (
-    <section>
+    <section key={index}>
       <label htmlFor={name}>{label}</label>
-      {input[type](name, isValid, list)}
+      {input[type](name, true, list)}
     </section>
   );
 }

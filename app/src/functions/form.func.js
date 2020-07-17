@@ -3,11 +3,8 @@ import request from '../store/modules/data/actions';
 
 import { signInRequest } from '../store/modules/auth/actions';
 import { acao } from '../store/modules/componentes/actions';
-
 import history from '../services/history';
-
 import { makeRestParams } from './gerais.func';
-
 import { columns } from '../objetos/columns.obj';
 
 export function tentarLogin(e, setStates) {
@@ -53,10 +50,11 @@ export function validarForm(inputs) {
   });
 }
 
-export function getOptions(path) {
+export async function getOptions(path, value) {
   const by = columns[path][0][1];
+  //const val = path !== 'genres' ? `&${by}=${value}` : '';
 
-  fetch(`http://localhost:3333/list/${path}?by=${by}`)
+  await fetch(`http://localhost:3333/list/${path}?by=${by}`)
     .then(function (response) {
       return response.json();
     })
@@ -64,6 +62,10 @@ export function getOptions(path) {
       const data = { [path]: myJson };
       store.dispatch(acao('FORM:READY', 'card', path, data));
     });
+}
+
+export function datalist(model, data) {
+  return { model, data };
 }
 
 function getValues(fields, action) {
