@@ -1,6 +1,6 @@
-export function acao(type, item, titulo, data) {
+export function acao(type, id, titulo, data) {
   return {
     type,
-    payload: { item, titulo, data },
+    payload: { id, titulo, data },
   };
 }
