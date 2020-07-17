@@ -1,38 +1,27 @@
 import React, { useEffect } from 'react';
 import { store } from '../store';
-
-import Button from '../components/elementos/Botao';
+import Form from '../components/elementos/Form';
 import Input from '../components/elementos/Input';
-
 import { columns } from '../objetos/columns.obj';
 import { getOptions, go } from '../functions/form.func';
 
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : titulo;
-
   const { card, form } = store.getState().componentes;
-  const { options, ready } = form;
+  const obj = { options: form.options };
 
   useEffect(() => {
-    card && !ready && getOptions('genres');
-  }, [card, ready]);
+    card && !form.ready && getOptions('genres');
+  }, [card, form.ready]);
 
-  if (!ready) return null;
+  if (!form.ready) return null;
 
   return (
     <div className='cardContent'>
-      <form onSubmit={(e) => e.preventDefault()}>
-        {columns[model].map((field, index) => {
-          const [label, name, type] = field;
-          return (
-            <Input settings={[label, name, type, true, options]} key={index} />
-          );
-        })}
-        <Button funcao={go} estilo='cta'>
-          {operation}
-        </Button>
-      </form>
+      <Form id='cardForm' btLabel={operation} btFunction={go}>
+        {columns[model].map(Input, obj)}
+      </Form>
     </div>
   );
 }

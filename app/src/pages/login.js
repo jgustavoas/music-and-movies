@@ -29,12 +29,9 @@ export default function LoginPage(props) {
         <Main style={{ width: '320px' }}>
           <h2 style={{ color: '#fff' }}>Music &amp; Movies</h2>
 
-          <Form>
+          <Form id='loginForm' btLabel='ENTRAR' btFunction={handleSubmit}>
             <Input settings={['Email', 'text', emailValid]} />
             <Input settings={['Password', 'password', passwordValid]} />
-            <Botao estilo='cta' funcao={handleSubmit}>
-              ENTRAR
-            </Botao>
           </Form>
         </Main>
       </Layout>
@@ -48,6 +45,7 @@ export default function LoginPage(props) {
           <Container id='Aviso'>
             <h2 style={{ textTransform: 'none' }}>Oi, {user}!</h2>
             <h4>Você já está conectado.</h4>
+
             <Link to='/artists'>
               <Botao estilo='cta'>Volte para o sistema</Botao>
             </Link>
