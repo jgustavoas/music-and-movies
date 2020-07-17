@@ -13,8 +13,8 @@ export default function TD(coluna, indice) {
       <section>
         {itemDaColuna}
         <section>
-          <Icons operation='edit' path={path} />
-          <Icons operation='remove' path={path} />
+          <Icons operation='edit' item={this} path={path} />
+          <Icons operation='remove' item={this} path={path} />
         </section>
       </section>
     </td>
