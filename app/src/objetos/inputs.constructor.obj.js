@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-
 import { keyEvent, getOptions } from '../functions/form.func';
 
 export class Input {
@@ -36,20 +34,22 @@ export class Datalist extends Input {
 
   construct(isValid) {
     const textInput = super.construct(isValid, this.list.model);
+    const { data } = this.list;
 
     return (
       <>
         {textInput}
         <datalist id={this.name}>
-          {this.list.data.map((option, index) => {
-            return (
-              <option
-                id={option.id}
-                key={index}
-                value={option[this.name.slice(0, -2)]}
-              />
-            );
-          })}
+          {data &&
+            data.map((option, index) => {
+              return (
+                <option
+                  id={option.id}
+                  key={index}
+                  value={option[this.name.slice(0, -2)]}
+                />
+              );
+            })}
         </datalist>
       </>
     );
