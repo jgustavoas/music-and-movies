@@ -13,3 +13,15 @@ export function fecharCard() {
   store.dispatch(acao('FECHAR'));
   store.dispatch(request('RESET', 'card'));
 }
+
+export function cardConditional(settings) {
+  const { isPage, id, path, title } = settings;
+
+  if (isPage) {
+    fecharCard();
+    const paginaEmStore = store.getState().data.pagina.path;
+    paginaEmStore !== path && store.dispatch(request('RESET', 'pagina'));
+  } else {
+    abrirCard({ id, title });
+  }
+}
