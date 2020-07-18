@@ -1,76 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Item from '../components/elementos/Header.Nav.Menu.Item';
 
-import { store } from '../store';
-import request from '../store/modules/data/actions';
-
-import { abrirCard, fecharCard } from '../functions/card.func';
-
-const telas = {};
-
-const Item = ({ id, path, tipo, title }) => {
-  const gotTo = path ? `/${path}` : undefined;
-
-  function func() {
-    if (tipo === 'page') {
-      fecharCard();
-
-      const paginaEmStore = store.getState().data.pagina.path;
-      paginaEmStore !== path && store.dispatch(request('RESET', 'pagina'));
-    } else {
-      abrirCard({ id, path, tipo, title });
-    }
-  }
-
-  return (
-    <li
-      className={tipo === 'page' ? 'link' : ''}
-      onClick={() => {
-        func();
-      }}
-      key={id}
-    >
-      {tipo === 'page' ? (
-        <Link to={gotTo}>
-          <span>{title}</span>
-        </Link>
-      ) : (
-        title
-      )}
-    </li>
-  );
-};
-
-export function gerarMenu(objeto, Componente) {
-  Object.entries(objeto).forEach((entry) => {
-    const item = entry[0];
+export function gerarMenu(objeto) {
+  return Object.entries(objeto).map((entry, index) => {
+    const section = entry[0];
     const { titulo, subitens } = entry[1];
 
-    telas[item] = [];
+    const Subitems = () => {
+      if (!subitens) return;
 
-    if (subitens) {
-      Object.entries(subitens).forEach((sub) => {
+      return Object.entries(subitens).map((sub, index) => {
         const [subitem, properties] = sub;
-        const { titulo, tipo, path, columns } = properties;
+        const settings = { id: `${section}/${subitem}`, ...properties };
+        const component = <Item key={index} settings={settings} />;
 
-        telas[item].push(
-          <Item
-            key={`${item}/${subitem}`}
-            title={titulo}
-            id={`${item}/${subitem}`}
-            tipo={tipo}
-            path={path}
-            columns={columns}
-            properties={properties}
-          />
-        );
+        return component;
       });
-    }
+    };
 
-    Componente.push(
-      <li key={item}>
+    return (
+      <li key={index}>
         {titulo}
-        <ul>{telas[item]}</ul>
+        <ul>{Subitems()}</ul>
       </li>
     );
   });
