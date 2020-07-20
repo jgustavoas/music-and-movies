@@ -64,10 +64,6 @@ export async function getOptions(path, value) {
     });
 }
 
-export function datalist(model, data) {
-  return { model, data };
-}
-
 function getValues(fields, action) {
   const obj = {};
 

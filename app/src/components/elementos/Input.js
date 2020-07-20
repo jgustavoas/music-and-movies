@@ -1,5 +1,4 @@
 import React from 'react';
-import { datalist } from '../../functions/form.func';
 import { input } from '../../objetos/inputs.obj';
 
 export default function Componente(field, index) {
@@ -10,7 +9,7 @@ export default function Componente(field, index) {
   const data = options[models[name]];
 
   const list =
-    type === 'datalist' ? datalist(models[name], data) : options.genres;
+    type === 'datalist' ? { model: models[name], data } : options.genres;
 
   return (
     <section key={index}>
