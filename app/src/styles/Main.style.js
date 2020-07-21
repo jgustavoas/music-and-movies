@@ -179,7 +179,7 @@ export const Main = styled.div`
 
   & .paginador {
     text-align: center;
-    overflow: hidden;
+    overflow: auto;
     white-space: nowrap;
     width: auto;
     max-width: 164px;
