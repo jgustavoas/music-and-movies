@@ -12,8 +12,8 @@ export default function DefaultCard({ path, titulo }) {
   const obj = { options: form.options };
 
   useEffect(() => {
-    card && !form.ready && getOptions('genres');
-  }, [card, form.ready]);
+    card.id && !form.ready && getOptions('genres');
+  }, [card.id, form.ready]);
 
   if (!form.ready) return null;
 

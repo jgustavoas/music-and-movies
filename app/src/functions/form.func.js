@@ -99,8 +99,8 @@ function getValues(fields, action) {
 }
 
 export const go = (e) => {
-  const { card, titulo } = store.getState().componentes;
-  const path = card.split('/')[0];
+  const { id, titulo } = store.getState().componentes.card;
+  const path = id.split('/')[0];
 
   const { form } = e.target;
   const action = titulo.includes('New') ? 'Create' : 'Search';

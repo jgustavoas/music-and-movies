@@ -1,10 +1,12 @@
 import produce from 'immer';
 
 export const INITIAL_STATE = {
-  card: undefined,
-  titulo: undefined,
-  propriedadeDisplay: 'none',
-  visibilidade: 'collapse',
+  card: {
+    id: undefined,
+    titulo: undefined,
+    propriedadeDisplay: 'none',
+    visibilidade: 'collapse',
+  },
   form: {
     fill: null,
     options: {},
@@ -16,22 +18,21 @@ export default function components(state = INITIAL_STATE, action) {
   return produce(state, (draft) => {
     switch (action.type) {
       case 'ABRIR': {
-        draft.card = action.payload.id;
-        draft.titulo = action.payload.titulo;
-        draft.propriedadeDisplay = 'grid';
-        draft.visibilidade = 'visible';
-        draft.form = {
-          fill: action.payload.data,
-          options: undefined,
-          ready: false,
+        draft.card = {
+          id: action.payload.id,
+          titulo: action.payload.titulo,
+          propriedadeDisplay: 'grid',
+          visibilidade: 'visible',
         };
         break;
       }
       case 'FECHAR': {
-        draft.card = null;
-        draft.titulo = null;
-        draft.propriedadeDisplay = 'none';
-        draft.visibilidade = 'collapse';
+        draft.card = {
+          id: undefined,
+          titulo: undefined,
+          propriedadeDisplay: 'none',
+          visibilidade: 'collapse',
+        };
         draft.form = {
           fill: null,
           options: undefined,
@@ -41,6 +42,7 @@ export default function components(state = INITIAL_STATE, action) {
       }
       case 'FORM:READY': {
         const { titulo, data } = action.payload;
+        draft.card = { ...state.card };
         draft.form = {
           fill: state.form.fill,
           options: { ...state.form.options, [titulo]: [...data[titulo]] },

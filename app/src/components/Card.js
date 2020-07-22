@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Card } from '../styles/Card.style';
-
 import { fecharCard } from '../functions/card.func';
-
 import DefaultCard from '../cards/default.cards';
 import { MudarSenha, Sair } from '../cards/minhaConta.cards';
 
@@ -17,25 +15,29 @@ export default function Componente() {
   });
 
   const { propriedadeDisplay, itemDoCard, tituloDoCard } = statesDoCard;
-  const [item, card] = itemDoCard ? itemDoCard.split('/') : '';
+  const [, card] = itemDoCard ? itemDoCard.split('/') : '';
+  const getState = useSelector((state) => state.componentes.card);
 
-  const getState = useSelector((state) => state.componentes);
-
-  const qualCard = {
-    default: <DefaultCard path={itemDoCard} titulo={tituloDoCard} />,
-    changepassword: <MudarSenha />,
-    signout: <Sair />,
+  const qual = (card) => {
+    switch (card) {
+      case 'changepassword':
+        return <MudarSenha />;
+      case 'signout':
+        return <Sair />;
+      default:
+        return <DefaultCard path={itemDoCard} titulo={tituloDoCard} />;
+    }
   };
 
   useEffect(() => {
     setStatesDoCard({
       propriedadeDisplay: getState.propriedadeDisplay,
-      itemDoCard: getState.card,
+      itemDoCard: getState.id,
       tituloDoCard: getState.titulo,
     });
-  }, [getState.propriedadeDisplay, getState.card, getState.titulo]);
+  }, [getState.propriedadeDisplay, getState.id, getState.titulo]);
 
-  //> Se o state de "itemDoCard" não for undefied renderizar o Card, se não... (continua em "else")
+  //> Se o state de "itemDoCard" não for undefined renderizar o Card, se não... (continua em "else")
   if (itemDoCard) {
     try {
       return (
@@ -44,7 +46,7 @@ export default function Componente() {
             <h1>{tituloDoCard}</h1>
             <span onClick={() => fecharCard()}>X</span>
           </div>
-          {item !== 'minhaConta' ? qualCard.default : qualCard[card]}
+          {qual(card)}
         </Card>
       );
     } catch (error) {
