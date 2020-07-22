@@ -6,8 +6,6 @@ export default function Icons({ operation, item, path }) {
   const { icon, title } = icons[operation];
   const cardSettings = {
     id: `${path.slice(1)}/${operation}`,
-    path,
-    tipo: 'card',
     title: title,
     item,
   };
