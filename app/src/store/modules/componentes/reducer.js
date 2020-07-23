@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   card: {
     id: undefined,
     titulo: undefined,
+    data: undefined,
     propriedadeDisplay: 'none',
     visibilidade: 'collapse',
   },
@@ -21,6 +22,7 @@ export default function components(state = INITIAL_STATE, action) {
         draft.card = {
           id: action.payload.id,
           titulo: action.payload.titulo,
+          data: action.payload.data,
           propriedadeDisplay: 'grid',
           visibilidade: 'visible',
         };
@@ -30,6 +32,7 @@ export default function components(state = INITIAL_STATE, action) {
         draft.card = {
           id: undefined,
           titulo: undefined,
+          data: undefined,
           propriedadeDisplay: 'none',
           visibilidade: 'collapse',
         };
