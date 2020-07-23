@@ -1,20 +1,28 @@
 import { takeLatest, call, all } from 'redux-saga/effects';
 import { store } from '../../index';
 import request from '../data/actions';
-
 import api from '../../../services/api';
 
 import { avisosCRUD } from '../../../functions/ui.func';
 import { getSettings, makeRestParams } from '../../../functions/gerais.func';
+import { fecharCard } from '../../../functions/card.func';
+import { columns } from '../../../objetos/columns.obj';
 
 export function* toCreate({ payload }) {
   const { path, data } = payload;
-  //const identificacao = `0_${colunaPrincipal}_${source}`;
+  const settings = getSettings(path);
+  const queryParams = {
+    by: columns[path][0][1],
+  };
+
   try {
     yield call(api.post, `${path}`, { data });
-    //avisosCRUD(identificacao, 'CREATE:SUCCESS');
+
+    fecharCard();
+
+    store.dispatch(request('READ', 'pagina', path, { queryParams, settings }));
   } catch (err) {
-    //avisosCRUD(identificacao, 'erro');
+    console.log('err :>> ', err);
   }
 }
 
@@ -65,22 +73,21 @@ export function* toUpdate({ payload }) {
   }
 }
 
-export function* toDelete({ payload }) {
-  const { source, path, data } = payload;
-  const settings = getSettings(path);
-  const colunaPrincipal = settings.columns[0][1];
+export function* toDelete() {
+  const { id, path } = store.getState().componentes.card.data;
+  const model = path.slice(1);
+  const settings = getSettings(model);
   const queryParams = {
-    by: colunaPrincipal,
+    by: columns[model][0][1],
   };
 
   try {
-    yield call(api.delete, `${path}`, { data: { id: String(data) } });
+    yield call(api.delete, `${path}`, { data: { id } });
 
-    avisosCRUD(data, source, 'DELETE:SUCCESS');
+    fecharCard();
 
-    store.dispatch(request('READ', source, path, { settings, queryParams }));
+    store.dispatch(request('READ', 'pagina', path, { queryParams, settings }));
   } catch (err) {
-    avisosCRUD(data.id, 'erro');
     console.log('err :>> ', err);
   }
 }
