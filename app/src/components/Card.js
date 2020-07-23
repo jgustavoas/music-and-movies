@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Card } from '../styles/Card.style';
 import { fecharCard } from '../functions/card.func';
 import DefaultCard from '../cards/default.cards';
+import Alert from '../cards/alert.cards';
 import { MudarSenha, Sair } from '../cards/minhaConta.cards';
 
 //> COMPONENTE PRINCIPAL (funciona como container em formato de modal box) =========================
@@ -24,6 +25,8 @@ export default function Componente() {
         return <MudarSenha />;
       case 'signout':
         return <Sair />;
+      case 'remove':
+        return <Alert />;
       default:
         return <DefaultCard path={itemDoCard} titulo={tituloDoCard} />;
     }
