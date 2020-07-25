@@ -1,5 +1,5 @@
 import React from 'react';
-import TR from './Table.TR';
+import TR from './Table.Tbody.TR';
 
 export default function Tbody({ source, path, variaveis }) {
   const [linhas, page, limit] = variaveis;

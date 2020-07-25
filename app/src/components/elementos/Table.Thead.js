@@ -1,5 +1,5 @@
 import React from 'react';
-import TH from './Table.TH';
+import TH from './Table.Thead.TH';
 
 export default function Thead({ source, path, variaveis }) {
   const [linhas] = variaveis;
