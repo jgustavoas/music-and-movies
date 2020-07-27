@@ -45,11 +45,13 @@ export default function Componente() {
     try {
       return (
         <Card id='Card' style={{ display: propriedadeDisplay }}>
-          <div className='cardTitle'>
-            <h1>{tituloDoCard}</h1>
-            <span onClick={() => fecharCard()}>X</span>
+          <div>
+            <div className='cardTitle'>
+              <h1>{tituloDoCard}</h1>
+              <span onClick={() => fecharCard()}>X</span>
+            </div>
+            {qual(card)}
           </div>
-          {qual(card)}
         </Card>
       );
     } catch (error) {
