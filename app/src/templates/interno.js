@@ -9,14 +9,14 @@ import Footer from '../components/Footer';
 
 export default function TemplateInterno({ pagina, usuario, children }) {
   return (
-    <Layout pagina={pagina}>
-      <Header usuario={usuario} />
-      <Main>
-        {children}
+    <>
+      <Layout pagina={pagina}>
         <Card />
-      </Main>
-      <Sidebar />
-      <Footer />
-    </Layout>
+        <Header usuario={usuario} />
+        <Main>{children}</Main>
+        <Sidebar />
+        <Footer />
+      </Layout>
+    </>
   );
 }
