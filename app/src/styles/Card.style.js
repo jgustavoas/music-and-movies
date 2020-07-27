@@ -6,7 +6,7 @@ export const Card = styled.div`
   max-width: 64%;
   display: none;
   align-self: center;
-  position: absolute;
+  position: fixed;
   z-index: 3;
 
   border: 1px solid #fff;
