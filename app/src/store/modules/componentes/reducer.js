@@ -23,7 +23,7 @@ export default function components(state = INITIAL_STATE, action) {
           id: action.payload.id,
           titulo: action.payload.titulo,
           data: action.payload.data,
-          propriedadeDisplay: 'grid',
+          propriedadeDisplay: 'flex',
           visibilidade: 'visible',
         };
         break;
