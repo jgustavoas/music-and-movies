@@ -30,7 +30,7 @@ export default function LoginPage(props) {
           <h2 style={{ color: '#fff' }}>Music &amp; Movies</h2>
 
           <Form id='loginForm' btLabel='ENTRAR' btFunction={handleSubmit}>
-            <Input settings={['Email', 'text', emailValid]} />
+            <Input settings={['Email', 'email', emailValid]} />
             <Input settings={['Password', 'password', passwordValid]} />
           </Form>
         </Main>
