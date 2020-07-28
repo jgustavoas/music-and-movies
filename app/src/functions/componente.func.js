@@ -37,15 +37,15 @@ export async function loadDados(dados, source, setStates) {
         default: {
           colunas = [
             ['Artist', artist],
-            ['Genre', genre !== null ? genre.genre : ''],
+            ['Genre', genre !== null ? genre.genre : '', genreId],
           ];
           break;
         }
         case 'albums': {
           colunas = [
             ['Album', album],
-            ['Artist', artist !== null ? artist.artist : ''],
-            ['Genre', genre !== null ? genre.genre : ''],
+            ['Artist', artist !== null ? artist.artist : '', artistId],
+            ['Genre', genre !== null ? genre.genre : '', genreId],
           ];
           break;
         }
