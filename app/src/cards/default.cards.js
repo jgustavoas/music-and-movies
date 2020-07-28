@@ -9,8 +9,7 @@ export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : titulo;
   const { card, form } = store.getState().componentes;
-  const { data } = store.getState().componentes.card;
-  const obj = { formData: data, options: form.options };
+  const obj = { fill: form.fill, options: form.options };
 
   useEffect(() => {
     card.id && !form.ready && getOptions('genres');

@@ -3,9 +3,9 @@ import { input } from '../../objetos/inputs.obj';
 
 export default function Componente(field, index) {
   const [label, name, type] = field;
-  const { formData, options } = this;
-  const [, textValue, idValue] = formData ? formData.colunas[index] : [];
-  const value = formData ? { textValue, idValue } : '';
+  const { fill, options } = this;
+  const [, textValue, idValue] = fill ? fill.colunas[index] : [];
+  const value = fill ? { textValue, idValue } : '';
 
   const models = { albumId: 'albums', artistId: 'artists' };
   const data = options[models[name]];

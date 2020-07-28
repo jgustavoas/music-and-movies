@@ -22,9 +22,14 @@ export default function components(state = INITIAL_STATE, action) {
         draft.card = {
           id: action.payload.id,
           titulo: action.payload.titulo,
-          data: action.payload.data,
+          data: state.card.data,
           propriedadeDisplay: 'flex',
           visibilidade: 'visible',
+        };
+        draft.form = {
+          fill: action.payload.data,
+          options: state.form.options,
+          ready: state.form.ready,
         };
         break;
       }
