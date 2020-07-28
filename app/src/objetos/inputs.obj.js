@@ -5,10 +5,10 @@ export const input = {
     return new Input(name, value).construct(isValid);
   },
   email(name, isValid) {
-    return new Input(name, 'email').construct(isValid);
+    return new Input(name, {}, 'email').construct(isValid);
   },
   password(name, isValid) {
-    return new Input(name, 'password').construct(isValid);
+    return new Input(name, {}, 'password').construct(isValid);
   },
   datalist(name, value, isValid, list) {
     return new Datalist(name, value, list).construct(isValid);
