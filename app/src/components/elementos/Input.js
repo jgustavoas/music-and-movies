@@ -3,7 +3,9 @@ import { input } from '../../objetos/inputs.obj';
 
 export default function Componente(field, index) {
   const [label, name, type] = field;
-  const { options } = this;
+  const { formData, options } = this;
+  const [, textValue, idValue] = formData ? formData.colunas[index] : [];
+  const value = formData ? { textValue, idValue } : '';
 
   const models = { albumId: 'albums', artistId: 'artists' };
   const data = options[models[name]];
@@ -14,7 +16,7 @@ export default function Componente(field, index) {
   return (
     <section key={index}>
       <label htmlFor={name}>{label}</label>
-      {input[type](name, true, list)}
+      {input[type](name, value, true, list)}
     </section>
   );
 }

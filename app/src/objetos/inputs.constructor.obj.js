@@ -3,8 +3,9 @@ import { Input as Component, Select as Sel } from '../styles/Input.style';
 import { keyEvent, getOptions } from '../functions/form.func';
 
 export class Input {
-  constructor(name, type = 'text') {
+  constructor(name, { textValue }, type = 'text') {
     this.name = name;
+    this.value = textValue;
     this.type = type;
   }
 
@@ -19,6 +20,7 @@ export class Input {
         list={this.name}
         name={this.name}
         type={this.type}
+        value={this.value}
         isValid={isValid}
         onKeyDown={keyEvent}
       />
@@ -27,8 +29,8 @@ export class Input {
 }
 
 export class Datalist extends Input {
-  constructor(name, list) {
-    super(name);
+  constructor(name, value, list) {
+    super(name, value);
     this.list = list;
   }
 
@@ -57,14 +59,20 @@ export class Datalist extends Input {
 }
 
 export class Select {
-  constructor(name, options) {
+  constructor(name, { idValue }, options) {
     this.name = name;
+    this.value = idValue;
     this.options = options;
   }
 
   construct(isValid) {
     return (
-      <Sel isValid={isValid} name={this.name} id={this.name}>
+      <Sel
+        isValid={isValid}
+        name={this.name}
+        id={this.name}
+        defaultValue={this.value}
+      >
         <option value='none'>Select one...</option>
         {this.options.map((option, index) => {
           return (

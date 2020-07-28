@@ -21,7 +21,16 @@ export async function loadDados(dados, source, setStates) {
   if (dados.length === 0) setStatus('No data was found :(');
   else {
     const rows = dados.map((row) => {
-      const { id, artist, album, track, genre } = row;
+      const {
+        id,
+        artist,
+        artistId,
+        album,
+        albumId,
+        track,
+        genre,
+        genreId,
+      } = row;
       let colunas = [];
 
       switch (path) {
@@ -43,9 +52,9 @@ export async function loadDados(dados, source, setStates) {
         case 'tracks': {
           colunas = [
             ['Song', track],
-            ['Album', album !== null ? album.album : ''],
-            ['Artist', artist !== null ? artist.artist : ''],
-            ['Genre', genre !== null ? genre.genre : ''],
+            ['Album', album !== null ? album.album : '', albumId],
+            ['Artist', artist !== null ? artist.artist : '', artistId],
+            ['Genre', genre !== null ? genre.genre : '', genreId],
           ];
           break;
         }
