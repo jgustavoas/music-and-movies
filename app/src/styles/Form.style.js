@@ -34,6 +34,11 @@ export const Form = styled.form`
         height: 32px;
         padding: 0 4px;
         color: rgb(80, 80, 80);
+
+        &::placeholder {
+          color: rgb(80, 80, 80);
+          opacity: 1;
+        }
       }
     }
     & button {
