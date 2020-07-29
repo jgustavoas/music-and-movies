@@ -20,9 +20,15 @@ export class Input {
         list={this.name}
         name={this.name}
         type={this.type}
-        value={this.value}
+        placeholder={this.value}
         isValid={isValid}
         onKeyDown={keyEvent}
+        onFocus={(e) => {
+          if (e.target.value === '' && this.value) {
+            e.target.value = this.value;
+            e.target.placeholder = '';
+          }
+        }}
       />
     );
   }
