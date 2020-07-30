@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
 import { keyEvent, getOptions } from '../functions/form.func';
+import { store } from '../store';
 
 export class Input {
   constructor(name, { textValue }, type = 'text') {
@@ -10,23 +11,31 @@ export class Input {
   }
 
   construct(isValid, model) {
-    const fn = () => {
-      return model ? getOptions(model) : null;
+    const options = store.getState().componentes.form.options[model];
+    const fn = ({ target }) => {
+      return model && !options && target.value !== ''
+        ? getOptions(model)
+        : null;
     };
 
     return (
       <Component
         onChange={fn}
-        list={this.name}
+        list={this.name} // for Datalist that extends this Input
         name={this.name}
         type={this.type}
         placeholder={this.value}
         isValid={isValid}
         onKeyDown={keyEvent}
-        onFocus={(e) => {
-          if (e.target.value === '' && this.value) {
-            e.target.value = this.value;
-            e.target.placeholder = '';
+        data-unfocused='yes'
+        onFocus={({ target }) => {
+          const conditional =
+            target.dataset.unfocused && target.value === '' && this.value;
+
+          if (conditional) {
+            target.value = this.value;
+            target.placeholder = '';
+            delete target.dataset.unfocused;
           }
         }}
       />
