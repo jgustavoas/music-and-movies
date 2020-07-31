@@ -118,6 +118,24 @@ export const go = (e) => {
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);
 
+export const fnOnChange = (e, model) => {
+  const { options } = store.getState().componentes.form;
+  const list = options ? options[model] : null;
+
+  if (model && !list && e.target.value !== '') return getOptions(model);
+  else return null;
+};
+
+export const fnOnFocus = ({ target }, value) => {
+  const conditional = target.dataset.unfocused && target.value === '' && value;
+
+  if (conditional) {
+    target.value = value;
+    target.placeholder = '';
+    delete target.dataset.unfocused;
+  }
+};
+
 /*
 
 validarForm(inputs):

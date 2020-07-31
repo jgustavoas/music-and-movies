@@ -1,56 +1,40 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-import { keyEvent, getOptions } from '../functions/form.func';
-import { store } from '../store';
+import { keyEvent, fnOnChange, fnOnFocus } from '../functions/form.func';
 
 export class Input {
-  constructor(name, { textValue }, type = 'text') {
-    this.name = name;
-    this.value = textValue;
-    this.type = type;
+  constructor({ field, value, isValid }) {
+    this.name = field.name;
+    this.type = field.type;
+    this.value = value.textValue;
+    this.isValid = isValid;
   }
 
-  construct(isValid, model) {
-    const options = store.getState().componentes.form.options[model];
-    const fn = ({ target }) => {
-      return model && !options && target.value !== ''
-        ? getOptions(model)
-        : null;
-    };
-
+  construct(model) {
     return (
       <Component
-        onChange={fn}
         list={this.name} // for Datalist that extends this Input
         name={this.name}
         type={this.type}
         placeholder={this.value}
-        isValid={isValid}
-        onKeyDown={keyEvent}
+        isValid={this.isValid}
         data-unfocused='yes'
-        onFocus={({ target }) => {
-          const conditional =
-            target.dataset.unfocused && target.value === '' && this.value;
-
-          if (conditional) {
-            target.value = this.value;
-            target.placeholder = '';
-            delete target.dataset.unfocused;
-          }
-        }}
+        onFocus={(e) => fnOnFocus(e, this.value)}
+        onChange={(e) => fnOnChange(e, model)}
+        onKeyDown={keyEvent}
       />
     );
   }
 }
 
 export class Datalist extends Input {
-  constructor(name, value, list) {
-    super(name, value);
+  constructor({ field, value, list, isValid }) {
+    super({ field, value, isValid });
     this.list = list;
   }
 
-  construct(isValid) {
-    const textInput = super.construct(isValid, this.list.model);
+  construct() {
+    const textInput = super.construct(this.list.model);
     const { data } = this.list;
 
     return (
@@ -74,22 +58,23 @@ export class Datalist extends Input {
 }
 
 export class Select {
-  constructor(name, { idValue }, options) {
-    this.name = name;
-    this.value = idValue;
-    this.options = options;
+  constructor({ field, value, list, isValid }) {
+    this.name = field.name;
+    this.value = value.idValue;
+    this.list = list;
+    this.isValid = isValid;
   }
 
-  construct(isValid) {
+  construct() {
     return (
       <Sel
-        isValid={isValid}
+        isValid={this.isValid}
         name={this.name}
         id={this.name}
         defaultValue={this.value}
       >
         <option value='none'>Select one...</option>
-        {this.options.map((option, index) => {
+        {this.list.data.map((option, index) => {
           return (
             <option key={index} value={option.id}>
               {option.genre}

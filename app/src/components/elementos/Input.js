@@ -3,32 +3,33 @@ import { input } from '../../objetos/inputs.obj';
 
 export default function Componente(field, index) {
   const [label, name, type] = field;
-  const { fill, options } = this;
-  const [, textValue, idValue] = fill ? fill.fields[index] : [];
-  const value = fill ? { textValue, idValue } : '';
+  const [, textValue, idValue] = this.fill ? this.fill.fields[index] : [];
+  const models = { albumId: 'albums', artistId: 'artists', genreId: 'genres' };
 
-  const models = { albumId: 'albums', artistId: 'artists' };
-  const data = options[models[name]];
-
-  const list =
-    type === 'datalist' ? { model: models[name], data } : options.genres;
+  const settings = {
+    field: { name, type },
+    value: { textValue, idValue },
+    list: { model: models[name], data: this.options[models[name]] },
+    isValid: true,
+  };
 
   return (
     <section key={index}>
       <label htmlFor={name}>{label}</label>
-      {input[type](name, value, true, list)}
+      {input[type](settings)}
     </section>
   );
 }
 
-export function Login({ settings }) {
-  const [label, name, isValid] = settings;
+export function Login(props) {
+  const [label, name, isValid] = props.settings;
   const type = name;
+  const settings = { field: { name, type }, value: {}, isValid };
 
   return (
     <section>
       <label htmlFor={name}>{label}</label>
-      {input[type](name, isValid)}
+      {input[type](settings)}
     </section>
   );
 }
