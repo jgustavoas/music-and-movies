@@ -187,6 +187,10 @@ export const Main = styled.div`
     display: flex;
     align-items: center;
 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     & span {
       margin: 0 4px;
       min-width: 1.6rem;
