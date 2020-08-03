@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-
 import { Card } from '../styles/Card.style';
-import { fecharCard } from '../functions/card.func';
-import DefaultCard from '../cards/default.cards';
-import Alert from '../cards/alert.cards';
-import { MudarSenha, Sair } from '../cards/minhaConta.cards';
+import { wichOne, fecharCard } from '../functions/card.func';
 
 //> COMPONENTE PRINCIPAL (funciona como container em formato de modal box) =========================
 export default function Componente() {
@@ -19,26 +15,13 @@ export default function Componente() {
   const [, card] = itemDoCard ? itemDoCard.split('/') : '';
   const getState = useSelector((state) => state.componentes.card);
 
-  const qual = (card) => {
-    switch (card) {
-      case 'changepassword':
-        return <MudarSenha />;
-      case 'signout':
-        return <Sair />;
-      case 'remove':
-        return <Alert />;
-      default:
-        return <DefaultCard path={itemDoCard} titulo={tituloDoCard} />;
-    }
-  };
-
   useEffect(() => {
     setStatesDoCard({
       propriedadeDisplay: getState.propriedadeDisplay,
       itemDoCard: getState.id,
       tituloDoCard: getState.titulo,
     });
-  }, [getState.propriedadeDisplay, getState.id, getState.titulo]);
+  }, [getState]);
 
   //> Se o state de "itemDoCard" não for undefined renderizar o Card, se não... (continua em "else")
   if (itemDoCard) {
@@ -50,7 +33,7 @@ export default function Componente() {
               <h1>{tituloDoCard}</h1>
               <span onClick={() => fecharCard()}>X</span>
             </div>
-            {qual(card)}
+            {wichOne(card, statesDoCard)}
           </div>
         </Card>
       );

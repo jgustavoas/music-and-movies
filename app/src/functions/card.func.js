@@ -1,7 +1,13 @@
-// REDUX ===========================================================================================
+import React from 'react';
+
+// redux
 import { store } from '../store';
 import { acao } from '../store/modules/componentes/actions';
 import request from '../store/modules/data/actions';
+
+import DefaultCard from '../cards/default.cards';
+import Alert from '../cards/alert.cards';
+import { MudarSenha, Sair } from '../cards/minhaConta.cards';
 
 export async function abrirCard({ id, title, item }) {
   // Sempre reiniciar o state antes de abrir um novo card caso outro card ainda esteja aberto:
@@ -23,5 +29,18 @@ export function cardConditional(settings) {
     paginaEmStore !== path && store.dispatch(request('RESET', 'pagina'));
   } else {
     abrirCard({ id, title });
+  }
+}
+
+export function wichOne(card, { itemDoCard, tituloDoCard }) {
+  switch (card) {
+    case 'changepassword':
+      return <MudarSenha />;
+    case 'signout':
+      return <Sair />;
+    case 'remove':
+      return <Alert />;
+    default:
+      return <DefaultCard path={itemDoCard} titulo={tituloDoCard} />;
   }
 }
