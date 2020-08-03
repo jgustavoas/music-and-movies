@@ -13,9 +13,10 @@ export class Input {
   construct() {
     return (
       <Component
-        list={this.name} // for Datalist that extends this Input
+        id={this.name}
         name={this.name}
         type={this.type}
+        list={`${this.name}_list`} // for Datalist that extends this Input
         placeholder={this.value}
         isValid={this.isValid}
         data-unfocused='yes'
@@ -38,7 +39,7 @@ export class Datalist extends Input {
     return (
       <>
         {textInput}
-        <datalist id={this.name}>
+        <datalist id={`${this.name}_list`}>
           {this.list.map((option, index) => {
             return (
               <option
