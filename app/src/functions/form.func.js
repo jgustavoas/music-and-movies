@@ -50,9 +50,8 @@ export function validarForm(inputs) {
   });
 }
 
-export async function getOptions(path, value) {
+export async function getOptions(path) {
   const by = columns[path][0][1];
-  //const val = path !== 'genres' ? `&${by}=${value}` : '';
 
   await fetch(`http://localhost:3333/list/${path}?by=${by}`)
     .then(function (response) {
