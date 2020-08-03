@@ -9,7 +9,7 @@ export default function Componente(field, index) {
   const settings = {
     field: { name, type },
     value: { textValue, idValue },
-    list: { model: models[name], data: this.options[models[name]] },
+    list: this.options[models[name]],
     isValid: true,
   };
 

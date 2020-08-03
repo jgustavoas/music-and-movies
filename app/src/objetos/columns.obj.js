@@ -1,20 +1,20 @@
 export const columns = {
   artists: [
     ['Artist', 'artist', 'text'],
-    ['Genre', 'genreId', 'select'],
+    ['Genre', 'genreId', 'select', 'genres'],
   ],
 
   albums: [
     ['Album', 'album', 'text'],
-    ['Artist', 'artistId', 'datalist'],
-    ['Genre', 'genreId', 'select'],
+    ['Artist', 'artistId', 'datalist', 'artists'],
+    ['Genre', 'genreId', 'select', 'genres'],
   ],
 
   tracks: [
     ['Track', 'track', 'text'],
-    ['Album', 'albumId', 'datalist'],
-    ['Artist', 'artistId', 'datalist'],
-    ['Genre', 'genreId', 'select'],
+    ['Album', 'albumId', 'datalist', 'albums'],
+    ['Artist', 'artistId', 'datalist', 'artists'],
+    ['Genre', 'genreId', 'select', 'genres'],
   ],
 
   composers: [['Composer', 'composer', 'text']],

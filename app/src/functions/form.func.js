@@ -60,8 +60,19 @@ export async function getOptions(path, value) {
     })
     .then(function (myJson) {
       const data = { [path]: myJson };
-      store.dispatch(acao('FORM:READY', 'card', path, data));
+      store.dispatch(acao('FORM:OPTIONS', 'card', path, data));
     });
+}
+
+export async function getAllOptions(model) {
+  const items = columns[model].filter((item) => item[3]);
+
+  const options = items.map(async (item) => {
+    const path = item[3];
+    await getOptions(path);
+  });
+
+  await Promise.all(options).then(() => store.dispatch(acao('FORM:READY')));
 }
 
 function getValues(fields, action) {
@@ -69,7 +80,7 @@ function getValues(fields, action) {
 
   Array.from(fields).forEach((field) => {
     const { name, localName, type, value, list, selectedOptions } = field;
-    const fieldName = action === 'Search' ? name.slice(0, -2) : name;
+    const fieldName = action === 'SEARCH' ? name.slice(0, -2) : name;
 
     // <datalist/>
     const [autocomplete] = list
@@ -84,9 +95,9 @@ function getValues(fields, action) {
 
     // value
     const val =
-      type === 'select-one' && action === 'Search'
+      type === 'select-one' && action === 'SEARCH'
         ? text
-        : list && action === 'Search'
+        : list && action === 'SEARCH'
         ? value
         : !list
         ? value
@@ -101,19 +112,25 @@ function getValues(fields, action) {
 export const go = (e) => {
   const { id, titulo } = store.getState().componentes.card;
   const path = id.split('/')[0];
-
   const { form } = e.target;
-  const action = titulo.includes('New') ? 'Create' : 'Search';
+
+  const actions = {
+    New: 'CREATE',
+    Edit: 'UPDATE',
+    Search: 'SEARCH',
+  };
+
+  const action = actions[titulo.split(' ')[0]];
 
   const [mainField, ...restFields] = form;
-  const fields = action === 'Search' ? restFields : form;
+  const fields = action === 'SEARCH' ? restFields : form;
 
   const { name, value } = mainField;
   const values = getValues(fields, action);
   const cols = `${name}=${value}${makeRestParams(values)}`;
 
-  if (action === 'Search') history.push(`${path}?${cols}`);
-  else store.dispatch(request('CREATE', 'card', path, values));
+  if (action === 'SEARCH') history.push(`${path}?${cols}`);
+  else store.dispatch(request(action, 'card', path, values));
 };
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);

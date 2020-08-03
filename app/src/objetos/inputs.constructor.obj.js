@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-import { keyEvent, fnOnChange, fnOnFocus } from '../functions/form.func';
+import { keyEvent, fnOnFocus } from '../functions/form.func';
 
 export class Input {
   constructor({ field, value, isValid }) {
@@ -10,7 +10,7 @@ export class Input {
     this.isValid = isValid;
   }
 
-  construct(model) {
+  construct() {
     return (
       <Component
         list={this.name} // for Datalist that extends this Input
@@ -20,7 +20,6 @@ export class Input {
         isValid={this.isValid}
         data-unfocused='yes'
         onFocus={(e) => fnOnFocus(e, this.value)}
-        onChange={(e) => fnOnChange(e, model)}
         onKeyDown={keyEvent}
       />
     );
@@ -34,23 +33,21 @@ export class Datalist extends Input {
   }
 
   construct() {
-    const textInput = super.construct(this.list.model);
-    const { data } = this.list;
+    const textInput = super.construct();
 
     return (
       <>
         {textInput}
         <datalist id={this.name}>
-          {data &&
-            data.map((option, index) => {
-              return (
-                <option
-                  id={option.id}
-                  key={index}
-                  value={option[this.name.slice(0, -2)]}
-                />
-              );
-            })}
+          {this.list.map((option, index) => {
+            return (
+              <option
+                id={option.id}
+                key={index}
+                value={option[this.name.slice(0, -2)]}
+              />
+            );
+          })}
         </datalist>
       </>
     );
@@ -74,7 +71,7 @@ export class Select {
         defaultValue={this.value}
       >
         <option value='none'>Select one...</option>
-        {this.list.data.map((option, index) => {
+        {this.list.map((option, index) => {
           return (
             <option key={index} value={option.id}>
               {option.genre}

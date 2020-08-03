@@ -48,12 +48,21 @@ export default function components(state = INITIAL_STATE, action) {
         };
         break;
       }
-      case 'FORM:READY': {
+      case 'FORM:OPTIONS': {
         const { titulo, data } = action.payload;
         draft.card = { ...state.card };
         draft.form = {
           fill: state.form.fill,
           options: { ...state.form.options, [titulo]: [...data[titulo]] },
+          ready: false,
+        };
+        break;
+      }
+      case 'FORM:READY': {
+        draft.card = { ...state.card };
+        draft.form = {
+          fill: state.form.fill,
+          options: { ...state.form.options },
           ready: true,
         };
         break;

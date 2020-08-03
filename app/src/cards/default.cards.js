@@ -3,7 +3,7 @@ import { store } from '../store';
 import Form from '../components/elementos/Form';
 import Input from '../components/elementos/Input';
 import { columns } from '../objetos/columns.obj';
-import { getOptions, go } from '../functions/form.func';
+import { getAllOptions, go } from '../functions/form.func';
 
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
@@ -12,8 +12,8 @@ export default function DefaultCard({ path, titulo }) {
   const obj = { fill: form.fill, options: form.options };
 
   useEffect(() => {
-    card.id && !form.ready && getOptions('genres');
-  }, [card.id, form.ready]);
+    card.id && !form.ready && getAllOptions(model);
+  }, [card.id, form.ready, model]);
 
   if (!form.ready) return null;
 
