@@ -51,7 +51,7 @@ export async function loadDados(dados, source, setStates) {
         }
         case 'tracks': {
           colunas = [
-            ['Song', track],
+            ['Track', track],
             ['Album', album !== null ? album.album : '', albumId],
             ['Artist', artist !== null ? artist.artist : '', artistId],
             ['Genre', genre !== null ? genre.genre : '', genreId],
