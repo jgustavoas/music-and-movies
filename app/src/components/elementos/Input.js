@@ -7,7 +7,7 @@ export default function Componente(field, index) {
   const models = { albumId: 'albums', artistId: 'artists', genreId: 'genres' };
 
   const settings = {
-    field: { name, type, index },
+    field: { name, type },
     value: { textValue, idValue },
     list: this.options[models[name]],
     isValid: true,
@@ -15,7 +15,7 @@ export default function Componente(field, index) {
 
   return (
     <section key={index}>
-      <label htmlFor={index}>{label}</label>
+      <label htmlFor={name}>{label}</label>
       {input[type](settings)}
     </section>
   );

@@ -6,7 +6,6 @@ export class Input {
   constructor({ field, value, isValid }) {
     this.name = field.name;
     this.type = field.type;
-    this.index = field.index;
     this.value = value.textValue;
     this.isValid = isValid;
   }
@@ -14,7 +13,7 @@ export class Input {
   construct() {
     return (
       <Component
-        id={this.index}
+        id={this.name}
         name={this.name}
         type={this.type}
         placeholder={this.value}
