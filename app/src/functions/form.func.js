@@ -84,9 +84,9 @@ function getValues(fields, action) {
     // <datalist/>
     const [autocomplete] = list
       ? Array.from(list.options).filter(
-          (option) => option.value === field.value
+          (option) => option.value === field.dataset.value
         )
-      : [];
+      : []; // it must dispatch a Create CRUD if no option is found then (promise) return the new id!
 
     // <select/>
     const selectedOne = value !== 'none' && type === 'select-one';
@@ -109,9 +109,10 @@ function getValues(fields, action) {
 }
 
 export const go = (e) => {
-  const { id, titulo } = store.getState().componentes.card;
+  const { card, form } = store.getState().componentes;
+  const { id, titulo } = card;
+  const { id: rowId } = form.fill ? form.fill : {};
   const path = id.split('/')[0];
-  const { form } = e.target;
 
   const actions = {
     New: 'CREATE',
@@ -120,14 +121,15 @@ export const go = (e) => {
   };
 
   const action = actions[titulo.split(' ')[0]];
-  const [mainField, ...restFields] = form;
-  const fields = action === 'SEARCH' ? restFields : form;
+  const [mainField, ...restFields] = e.target.form;
+  const fields = action === 'SEARCH' ? restFields : e.target.form;
   const { name, value } = mainField;
   const values = getValues(fields, action);
   const cols = `${name}=${value}${makeRestParams(values)}`;
+  const formData = { values, rowId };
 
   if (action === 'SEARCH') history.push(`${path}?${cols}`);
-  else store.dispatch(request(action, 'card', path, values));
+  else store.dispatch(request(action, 'card', path, formData));
 };
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);
@@ -136,14 +138,13 @@ export const fnOnChange = (e) => {
   const operation = e.target.form.lastChild.innerText;
   if (operation !== 'EDIT') return null;
 
-  const { id, value } = e.target;
-  store.dispatch(acao('FORM:FILL', 'card', 'model', { id, value }));
+  e.target.dataset.value = e.target.value;
 };
 
 export const fnOnFocus = ({ target }, value) => {
-  const conditional = target.dataset.unfocused && target.value === '' && value;
+  const condition = target.dataset.unfocused && target.value === '' && value;
 
-  if (conditional) {
+  if (condition) {
     target.value = value;
     target.placeholder = '';
     delete target.dataset.unfocused;
