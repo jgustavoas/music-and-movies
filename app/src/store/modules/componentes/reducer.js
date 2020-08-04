@@ -58,6 +58,22 @@ export default function components(state = INITIAL_STATE, action) {
         };
         break;
       }
+      case 'FORM:FILL': {
+        const { id, value } = action.payload.data;
+        const { fields, ...rest } = state.form.fill;
+        const changed = fields.map((field, index) => {
+          if (index === parseFloat(id)) return [field[0], value, field[2]];
+          else return field;
+        });
+
+        draft.card = { ...state.card };
+        draft.form = {
+          fill: { fields: changed, ...rest },
+          options: { ...state.form.options },
+          ready: state.form.ready,
+        };
+        break;
+      }
       case 'FORM:READY': {
         draft.card = { ...state.card };
         draft.form = {

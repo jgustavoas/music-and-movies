@@ -120,10 +120,8 @@ export const go = (e) => {
   };
 
   const action = actions[titulo.split(' ')[0]];
-
   const [mainField, ...restFields] = form;
   const fields = action === 'SEARCH' ? restFields : form;
-
   const { name, value } = mainField;
   const values = getValues(fields, action);
   const cols = `${name}=${value}${makeRestParams(values)}`;
@@ -134,12 +132,12 @@ export const go = (e) => {
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);
 
-export const fnOnChange = (e, model) => {
-  const { options } = store.getState().componentes.form;
-  const list = options ? options[model] : null;
+export const fnOnChange = (e) => {
+  const operation = e.target.form.lastChild.innerText;
+  if (operation !== 'EDIT') return null;
 
-  if (model && !list && e.target.value !== '') return getOptions(model);
-  else return null;
+  const { id, value } = e.target;
+  store.dispatch(acao('FORM:FILL', 'card', 'model', { id, value }));
 };
 
 export const fnOnFocus = ({ target }, value) => {

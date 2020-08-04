@@ -1,11 +1,12 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-import { keyEvent, fnOnFocus } from '../functions/form.func';
+import { keyEvent, fnOnChange } from '../functions/form.func';
 
 export class Input {
   constructor({ field, value, isValid }) {
     this.name = field.name;
     this.type = field.type;
+    this.index = field.index;
     this.value = value.textValue;
     this.isValid = isValid;
   }
@@ -13,14 +14,13 @@ export class Input {
   construct() {
     return (
       <Component
-        id={this.name}
+        id={this.index}
         name={this.name}
         type={this.type}
+        value={this.value}
         list={`${this.name}_list`} // for Datalist that extends this Input
-        placeholder={this.value}
         isValid={this.isValid}
-        data-unfocused='yes'
-        onFocus={(e) => fnOnFocus(e, this.value)}
+        onChange={(e) => fnOnChange(e)}
         onKeyDown={keyEvent}
       />
     );
