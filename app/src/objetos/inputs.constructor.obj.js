@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-import { keyEvent, fnOnChange } from '../functions/form.func';
+import { keyEvent, fnOnFocus, fnOnChange } from '../functions/form.func';
 
 export class Input {
   constructor({ field, value, isValid }) {
@@ -17,9 +17,12 @@ export class Input {
         id={this.index}
         name={this.name}
         type={this.type}
-        value={this.value}
+        placeholder={this.value}
         list={`${this.name}_list`} // for Datalist that extends this Input
         isValid={this.isValid}
+        data-unfocused='yes'
+        data-value={this.value}
+        onFocus={(e) => fnOnFocus(e, this.value)}
         onChange={(e) => fnOnChange(e)}
         onKeyDown={keyEvent}
       />
