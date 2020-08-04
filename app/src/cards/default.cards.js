@@ -9,6 +9,7 @@ export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : titulo;
   const { card, form } = store.getState().componentes;
+  const inputs = columns[model];
   const obj = { fill: form.fill, options: form.options };
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export default function DefaultCard({ path, titulo }) {
   return (
     <div className='cardContent'>
       <Form id='cardForm' btLabel={operation} btFunction={go}>
-        {columns[model].map(Input, obj)}
+        {inputs.map(Input, obj)}
       </Form>
     </div>
   );
