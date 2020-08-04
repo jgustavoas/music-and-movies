@@ -2,8 +2,6 @@ import { takeLatest, call, all } from 'redux-saga/effects';
 import { store } from '../../index';
 import request from '../data/actions';
 import api from '../../../services/api';
-
-import { avisosCRUD } from '../../../functions/ui.func';
 import { getSettings, makeRestParams } from '../../../functions/gerais.func';
 import { fecharCard } from '../../../functions/card.func';
 import { columns } from '../../../objetos/columns.obj';
@@ -52,23 +50,17 @@ export function* toRead({ payload }) {
 }
 
 export function* toUpdate({ payload }) {
-  const { source, path, data } = payload;
-  const { id, formData } = data;
+  const { path, data } = payload;
+  const { rowId: id, values } = data;
   const settings = getSettings(path);
-  const colunaPrincipal = settings.columns[0][1];
-  const identificacao = `${data.id}_${colunaPrincipal}_${source}`;
   const queryParams = {
-    by: colunaPrincipal,
+    by: columns[path][0][1],
   };
 
   try {
-    yield call(api.patch, `${path}`, { id, ...formData });
-
-    avisosCRUD(identificacao, 'UPDATE:SUCCESS');
-
-    store.dispatch(request('READ', source, path, { settings, queryParams }));
+    yield call(api.patch, `${path}`, { id, ...values });
+    store.dispatch(request('READ', 'pagina', path, { queryParams, settings }));
   } catch (error) {
-    avisosCRUD(identificacao, source, 'erro');
     console.log('error :>> ', error);
   }
 }
