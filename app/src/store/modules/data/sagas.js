@@ -14,7 +14,7 @@ export function* toCreate({ payload }) {
   };
 
   try {
-    yield call(api.post, `${path}`, { data });
+    yield call(api.post, `${path}`, { data: data.values });
 
     fecharCard();
 
