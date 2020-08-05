@@ -19,6 +19,7 @@ export default function Rotas() {
       <Rota path='/artists' component={Default} requerLogin />
       <Rota path='/albums' component={Default} requerLogin />
       <Rota path='/tracks' component={Default} requerLogin />
+      <Rota path='/movies' component={Default} requerLogin />
       <Rota path='/genres' component={Default} requerLogin />
       <Rota path='/*' component={PaginaDeErro} />
     </Switch>
