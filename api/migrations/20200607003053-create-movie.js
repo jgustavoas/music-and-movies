@@ -14,9 +14,6 @@ module.exports = {
       genreId: {
         type: Sequelize.INTEGER,
       },
-      soundTrack: {
-        type: Sequelize.STRING,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

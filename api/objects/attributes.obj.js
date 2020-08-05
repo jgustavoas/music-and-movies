@@ -39,13 +39,17 @@ const ATTRIBUTES = {
       },
     ],
   },
-  composers: {
-    OWN_COLUMNS: ['id', 'composer'],
-    INCLUDE: [],
-  },
   movies: {
-    OWN_COLUMNS: ['id', 'movie'],
-    INCLUDE: [],
+    OWN_COLUMNS: ['id', 'movie', 'genreId'],
+    INCLUDE: [
+      {
+        model: models.genres,
+        attributes: {
+          include: ['genre'],
+          exclude: ['createdAt', 'updatedAt'],
+        },
+      },
+    ],
   },
   genres: {
     OWN_COLUMNS: ['id', 'genre'],
