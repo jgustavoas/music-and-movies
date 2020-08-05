@@ -1,27 +1,31 @@
+// fields template: [label, column, inputType]
+const fields = {
+  artist: ['Artist', 'artist', 'text'],
+  artistsId: ['Artist', 'artistId', 'datalist', 'artists'],
+  album: ['Album', 'album', 'text'],
+  albumId: ['Album', 'albumId', 'datalist', 'albums'],
+  track: ['Track', 'track', 'text'],
+  trackId: ['Track', 'trackId', 'datalist', 'tracks'],
+  movie: ['Movie', 'movie', 'text'],
+  genre: ['Genre', 'genre', 'text'],
+  genreId: ['Genre', 'genreId', 'select', 'genres'],
+};
+
+const {
+  artist,
+  artistsId,
+  album,
+  albumId,
+  track,
+  movie,
+  genre,
+  genreId,
+} = fields;
+
 export const columns = {
-  artists: [
-    ['Artist', 'artist', 'text'],
-    ['Genre', 'genreId', 'select', 'genres'],
-  ],
-
-  albums: [
-    ['Album', 'album', 'text'],
-    ['Artist', 'artistId', 'datalist', 'artists'],
-    ['Genre', 'genreId', 'select', 'genres'],
-  ],
-
-  tracks: [
-    ['Track', 'track', 'text'],
-    ['Album', 'albumId', 'datalist', 'albums'],
-    ['Artist', 'artistId', 'datalist', 'artists'],
-    ['Genre', 'genreId', 'select', 'genres'],
-  ],
-
-  composers: [['Composer', 'composer', 'text']],
-
-  performers: [['Performer', 'performer', 'text']],
-
-  movies: [['Movie', 'movie', 'text']],
-
-  genres: [['Genre', 'genre', 'text']],
+  artists: [artist, genreId],
+  albums: [album, artistsId, genreId],
+  tracks: [track, albumId, artistsId, genreId],
+  movies: [movie, genreId],
+  genres: [genre],
 };
