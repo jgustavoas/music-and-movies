@@ -28,6 +28,7 @@ export async function loadDados(dados, source, setStates) {
         album,
         albumId,
         track,
+        movie,
         genre,
         genreId,
       } = row;
@@ -54,6 +55,13 @@ export async function loadDados(dados, source, setStates) {
             ['Track', track],
             ['Album', album !== null ? album.album : '', albumId],
             ['Artist', artist !== null ? artist.artist : '', artistId],
+            ['Genre', genre !== null ? genre.genre : '', genreId],
+          ];
+          break;
+        }
+        case 'movies': {
+          colunas = [
+            ['Movie', movie],
             ['Genre', genre !== null ? genre.genre : '', genreId],
           ];
           break;
