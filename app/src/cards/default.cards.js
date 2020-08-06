@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { store } from '../store';
 import Form from '../components/elementos/Form';
 import Input from '../components/elementos/Input';
@@ -8,9 +8,12 @@ import { getAllOptions, go } from '../functions/form.func';
 export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : titulo;
+
   const { card, form } = store.getState().componentes;
+  const [fill, setFill] = useState(form.fill);
+
   const inputs = columns[model];
-  const obj = { fill: form.fill, options: form.options };
+  const obj = { fill, setState: setFill, options: form.options };
 
   useEffect(() => {
     card.id && !form.ready && getAllOptions(model);

@@ -83,9 +83,7 @@ function getValues(fields, action) {
 
     // <datalist/>
     const [autocomplete] = list
-      ? Array.from(list.options).filter(
-          (option) => option.value === field.dataset.value
-        )
+      ? Array.from(list.options).filter((option) => option.value === value)
       : []; // it must dispatch a Create CRUD if no option is found then (promise) return the new id!
 
     // <select/>
@@ -134,11 +132,23 @@ export const go = (e) => {
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);
 
-export const fnOnChange = (e) => {
+export const fnOnChange = (e, field, setState) => {
   const operation = e.target.form.lastChild.innerText;
   if (operation !== 'EDIT') return null;
 
-  e.target.dataset.value = e.target.value;
+  const { fields, ...rest } = store.getState().componentes.form.fill;
+
+  const updatedFields = fields.map((input, index) => {
+    const [name, value, id] = input;
+
+    if (index === field.index) return [name, e.target.value, id];
+    else return [name, value, id];
+  });
+
+  const newFill = { fields: updatedFields, ...rest };
+
+  //store.dispatch(acao('FORM:FILL'));
+  setState(newFill);
 };
 
 export const fnOnFocus = ({ target }, value) => {

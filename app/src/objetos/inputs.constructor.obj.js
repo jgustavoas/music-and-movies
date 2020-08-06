@@ -1,28 +1,27 @@
 import React from 'react';
 import { Input as Component, Select as Sel } from '../styles/Input.style';
-import { keyEvent, fnOnFocus, fnOnChange } from '../functions/form.func';
+import { keyEvent, fnOnChange } from '../functions/form.func';
 
 export class Input {
-  constructor({ field, value, isValid }) {
-    this.name = field.name;
-    this.type = field.type;
+  constructor({ field, value, setState, isValid }) {
+    this.field = field;
     this.value = value.textValue;
+    this.setState = setState;
     this.isValid = isValid;
   }
 
   construct() {
+    const { name, type } = this.field;
+
     return (
       <Component
-        id={this.name}
-        name={this.name}
-        type={this.type}
-        placeholder={this.value}
-        list={`${this.name}_list`} // for Datalist that extends this Input
+        id={name}
+        name={name}
+        type={type}
+        list={`${name}_list`} // for Datalist that extends this Input
         isValid={this.isValid}
-        data-unfocused='yes'
-        data-value={this.value}
-        onFocus={(e) => fnOnFocus(e, this.value)}
-        onChange={(e) => fnOnChange(e)}
+        value={this.value}
+        onChange={(e) => fnOnChange(e, this.field, this.setState)}
         onKeyDown={keyEvent}
       />
     );
@@ -30,24 +29,25 @@ export class Input {
 }
 
 export class Datalist extends Input {
-  constructor({ field, value, list, isValid }) {
-    super({ field, value, isValid });
+  constructor({ field, value, list, setState, isValid }) {
+    super({ field, value, setState, isValid });
     this.list = list;
   }
 
   construct() {
     const textInput = super.construct();
+    const { name } = this.field;
 
     return (
       <>
         {textInput}
-        <datalist id={`${this.name}_list`}>
+        <datalist id={`${name}_list`}>
           {this.list.map((option, index) => {
             return (
               <option
                 id={option.id}
                 key={index}
-                value={option[this.name.slice(0, -2)]}
+                value={option[name.slice(0, -2)]}
               />
             );
           })}

@@ -7,8 +7,9 @@ export default function Componente(field, index) {
   const models = { albumId: 'albums', artistId: 'artists', genreId: 'genres' };
 
   const settings = {
-    field: { name, type },
+    field: { index, name, type },
     value: { textValue, idValue },
+    setState: this.setState,
     list: this.options[models[name]],
     isValid: true,
   };
