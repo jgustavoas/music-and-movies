@@ -3,13 +3,14 @@ import { input } from '../../objetos/inputs.obj';
 
 export default function Componente(field, index) {
   const [label, name, type] = field;
-  const [, textValue, idValue] = this.fill ? this.fill.fields[index] : [];
+  const { fill } = this.state;
+  const [, textValue, idValue] = fill ? fill.fields[index] : [];
   const models = { albumId: 'albums', artistId: 'artists', genreId: 'genres' };
 
   const settings = {
     field: { index, name, type },
     value: { textValue, idValue },
-    setState: this.setState,
+    state: this.state,
     list: this.options[models[name]],
     isValid: true,
   };

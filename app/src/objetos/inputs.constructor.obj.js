@@ -3,10 +3,10 @@ import { Input as Component, Select as Sel } from '../styles/Input.style';
 import { keyEvent, fnOnChange } from '../functions/form.func';
 
 export class Input {
-  constructor({ field, value, setState, isValid }) {
+  constructor({ field, value, state, isValid }) {
     this.field = field;
     this.value = value.textValue;
-    this.setState = setState;
+    this.state = state;
     this.isValid = isValid;
   }
 
@@ -21,7 +21,7 @@ export class Input {
         list={`${name}_list`} // for Datalist that extends this Input
         isValid={this.isValid}
         value={this.value}
-        onChange={(e) => fnOnChange(e, this.field, this.setState)}
+        onChange={(e) => fnOnChange(e, this.field, this.state)}
         onKeyDown={keyEvent}
       />
     );
@@ -29,8 +29,8 @@ export class Input {
 }
 
 export class Datalist extends Input {
-  constructor({ field, value, list, setState, isValid }) {
-    super({ field, value, setState, isValid });
+  constructor({ field, value, list, state, isValid }) {
+    super({ field, value, state, isValid });
     this.list = list;
   }
 

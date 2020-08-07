@@ -13,7 +13,7 @@ export default function DefaultCard({ path, titulo }) {
   const [fill, setFill] = useState(form.fill);
 
   const inputs = columns[model];
-  const obj = { fill, setState: setFill, options: form.options };
+  const obj = { state: { fill, setFill }, options: form.options };
 
   useEffect(() => {
     card.id && !form.ready && getAllOptions(model);

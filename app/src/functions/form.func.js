@@ -132,11 +132,11 @@ export const go = (e) => {
 
 export const keyEvent = (e) => e.key === 'Enter' && go(e);
 
-export const fnOnChange = (e, field, setState) => {
+export const fnOnChange = (e, field, state) => {
   const operation = e.target.form.lastChild.innerText;
   if (operation !== 'EDIT') return null;
 
-  const { fields, ...rest } = store.getState().componentes.form.fill;
+  const { fields, ...rest } = state.fill;
 
   const updatedFields = fields.map((input, index) => {
     const [name, value, id] = input;
@@ -147,8 +147,7 @@ export const fnOnChange = (e, field, setState) => {
 
   const newFill = { fields: updatedFields, ...rest };
 
-  //store.dispatch(acao('FORM:FILL'));
-  setState(newFill);
+  state.setFill(newFill);
 };
 
 export const fnOnFocus = ({ target }, value) => {
