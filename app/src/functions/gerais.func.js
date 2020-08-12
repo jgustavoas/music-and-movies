@@ -4,12 +4,6 @@ import request from '../store/modules/data/actions';
 import { ItensDoMenu } from '../objetos/menuNav.obj';
 import { columns } from '../objetos/columns.obj';
 
-// Quando há novo foco no input invalidado, limpar o CSS e o placeholder do input
-export function removerAtributo(id) {
-  document.getElementById(id).removeAttribute('class', 'invalid');
-  document.getElementById(id).placeholder = '';
-}
-
 export function makeRestParams(rest) {
   let and = '';
 

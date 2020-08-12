@@ -50,6 +50,12 @@ export function validarForm(inputs) {
   });
 }
 
+// Quando há novo foco no input invalidado, limpar o CSS e o placeholder do input
+export function removerAtributo(id) {
+  document.getElementById(id).removeAttribute('class', 'invalid');
+  document.getElementById(id).placeholder = '';
+}
+
 export async function getOptions(path) {
   const by = columns[path][0][1];
 
