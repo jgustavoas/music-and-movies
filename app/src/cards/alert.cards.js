@@ -2,7 +2,7 @@ import React from 'react';
 import { store } from '../store';
 import request from '../store/modules/data/actions';
 
-import Button from '../components/elementos/Botao';
+import Button from '../components/elements/Button';
 import { fecharCard } from '../functions/card.func';
 
 export default function Alert() {

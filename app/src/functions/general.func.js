@@ -1,8 +1,8 @@
 import { store } from '../store';
 import request from '../store/modules/data/actions';
 
-import { ItensDoMenu } from '../objetos/menuNav.obj';
-import { columns } from '../objetos/columns.obj';
+import { ItensDoMenu } from '../objects/menuNav.obj';
+import { columns } from '../objects/columns.obj';
 
 export function makeRestParams(rest) {
   let and = '';

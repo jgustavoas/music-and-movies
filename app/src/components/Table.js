@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 // components
-import Thead from './elementos/Table.Thead';
-import Tbody from './elementos/Table.Tbody';
-import Paginacao from './Paginacao';
+import Thead from './elements/Table.Thead';
+import Tbody from './elements/Table.Tbody';
+import Pagination from './Pagination';
 
 // functions
-import { loadDados } from '../functions/componente.func';
+import { loadDados } from '../functions/component.func';
 
 export default function Table({ fonte: source, path }) {
   const CRUD = useSelector((state) => state.data[source]);
@@ -17,13 +17,13 @@ export default function Table({ fonte: source, path }) {
   // setting states
   const [linhas, setLinhas] = useState([{ id: 0, nome: '' }]);
   const [pagina, setPagina] = useState(page);
-  const [paginacao, setPaginacao] = useState([]);
+  const [pagination, setPagination] = useState([]);
   const [status, setStatus] = useState('LOADING...');
 
   useEffect(() => {
     setPagina(1);
 
-    data && loadDados(data, source, [setStatus, setLinhas, setPaginacao]);
+    data && loadDados(data, source, [setStatus, setLinhas, setPagination]);
   }, [data, loaded, source]);
 
   if (!data || !loaded) return status;
@@ -31,12 +31,12 @@ export default function Table({ fonte: source, path }) {
   else {
     return (
       <>
-        <Paginacao
+        <Pagination
           linhas={linhas}
           source={source}
           path={path}
           limit={limit}
-          setStates={[pagina, setPagina, paginacao, setPaginacao]}
+          setStates={[pagina, setPagina, pagination, setPagination]}
         />
         <table className={source}>
           <Thead source={source} path={path} variaveis={[linhas]} />

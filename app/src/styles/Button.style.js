@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Botao = styled.button`
+export const Button = styled.button`
   background: transparent;
   border-radius: 2px;
   border: 1px solid #3a92e4;

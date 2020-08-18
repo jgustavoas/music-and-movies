@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { store } from '../store';
 
-import TemplateInterno from '../templates/interno';
+import TemplateInterno from '../templates/inner.template';
 import Table from '../components/Table';
 
-import { readDataFrom } from '../functions/gerais.func';
+import { readDataFrom } from '../functions/general.func';
 
 export default function ProtectedPage(props) {
   const { pathname: path, search: params } = props.location;

@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { initialState } from '../../../objetos/initialStates.obj';
+import { initialState } from '../../../objects/initialStates.obj';
 
 export default function data(state = initialState, action) {
   return produce(state, (draft) => {

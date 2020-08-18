@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { store } from '../store';
-import Form from '../components/elementos/Form';
-import Input from '../components/elementos/Input';
-import { columns } from '../objetos/columns.obj';
+import Form from '../components/elements/Form';
+import Input from '../components/elements/Input';
+import { columns } from '../objects/columns.obj';
 import { getAllOptions, go } from '../functions/form.func';
 
 export default function DefaultCard({ path, titulo }) {

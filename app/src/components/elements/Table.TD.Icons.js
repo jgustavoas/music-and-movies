@@ -1,6 +1,6 @@
 import React from 'react';
 import { abrirCard } from '../../functions/card.func';
-import { icons } from '../../objetos/icons.obj';
+import { icons } from '../../objects/icons.obj';
 
 export default function Icons({ operation, item, path }) {
   const { icon, title } = icons[operation];

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Logo, Nav, User } from '../styles/Header.style';
 
-import { ItensDoMenu as ItensNav } from '../objetos/menuNav.obj';
-import { ItensDoMenu as ItensUser } from '../objetos/menuUser.obj';
+import { ItensDoMenu as ItensNav } from '../objects/menuNav.obj';
+import { ItensDoMenu as ItensUser } from '../objects/menuUser.obj';
 import { gerarMenu, toggleMenu } from '../functions/menu.func';
 
 export default function Componente({ usuario }) {

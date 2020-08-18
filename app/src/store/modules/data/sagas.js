@@ -2,9 +2,9 @@ import { takeLatest, call, all } from 'redux-saga/effects';
 import { store } from '../../index';
 import request from '../data/actions';
 import api from '../../../services/api';
-import { getSettings, makeRestParams } from '../../../functions/gerais.func';
+import { getSettings, makeRestParams } from '../../../functions/general.func';
 import { fecharCard } from '../../../functions/card.func';
-import { columns } from '../../../objetos/columns.obj';
+import { columns } from '../../../objects/columns.obj';
 
 export function* toCreate({ payload }) {
   const { path, data } = payload;

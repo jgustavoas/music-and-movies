@@ -2,10 +2,10 @@ import { store } from '../store';
 import request from '../store/modules/data/actions';
 
 import { signInRequest } from '../store/modules/auth/actions';
-import { acao } from '../store/modules/componentes/actions';
+import { acao } from '../store/modules/components/actions';
 import history from '../services/history';
-import { makeRestParams } from './gerais.func';
-import { columns } from '../objetos/columns.obj';
+import { makeRestParams } from './general.func';
+import { columns } from '../objects/columns.obj';
 
 export function tentarLogin(e, setStates) {
   e.preventDefault();

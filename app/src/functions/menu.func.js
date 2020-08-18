@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from '../components/elementos/Header.Nav.Menu.Item';
+import Item from '../components/elements/Header.Nav.Menu.Item';
 
 export function gerarMenu(objeto) {
   return Object.entries(objeto).map((entry, index) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { input } from '../../objetos/inputs.obj';
+import { input } from '../../objects/inputs.obj';
 
 export default function Componente(field, index) {
   const [label, name, type] = field;

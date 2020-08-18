@@ -152,7 +152,7 @@ export const Main = styled.div`
     }
   }
 
-  & .paginacao .paginas span {
+  & .Pagination .paginas span {
     cursor: pointer;
     transition: all 400ms;
 
@@ -163,15 +163,15 @@ export const Main = styled.div`
     }*/
   }
 
-  & .paginacao {
+  & .Pagination {
     font-size: 0.8rem;
     position: sticky;
     top: 60px;
     padding: 16px 0;
     background: #fff;
   }
-  & .paginacao,
-  .paginacao div {
+  & .Pagination,
+  .Pagination div {
     display: flex;
     align-items: center;
     justify-content: space-between;

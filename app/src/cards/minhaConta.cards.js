@@ -5,7 +5,7 @@ import { signOut } from '../store/modules/auth/actions';
 
 import { fecharCard } from '../functions/card.func';
 
-import Button from '../components/elementos/Botao';
+import Button from '../components/elements/Button';
 
 //> minhaConta/mudarSenha:
 export function MudarSenha() {

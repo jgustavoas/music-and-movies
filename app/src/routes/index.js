@@ -1,27 +1,27 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 
-import Rota from './Rota';
+import Route from './Route';
 
-import PaginaLivre from '../pages/livre';
-import LoginPage from '../pages/login';
-import Default from '../pages/default';
-import PaginaDeErro from '../pages/erro';
+import FreePage from '../pages/free.page';
+import LoginPage from '../pages/login.page';
+import Default from '../pages/default.page';
+import ErrorPage from '../pages/error.page';
 
-export default function Rotas() {
+export default function Routes() {
   return (
     <Switch>
-      <Rota path='/*/*' component={PaginaDeErro} />
-      <Rota path='/' exact component={LoginPage} />
-      <Rota path='/login' component={LoginPage} />
-      <Rota path='/livre' component={PaginaLivre} />
-      <Rota path='/inicio' component={Default} requerLogin />
-      <Rota path='/artists' component={Default} requerLogin />
-      <Rota path='/albums' component={Default} requerLogin />
-      <Rota path='/tracks' component={Default} requerLogin />
-      <Rota path='/movies' component={Default} requerLogin />
-      <Rota path='/genres' component={Default} requerLogin />
-      <Rota path='/*' component={PaginaDeErro} />
+      <Route path='/*/*' component={ErrorPage} />
+      <Route path='/' exact component={LoginPage} />
+      <Route path='/login' component={LoginPage} />
+      <Route path='/livre' component={FreePage} />
+      <Route path='/inicio' component={Default} authRequired />
+      <Route path='/artists' component={Default} authRequired />
+      <Route path='/albums' component={Default} authRequired />
+      <Route path='/tracks' component={Default} authRequired />
+      <Route path='/movies' component={Default} authRequired />
+      <Route path='/genres' component={Default} authRequired />
+      <Route path='/*' component={ErrorPage} />
     </Switch>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 // redux
 import { store } from '../store';
-import { acao } from '../store/modules/componentes/actions';
+import { acao } from '../store/modules/components/actions';
 import request from '../store/modules/data/actions';
 
 import DefaultCard from '../cards/default.cards';

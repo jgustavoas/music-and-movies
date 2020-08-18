@@ -4,14 +4,14 @@ import { store } from '../store';
 import request from '../store/modules/data/actions';
 
 import { $ } from '../functions/dom.func';
-import { paginador } from '../functions/componente.func';
+import { paginador } from '../functions/component.func';
 
-export default function Paginacao({ linhas, source, path, limit, setStates }) {
-  const [pagina, setPagina, paginacao, setPaginacao] = setStates;
+export default function Pagination({ linhas, source, path, limit, setStates }) {
+  const [pagina, setPagina, Pagination, setPagination] = setStates;
   const elementoPaginador = $(`#paginador_${source}`);
 
   return (
-    <div className='paginacao'>
+    <div className='Pagination'>
       <div>
         <span>{linhas.length - 1} linhas</span>
         &nbsp;
@@ -32,7 +32,7 @@ export default function Paginacao({ linhas, source, path, limit, setStates }) {
                 })
               );
 
-              paginador(linhas.length - 1, e.target.value, setPaginacao);
+              paginador(linhas.length - 1, e.target.value, setPagination);
             }}
           >
             <option value='10'>10 linhas/página</option>
@@ -43,7 +43,7 @@ export default function Paginacao({ linhas, source, path, limit, setStates }) {
       </div>
 
       <div className='paginas'>
-        {paginacao.length > 5 ? (
+        {Pagination.length > 5 ? (
           <>
             <span
               className='material-icons'
@@ -75,7 +75,7 @@ export default function Paginacao({ linhas, source, path, limit, setStates }) {
         )}
 
         <div className='paginador' id={`paginador_${source}`}>
-          {paginacao.map((p) => {
+          {Pagination.map((p) => {
             const classe = p === pagina ? 'paginaAtual' : '';
             const titulo =
               p === pagina ? 'Página atual' : `Ir para a página ${p}`;
@@ -98,7 +98,7 @@ export default function Paginacao({ linhas, source, path, limit, setStates }) {
           })}
         </div>
 
-        {paginacao.length > 5 ? (
+        {Pagination.length > 5 ? (
           <>
             <span
               className='material-icons'

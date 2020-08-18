@@ -6,10 +6,10 @@ import { store } from '../store';
 import Layout from '../components/Layout';
 import Main from '../components/Main';
 
-import Container from '../components/elementos/Container';
-import { Login as Input } from '../components/elementos/Input';
-import Form from '../components/elementos/Form';
-import Botao from '../components/elementos/Botao';
+import Container from '../components/elements/Container';
+import { Login as Input } from '../components/elements/Input';
+import Form from '../components/elements/Form';
+import Button from '../components/elements/Button';
 
 import { tentarLogin } from '../functions/form.func';
 
@@ -47,7 +47,7 @@ export default function LoginPage(props) {
             <h4>Você já está conectado.</h4>
 
             <Link to='/artists'>
-              <Botao estilo='cta'>Volte para o sistema</Botao>
+              <Button estilo='cta'>Volte para o sistema</Button>
             </Link>
           </Container>
         </Main>

@@ -16,7 +16,7 @@ export async function loadDados(dados, source, setStates) {
   const { settings, query } = store.getState().data[source];
   const { limit } = query;
   const { path } = settings;
-  const [setStatus, setLinhas, setPaginacao] = setStates;
+  const [setStatus, setLinhas, setPagination] = setStates;
 
   if (dados.length === 0) setStatus('No data was found :(');
   else {
@@ -86,7 +86,7 @@ export async function loadDados(dados, source, setStates) {
     } catch (error) {
       console.log("Error: data wasn't loaded :>> ");
     } finally {
-      paginador(dados.length, limit, setPaginacao);
+      paginador(dados.length, limit, setPagination);
     }
   }
 }
