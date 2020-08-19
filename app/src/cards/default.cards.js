@@ -9,7 +9,7 @@ export default function DefaultCard({ path, titulo }) {
   const model = path.split('/')[0];
   const operation = titulo.includes('New') ? 'Create' : titulo;
 
-  const { card, form } = store.getState().componentes;
+  const { card, form } = store.getState().components;
   const [fill, setFill] = useState(form.fill);
 
   const inputs = columns[model];

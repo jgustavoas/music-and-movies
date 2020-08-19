@@ -6,7 +6,7 @@ import Button from '../components/elements/Button';
 import { fecharCard } from '../functions/card.func';
 
 export default function Alert() {
-  const { data } = store.getState().componentes.card;
+  const { data } = store.getState().components.card;
   if (!data) return null;
   const [tableItem, itemName] = data.colunas[0];
 

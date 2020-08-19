@@ -7,7 +7,7 @@ import request from '../store/modules/data/actions';
 
 import DefaultCard from '../cards/default.cards';
 import Alert from '../cards/alert.cards';
-import { MudarSenha, Sair } from '../cards/minhaConta.cards';
+import { MudarSenha, Sair } from '../cards/myAccount.cards';
 
 export async function abrirCard({ id, title, item }) {
   // Sempre reiniciar o state antes de abrir um novo card caso outro card ainda esteja aberto:
@@ -32,7 +32,7 @@ export function cardConditional(settings) {
   }
 }
 
-export function wichOne(card, { itemDoCard, tituloDoCard }) {
+export function wichOne(card, { cardItem, cardTitle }) {
   switch (card) {
     case 'changepassword':
       return <MudarSenha />;
@@ -41,6 +41,6 @@ export function wichOne(card, { itemDoCard, tituloDoCard }) {
     case 'remove':
       return <Alert />;
     default:
-      return <DefaultCard path={itemDoCard} titulo={tituloDoCard} />;
+      return <DefaultCard path={cardItem} titulo={cardTitle} />;
   }
 }

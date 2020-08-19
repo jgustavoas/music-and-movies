@@ -8,13 +8,13 @@ import Modal from '../components/Modal';
 import Card from '../components/Card';
 import Footer from '../components/Footer';
 
-export default function TemplateInterno({ pagina, usuario, children }) {
+export default function InnerTemplate({ pagina, user, children }) {
   return (
     <>
       <Layout pagina={pagina}>
         <Modal />
         <Card />
-        <Header usuario={usuario} />
+        <Header user={user} />
         <Main>{children}</Main>
         <Sidebar />
         <Footer />

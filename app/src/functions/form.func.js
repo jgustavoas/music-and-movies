@@ -113,7 +113,7 @@ function getValues(fields, action) {
 }
 
 export const go = (e) => {
-  const { card, form } = store.getState().componentes;
+  const { card, form } = store.getState().components;
   const { id, titulo } = card;
   const { id: rowId } = form.fill ? form.fill : {};
   const path = id.split('/')[0];

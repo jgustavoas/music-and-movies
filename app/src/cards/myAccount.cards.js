@@ -7,7 +7,7 @@ import { fecharCard } from '../functions/card.func';
 
 import Button from '../components/elements/Button';
 
-//> minhaConta/mudarSenha:
+//> myAccount/mudarSenha:
 export function MudarSenha() {
   return (
     <>
@@ -32,7 +32,7 @@ export function MudarSenha() {
   );
 }
 
-//> minhaConta/sairDoSistema:
+//> myAccount/sairDoSistema:
 export function Sair() {
   const funcaoLogout = () => {
     fecharCard();

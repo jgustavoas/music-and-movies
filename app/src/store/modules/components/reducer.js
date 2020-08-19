@@ -5,7 +5,7 @@ export const INITIAL_STATE = {
     id: undefined,
     titulo: undefined,
     data: undefined,
-    propriedadeDisplay: 'none',
+    displayProperty: 'none',
     visibilidade: 'collapse',
   },
   form: {
@@ -23,7 +23,7 @@ export default function components(state = INITIAL_STATE, action) {
           id: action.payload.id,
           titulo: action.payload.titulo,
           data: state.card.data,
-          propriedadeDisplay: 'flex',
+          displayProperty: 'flex',
           visibilidade: 'visible',
         };
         draft.form = {
@@ -38,7 +38,7 @@ export default function components(state = INITIAL_STATE, action) {
           id: undefined,
           titulo: undefined,
           data: undefined,
-          propriedadeDisplay: 'none',
+          displayProperty: 'none',
           visibilidade: 'collapse',
         };
         draft.form = {

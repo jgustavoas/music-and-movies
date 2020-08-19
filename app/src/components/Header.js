@@ -6,8 +6,8 @@ import { ItensDoMenu as ItensNav } from '../objects/menuNav.obj';
 import { ItensDoMenu as ItensUser } from '../objects/menuUser.obj';
 import { gerarMenu, toggleMenu } from '../functions/menu.func';
 
-export default function Componente({ usuario }) {
-  ItensUser.minhaConta.titulo = usuario; // Muda o texto "Minha conta" para o nome do usuário.
+export default function Componente({ user }) {
+  ItensUser.myAccount.titulo = user; // Muda o texto "Minha conta" para o nome do usuário.
   const User_Menu = gerarMenu(ItensUser);
   const Nav_Menu = gerarMenu(ItensNav);
 

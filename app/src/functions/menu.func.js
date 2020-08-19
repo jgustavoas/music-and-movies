@@ -45,9 +45,9 @@ export function toggleMenu(e) {
 
 // Escutar qualquer clique fora do menu para fechar qualquer item aberto ===========================
 export function fecharMenu(e) {
-  const componentesDoLayout = e.currentTarget.children;
+  const componentsDoLayout = e.currentTarget.children;
 
-  Object.entries(componentesDoLayout).forEach((componente) => {
+  Object.entries(componentsDoLayout).forEach((componente) => {
     const Componente = componente[1];
     const menusNivelDois = Componente.querySelectorAll('ul li ul');
 

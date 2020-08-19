@@ -21,7 +21,7 @@ export default function request(type, source, path, data) {
   Os módulos da pasta 'store' foram reduzidos aos seguintes tipos:
   1) Um exclusivo para autenticação ('auth');
   2) Um genérico para dados de operaçoes CRUD ('data');
-  3) Um para lidar com os estados dos componentes ('components')
+  3) Um para lidar com os estados dos components ('components')
 
   Essa refatoração evita um aumento da quantidade de arquivos e de pastas à medida que a aplicação fica mais complexa.
   Assim, as páginas também ficam mais limpas e o código se torna muito mais fácil de manter e de escalar.

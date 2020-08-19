@@ -3,34 +3,34 @@ import { useSelector } from 'react-redux';
 import { Card } from '../styles/Card.style';
 import { wichOne, fecharCard } from '../functions/card.func';
 
-//> COMPONENTE PRINCIPAL (funciona como container em formato de modal box) =========================
-export default function Componente() {
+// Main content (it works as container)
+export default function Component() {
   const [statesDoCard, setStatesDoCard] = useState({
-    propriedadeDisplay: 'none',
-    itemDoCard: undefined,
-    tituloDoCard: '',
+    displayProperty: 'none',
+    cardItem: undefined,
+    cardTitle: '',
   });
 
-  const { propriedadeDisplay, itemDoCard, tituloDoCard } = statesDoCard;
-  const [, card] = itemDoCard ? itemDoCard.split('/') : '';
-  const getState = useSelector((state) => state.componentes.card);
+  const { displayProperty, cardItem, cardTitle } = statesDoCard;
+  const [, card] = cardItem ? cardItem.split('/') : '';
+  const getState = useSelector((state) => state.components.card);
 
   useEffect(() => {
     setStatesDoCard({
-      propriedadeDisplay: getState.propriedadeDisplay,
-      itemDoCard: getState.id,
-      tituloDoCard: getState.titulo,
+      displayProperty: getState.displayProperty,
+      cardItem: getState.id,
+      cardTitle: getState.titulo,
     });
   }, [getState]);
 
-  //> Se o state de "itemDoCard" não for undefined renderizar o Card, se não... (continua em "else")
-  if (itemDoCard) {
+  //> To render the card if "cardItem" is defined, otherwise... (it continues with "else")
+  if (cardItem) {
     try {
       return (
-        <Card id='Card' style={{ display: propriedadeDisplay }}>
+        <Card id='Card' style={{ display: displayProperty }}>
           <div>
             <div className='cardTitle'>
-              <h1>{tituloDoCard}</h1>
+              <h1>{cardTitle}</h1>
               <span onClick={() => fecharCard()}>X</span>
             </div>
             {wichOne(card, statesDoCard)}
@@ -39,16 +39,16 @@ export default function Componente() {
       );
     } catch (error) {
       return (
-        <Card style={{ display: propriedadeDisplay }}>
+        <Card style={{ display: displayProperty }}>
           <div className='cardTitle'>
-            <h1>Cadê?</h1>
+            <h1>Where is it?</h1>
             <span onClick={() => fecharCard()}>X</span>
           </div>
-          <div className='cardContent'>Ops, nada aqui ainda!</div>
+          <div className='cardContent'>Nothing here!</div>
         </Card>
       );
     }
   } else {
-    return ''; //> ...não renderizar o Card pois geraria erro.
+    return ''; //> ...do not render the card.
   }
 }

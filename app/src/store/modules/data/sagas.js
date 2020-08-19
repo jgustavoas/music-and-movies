@@ -66,7 +66,7 @@ export function* toUpdate({ payload }) {
 }
 
 export function* toDelete() {
-  const { id, path } = store.getState().componentes.card.data;
+  const { id, path } = store.getState().components.card.data;
   const model = path.slice(1);
   const settings = getSettings(model);
   const queryParams = {
