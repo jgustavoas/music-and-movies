@@ -26,20 +26,20 @@ export function tentarLogin(e, setStates) {
 }
 
 export function validarForm(inputs) {
-  let isValid = true; // O input começa válido por padrão.
+  let isValid = true; // The input starts valid by default.
 
   return inputs.map((input) => {
-    // Usando map() para a array de cada input e desetruturando a array
+    // Using map() for each array of inputs and destructuring that array:
     const { type, value } = input;
 
-    // Expressão regular para validar o formato do e-mail
-    // É uma camada a mais de validação além da que já existe nos navegadores para o input do tipo "email".
+    // Regular expression to validate the e-mail:
+    // This is an extra layer of validation beyond that one which is native of browsers regarding the email input type:
     const regexpEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    // Se o input for do tipo 'email' e seu valor não der match com a expressão regular acima, então invalidEmail = true.
+    // If the input type is email and its value doesn't match the regular expression, then "invalidEmail" is true:
     const invalidEmail = type === 'email' && !value.match(regexpEmail);
 
-    // Se o input for undefined, ou vazio, ou for um e-mail inválido, então exibir mensagem de erro.
+    // If the input is undefined, empty or an invalid email, then show error message:
     if (!value || value === '' || value.length < 4 || invalidEmail) {
       isValid = false;
     } else {
@@ -50,7 +50,7 @@ export function validarForm(inputs) {
   });
 }
 
-// Quando há novo foco no input invalidado, limpar o CSS e o placeholder do input
+// Clean-up the CSS and the placeholder when there is new focus in the input:
 export function removerAtributo(id) {
   document.getElementById(id).removeAttribute('class', 'invalid');
   document.getElementById(id).placeholder = '';
@@ -168,9 +168,9 @@ export const fnOnFocus = ({ target }, value) => {
 
 /*
 
-validarForm(inputs):
-Esta função recebe como parâmetro uma array []
-Os inputs a serem validados ficam dentro de uma segunda array no seguinte formato: [tipoDoInput, valorDoInput]
-Ou seja, os inputs são inseridos na função como neste exemplo: [['email', $valor], [senha, $valor]]
+validateForm(inputs):
+This function recieves one array as parameter.
+The inputs to be validated are inside a second array with this format: [inputType, inputValue].
+For example: [['email', $value], [password, $value]]
 
 */

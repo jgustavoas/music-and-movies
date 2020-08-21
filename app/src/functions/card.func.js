@@ -10,7 +10,7 @@ import Alert from '../cards/alert.cards';
 import { MudarSenha, Sair } from '../cards/myAccount.cards';
 
 export async function abrirCard({ id, title, item }) {
-  // Sempre reiniciar o state antes de abrir um novo card caso outro card ainda esteja aberto:
+  // Always reset the state before opening a new card:
   await store.dispatch(request('RESET', 'card'));
   await store.dispatch(acao('ABRIR', id, title, item));
 }
