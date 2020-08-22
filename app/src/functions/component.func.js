@@ -78,7 +78,7 @@ export async function loadDados(dados, source, setStates) {
 
     const columnsHeaders = rows[0].colunas;
 
-    // A propriedade 'colunas' da linha com id 0 pega emprestado as colunas da primeira linha de dados ('linhas[0].colunas')
+    // The 'columns' property of the row with id 0 uses the columns of the first row of data ('linhas[0].colunas')
     setLinhas([{ id: 0, colunas: columnsHeaders }, ...rows]);
 
     try {

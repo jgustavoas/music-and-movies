@@ -43,7 +43,7 @@ export function toggleMenu(e) {
   }
 }
 
-// Escutar qualquer clique fora do menu para fechar qualquer item aberto ===========================
+// Listen any click outside the menu to close any open item:
 export function fecharMenu(e) {
   const componentsDoLayout = e.currentTarget.children;
 
