@@ -18,21 +18,21 @@ export function avisosCRUD(identificacao, resultadoDoCrud) {
       $toggle(spinner, 'none');
       $toggle(done, 'inline-flex');
 
-      // Aguardar 560ms para mover a 'section' com o ícone 'done' visível para trás do input:
+      // Await 560ms to move the "section" with visibile "done" icon to backwards the input:
       setTimeout(() => {
         section.setAttribute('style', `left: -56px; opacity: 1;`);
       }, 560);
 
-      // Aguardar 640 milisegundos para:
+      // Await 640ms to:
       setTimeout(() => {
-        // 1) Mover a 'section' dos ícones de volta para ao lado do input:
+        // 1) Move again the section element with the icons to beside the input:
         section.setAttribute('style', `left: 0px; opacity: 1;`);
 
-        // 2) Esconder o ícone "done" e mostrar os ícones "save" e "undo":
+        // 2) Hide the "done" icon and show the "save" and "undo" icons:
         $toggle(done, 'none');
         $toggleMulti([save, undo], 'inline-flex');
 
-        // 3) Dar foco e limpar o input
+        // 3) Give focus and clean-up the input:
         input.focus();
         input.value = '';
       }, 640);
@@ -43,23 +43,23 @@ export function avisosCRUD(identificacao, resultadoDoCrud) {
       $toggle(spinner, 'none');
       $toggle(done, 'inline-flex');
 
-      // Aguardar 400 milisegundos recolher os ícones
+      // Await 400ms to hide the icons:
       setTimeout(() => {
         section.removeAttribute('style', 'left: 0px');
       }, 400);
 
-      // Aguardar 800 milisegundos para:
+      // Await 800ms to:
       setTimeout(() => {
-        // 1) Esconder o ícone "done" e mostrar os ícones "save" e "undo":
+        // 1) Hide the "done" icon and show the "save", "undo", "edit" and "remove" icons:
         $toggle(done, 'none');
         $toggleMulti([save, undo, edit, remove], 'inline-flex');
 
-        // 2) Dar foco no input para mover o cursor ao início, evitando que o começo da palavra apareça cortada:
+        // 2) Give focus and move the cursor to the start of the input, thus previnting the wortd appears sliced:
         input.focus();
         input.selectionStart = 0;
         input.selectionEnd = 0;
 
-        // 3) Recolocar o atributo "disabled" no input para a sua aparência inicial:
+        // 3) Reput the "disabled" attibute in the input to its inicial look:
         input.setAttribute('disabled', 'true');
         input.removeAttribute(
           'style',
