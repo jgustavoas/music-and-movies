@@ -43,11 +43,11 @@ export default function LoginPage(props) {
       <Layout pagina={pathname}>
         <Main style={{ padding: '16px', height: '200px', width: 'auto' }}>
           <Container id='Aviso'>
-            <h2 style={{ textTransform: 'none' }}>Oi, {user}!</h2>
-            <h4>Você já está conectado.</h4>
+            <h2 style={{ textTransform: 'none' }}>Hi, {user}!</h2>
+            <h4>You are already logged in.</h4>
 
             <Link to='/artists'>
-              <Button estilo='cta'>Volte para o sistema</Button>
+              <Button estilo='cta'>Return to the app</Button>
             </Link>
           </Container>
         </Main>
