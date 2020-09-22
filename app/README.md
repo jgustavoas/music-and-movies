@@ -1,11 +1,11 @@
 <details open>
   <summary><b>Some important notes</b></summary>
 
-1. The base of this app was originally coded in portuguese, the full translation to english is to be implemented.
+1. This app was originally coded in portuguese, then translated to english.
 
-2. A work with UI and UX might be done later, this is not the focus of the project though.
+2. A work with UI and UX might be done, this is not the focus of this project though.
 
-3. The first page is the login page. To proceed to internal pages, just type any valid format email (even a fake one) and type any password with at least four characters.
+3. The first page of the app is the login page. To proceed to internal pages, just type any valid format email (even a fake one), then type any password with at least four characters.
 </details>
 
 ---
