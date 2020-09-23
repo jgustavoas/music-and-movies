@@ -11,7 +11,7 @@ Main modules of this API:
 - Sequelize
 - Postgres (with Docker)
 
-### Intalling and initializing Postgres on Docker
+### Installing and initializing Postgres on Docker
 
 1. Installation:
 
@@ -19,12 +19,12 @@ Main modules of this API:
    $ docker run --name my_postgres -e POSTGRES_PASSWORD=mypass -p 5432:5432 -d postgres:11
    ```
 
-2. Initalization:
+2. Initialization:
    ```bash
    $ docker start my_postgres
    ```
 
-### Running migrations for the database with Sequelize
+### Running the migrations for the database with Sequelize
 
 ```javascript
 $ npx sequelize-cli db:migrate
